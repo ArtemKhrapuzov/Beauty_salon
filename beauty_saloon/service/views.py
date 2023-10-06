@@ -17,7 +17,7 @@ def index(request):
 class RegisterUser(CreateView):
     """Форма регистрации"""
     form_class = RegisterUserForm
-    template_name = 'service/register.html'
+    template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):
@@ -39,5 +39,9 @@ def logout_user(request):
     """Выход из авторизации"""
     logout(request)
     return redirect('login')
+
+
+
+
 
 
