@@ -34,15 +34,7 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = config('EMAIL_HOST_DEFAULT_USER')
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.yandex.ru'
-# EMAIL_PORT = 465
-# EMAIL_USE_TLS = False
-# EMAIL_USE_SSL = True
-#
-# EMAIL_HOST_USER = 'Tema10022@yandex.ru'
-# EMAIL_HOST_PASSWORD = 'bpuqfflwwnyjksjg'
-# DEFAULT_FROM_EMAIL = 'Tema10022@yandex.ru'
+
 
 # Application definition
 
