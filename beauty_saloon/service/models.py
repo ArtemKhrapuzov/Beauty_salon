@@ -13,7 +13,7 @@ class Product(models.Model):
     best_before_date = models.CharField(max_length=50)
     where_buy = models.CharField(max_length=50)
     image = models.ImageField(upload_to="photos/%Y/%m/%d/", blank=True, verbose_name='Фото')
-    category = models.ForeignKey('Category', verbose_name="Категория", on_delete=models.SET_NULL)
+    category = models.ForeignKey('Category', verbose_name="Категория", on_delete=models.PROTECT)
     url = models.SlugField(max_length=160, unique=True)
 
     def __str__(self):
