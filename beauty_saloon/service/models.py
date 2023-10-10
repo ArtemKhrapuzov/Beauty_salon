@@ -13,7 +13,7 @@ class Product(models.Model):
     best_before_date = models.CharField(max_length=50, verbose_name='Срок годность')
     where_buy = models.CharField(max_length=50, verbose_name='Где купить')
     image = models.ImageField(upload_to="photos/%Y/%m/%d/", blank=True, verbose_name='Фото')
-    category = models.ForeignKey('Category', verbose_name="Категория", on_delete=models.PROTECT)
+    cat = models.ForeignKey('Subtitle', verbose_name='Подкатегория', on_delete=models.CASCADE)
     url = models.SlugField(max_length=160,  verbose_name='URL')
 
     def __str__(self):
@@ -27,10 +27,9 @@ class Product(models.Model):
 class Category(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название категории')
     url = models.SlugField(max_length=160, verbose_name='URL')
-    subtitle = models.ForeignKey('Subtitle', verbose_name='Подкатегория', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.title} - {self.subtitle}'
+        return f'{self.title}'
 
     class Meta:
         verbose_name = 'Категория'
@@ -39,9 +38,10 @@ class Category(models.Model):
 
 class Subtitle(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название подкатегории')
+    cat = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.title}'
+        return f'{self.title} - {self.cat}'
 
     class Meta:
         verbose_name = 'Подкатегория'

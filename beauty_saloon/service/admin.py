@@ -5,8 +5,8 @@ from service.models import *
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("name", "trademark", "category")
-    list_filter = ("category", "name", "trademark")
+    list_display = ("name", "trademark", "cat")
+    list_filter = ("cat", "name", "trademark")
     search_fields = ("name", "trademark")
 
     prepopulated_fields = {"url": ("name",)}
@@ -14,9 +14,9 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("title", "subtitle")
-    list_filter = ("title", "subtitle")
-    search_fields = ("title", "subtitle")
+    list_display = ("title",)
+    list_filter = ("title",)
+    search_fields = ("title",)
 
     prepopulated_fields = {"url": ("title",)}
 

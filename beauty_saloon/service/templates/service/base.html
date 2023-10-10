@@ -1,4 +1,5 @@
 {% load static %}
+{% load service_tags %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,12 +17,25 @@
 <tr><td valign=top>
 {% block mainmenu %}
 <div class="header">
+	{% get_category as category %}
 	<ul id="mainmenu" class="mainmenu">
-	<li class="logo"><a href="/"><div class="logo"></div></a></li>
-	{% if request.user.is_authenticated %}
-		<li><a href="/">Добавить статью</a></li>
-	{% endif %}
-	<li><a href="#">Контакты</a></li>
+		<li class="logo"><a href="/"><div class="logo"></div></a></li>
+		{% if request.user.is_authenticated %}
+			<li><a href="/">Добавить статью</a></li>
+		{% endif %}
+		{% for cat in category %}
+
+		<div class="btn-group">
+		  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+			{{ cat.title }}
+		  </button>
+		  <ul class="dropdown-menu">
+			  ...
+		  </ul>
+		</div>
+
+
+		{% endfor %}
 
 
 {% if request.user.is_authenticated %}
@@ -38,80 +52,13 @@
 
 <table class="table-content" border=0 cellpadding="0" cellspacing="0">
 <tr>
+
+
 <!-- Sidebar слева -->
-	<td valign="top" class="left-chapters">
-	<ul id="leftchapters">
-
-
-<!-- Кнопка выпадающего списка вправо по умолчанию -->
-
-<div class="btn-group dropend mx-auto my-2 my-sm-3 my-lg-1 p-3">
-	<button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-			aria-expanded="false">
-		Категории
-	</button>
-	<ul class="dropdown-menu">
-		<li style=" margin-top:1px;"><a href="#">База</a></li>
-		<li style=" margin-top:1px;"><a href="#">Топ</a></li>
-		<li style=" margin-top:1px;"><a href="#">Гель лак</a></li>
-		<li style=" margin-top:1px;"><a href="#">Гель для моделирования</a></li>
-		<li style=" margin-top:1px;"><a href="#">Лак</a></li>
-		<li style=" margin-top:1px;"><a href="#">Полигель</a></li>
-		<li style=" margin-top:1px;"><a href="#">Акриловая пудра</a></li>
-		<li style=" margin-top:1px;"><a href="#">DIP система</a></li>
-	</ul>
-</div>
-<div class="btn-group dropend mx-auto my-2 my-sm-3 my-lg-1 p-3">
-  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-    Бренды</button>
-  <ul class="dropdown-menu">
-	<li><a href="#">Контакты</a></li>
-	<li><a href="#">О сайте</a></li>
-  </ul>
-</div>
-<div class="btn-group dropend mx-auto my-2 my-sm-3 my-lg-1 p-3" >
-  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-	  Дизайн ногтей</button>
-  <ul class="dropdown-menu">
-	<li style=" margin-top:1px;"><a href="#">Втирка для ногтей </a></li>
-	<li style=" margin-top:1px;"><a href="#">Блестки</a></li>
-	<li style=" margin-top:1px;"><a href="#">Стемпинг дизайн</a></li>
-	<li style=" margin-top:1px;"><a href="#">Уход за ногтями и кутикулой </a></li>
-	<li style=" margin-top:1px;"><a href="#">Масло для кутикулы</a></li>
-	<li style=" margin-top:1px;"><a href="#">Крем для рук</a></li>
-	<li style=" margin-top:1px;"><a href="#">Парафинотерапия</a></li>
-	<li style=" margin-top:1px;"><a href="#">Свеча массажная </a></li>
-	<li style=" margin-top:1px;"><a href="#">Воск для кутикулы</a></li>
-	<li style=" margin-top:1px;"><a href="#">Средство для удаления кутикулы </a></li>
-	<li style=" margin-top:1px;"><a href="#">Уход за ногами </a></li>
-	<li style=" margin-top:1px;"><a href="#">Крем для ног</a></li>
-	<li style=" margin-top:1px;"><a href="#">Дезодорирующие средства </a></li>
-	<li style=" margin-top:1px;"><a href="#">Педикюрные ванны </a></li>
-	<li style=" margin-top:1px;"><a href="#">Масло для ногтей </a></li>
-	<li style=" margin-top:1px;"><a href="#">Спец средства</a></li>
-	<li style=" margin-top:1px;"><a href="#">Инструменты</a></li>
-	<li style=" margin-top:1px;"><a href="#">Кисти для дизайна и моделирования </a></li>
-	<li style=" margin-top:1px;"><a href="#">Пилки основы и файлы для них </a></li>
-	<li style=" margin-top:1px;"><a href="#">Ножницы</a></li>
-	<li style=" margin-top:1px;"><a href="#">Щипцы и кусачки </a></li>
-	<li style=" margin-top:1px;"><a href="#">Пушеры </a></li>
-	<li style=" margin-top:1px;"><a href="#">Тампонодержатель (кюретка) </a></li>
-	<li style=" margin-top:1px;"><a href="#">Диски и файлы сменные </a></li>
-
-
-
-  </ul>
-</div>
-
-
-</ul>
-</td>
-
-
-
-
 
 <!-- Конец Sidebar'а -->
+
+
 <td valign="top" class="content">
 	<!-- Хлебные крошки -->
 	{% block breadcrumbs %}
