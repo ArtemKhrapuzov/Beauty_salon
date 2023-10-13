@@ -8,10 +8,10 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib.auth.tokens import default_token_generator as \
     token_generator
-from .tasks import send_email
+
 from users.forms import RegisterUserForm, LoginUserForm
-from users.forms import UserCreationForm, AuthenticationForm
 from users.utils import send_email_for_verify
+from .tasks import send_email
 
 User = get_user_model()
 
@@ -22,6 +22,8 @@ class MyLoginView(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('home')
+
+
 
 
 class EmailVerify(View):
@@ -47,6 +49,9 @@ class EmailVerify(View):
         return user
 
 
+
+
+
 class RegisterUser(View):
     template_name = 'registration/register.html'
 
@@ -64,23 +69,12 @@ class RegisterUser(View):
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
             user = authenticate(email=email, password=password)
-            #send_email_for_verify(request, user)
-            #params = request.GET.urlencode()
             send_email.delay(user.id)
             return redirect('confirm_email')
         context = {
             'form': form
         }
         return render(request, self.template_name, context)
-
-
-# class LoginUser(LoginView):
-#     """Форма авторизации"""
-#     forms_class = LoginUserForm
-#     template_name = 'service/login.html'
-#
-#     def get_success_url(self):
-#         return reverse_lazy('home')
 
 
 def logout_user(request):

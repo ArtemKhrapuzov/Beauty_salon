@@ -14,3 +14,4 @@ def send_email(user_id):
 
 
 #celery -A beauty_saloon worker -l info -P gevent
+
