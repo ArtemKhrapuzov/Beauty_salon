@@ -27,12 +27,12 @@ class LoginUserForm(AuthenticationForm):
 
         if username is not None and password:
             self.user_cache = authenticate(
-                self.request,
+                #self.request,
                 username=username,
                 password=password,
             )
             if not self.user_cache.email_verify:
-                send_email_for_verify(self.request, self.user_cache)
+                send_email_for_verify(self.user_cache)
                 raise ValidationError(
                     'Email not verify, check your email',
                     code='invalid_login',

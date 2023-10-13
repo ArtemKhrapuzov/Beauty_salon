@@ -8,7 +8,7 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib.auth.tokens import default_token_generator as \
     token_generator
-
+from .tasks import send_email
 from users.forms import RegisterUserForm, LoginUserForm
 from users.forms import UserCreationForm, AuthenticationForm
 from users.utils import send_email_for_verify
@@ -23,8 +23,8 @@ class MyLoginView(LoginView):
     def get_success_url(self):
         return reverse_lazy('home')
 
-class EmailVerify(View):
 
+class EmailVerify(View):
     def get(self, request, uidb64, token):
         user = self.get_user(uidb64)
 
@@ -52,7 +52,7 @@ class RegisterUser(View):
 
     def get(self, request):
         context = {
-            'form': RegisterUserForm()
+            'form': RegisterUserForm
         }
         return render(request, self.template_name, context)
 
@@ -64,7 +64,9 @@ class RegisterUser(View):
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
             user = authenticate(email=email, password=password)
-            send_email_for_verify(request, user)
+            #send_email_for_verify(request, user)
+            #params = request.GET.urlencode()
+            send_email.delay(user.id)
             return redirect('confirm_email')
         context = {
             'form': form
