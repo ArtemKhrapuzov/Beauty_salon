@@ -68,7 +68,7 @@ class RegisterUser(View):
             form.save()
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
-            user = authenticate(email=email, password=password)
+            user = authenticate(request, email=email, password=password)
             send_email.delay(user.id)
             return redirect('confirm_email')
         context = {

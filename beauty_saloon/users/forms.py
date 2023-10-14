@@ -15,7 +15,7 @@ class RegisterUserForm(UserCreationForm):
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
@@ -27,7 +27,7 @@ class LoginUserForm(AuthenticationForm):
 
         if username is not None and password:
             self.user_cache = authenticate(
-                #self.request,
+                self.request,
                 username=username,
                 password=password,
             )
