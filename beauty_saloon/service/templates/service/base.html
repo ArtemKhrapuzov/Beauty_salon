@@ -1,84 +1,148 @@
 {% load static %}
-{% load service_tags %}
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{title}}</title>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<link type="text/css" href="{% static 'service/css/styles.css' %}" rel="stylesheet" />
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="shortcut icon" href="{% static 'service/images/main.ico' %}" type="image/x-icon"/>
+    <title>{{title}}</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link type="text/css" href="{% static 'service/css/styles.css' %}" rel="stylesheet"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="{% static 'service/images/main.ico' %}" type="image/x-icon"/>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <table class="table-page" border=0 cellpadding="0" cellspacing="0">
-<tr><td valign=top>
-{% block mainmenu %}
-<div class="header">
-	{% get_category as category %}
-	<ul id="mainmenu" class="mainmenu">
-		<li class="logo"><a href="/"><div class="logo"></div></a></li>
-		{% if request.user.is_authenticated %}
-			<li><a href="/">Добавить статью</a></li>
-		{% endif %}
-		{% for cat in category %}
+    <tr>
+        <td valign=top>
+            {% block mainmenu %}
+            <div class="header">
 
-		<div class="btn-group">
-		  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-			{{ cat.title }}
-		  </button>
-		  <ul class="dropdown-menu">
-			  ...
-		  </ul>
-		</div>
+                <ul id="mainmenu" class="mainmenu">
+                    <li class="logo"><a href="/"><div class="logo"></div></a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="/">Бренды</a></li>
+                    {% endif %}
+
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                            style="color:#82c8f0; font-size:17px; overflow: hidden; height: 60px; background:#3F4137; border:none;"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">Гель-лаки/лаки
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Лаки для ногтей</a></li>
+                        <li><a class="dropdown-item" href="#">Новинки</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                            style="color:#82c8f0; font-size:17px; overflow: hidden; height: 60px; background:#3F4137; border:none;"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">Маникюр
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Оборудование</a></li>
+                        <li><a class="dropdown-item" href="#">Жидкости для маникюра</a></li>
+                        <li><a class="dropdown-item" href="#">Дизайн ногтей</a></li>
+                        <li><a class="dropdown-item" href="#">Инструменты</a></li>
+                    </ul>
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                            style="color:#82c8f0; font-size:17px; overflow: hidden; height: 60px; background:#3F4137; border:none;"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">Волосы
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Косметика для волос</a></li>
+                        <li><a class="dropdown-item" href="#">Инструменты для волос</a></li>
+                        <li><a class="dropdown-item" href="#">Средства для укладки</a></li>
+                        <li><a class="dropdown-item" href="#">Окрашивание волос</a></li>
+                    </ul>
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                            style="color:#82c8f0; font-size:17px; overflow: hidden; height: 60px; background:#3F4137; border:none;"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">Уход за кожей
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Косметика для волос</a></li>
+                        <li><a class="dropdown-item" href="#">Инструменты для волос</a></li>
+                        <li><a class="dropdown-item" href="#">Средства для укладки</a></li>
+                        <li><a class="dropdown-item" href="#">Окрашивание волос</a></li>
+                    </ul>
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                            style="color:#82c8f0; font-size:17px; overflow: hidden; height: 60px; background:#3F4137; border:none;"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">Макияж
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Косметика для волос</a></li>
+                        <li><a class="dropdown-item" href="#">Инструменты для волос</a></li>
+                        <li><a class="dropdown-item" href="#">Средства для укладки</a></li>
+                        <li><a class="dropdown-item" href="#">Окрашивание волос</a></li>
+                    </ul>
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                            style="color:#82c8f0; font-size:17px; overflow: hidden; height: 60px; background:#3F4137; border:none;"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">Прочее
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Косметика для волос</a></li>
+                        <li><a class="dropdown-item" href="#">Инструменты для волос</a></li>
+                        <li><a class="dropdown-item" href="#">Средства для укладки</a></li>
+                        <li><a class="dropdown-item" href="#">Окрашивание волос</a></li>
+                    </ul>
+
+                    {% if request.user.is_authenticated %}
+                    <li class="last">{{ user.username }} | <a href="{% url 'logout' %}">Выйти</a></li>
+                    {% else %}
+                    <li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a
+                            href="{% url 'login' %}">Войти</a></li>
+                    {% endif %}
+
+                </ul>
+                <div class="clear"></div>
+            </div>
+            {% endblock mainmenu %}
 
 
-		{% endfor %}
+            <table class="table-content" border=0 cellpadding="0" cellspacing="0">
+                <tr>
 
 
-{% if request.user.is_authenticated %}
-	<li class="last">{{ user.username }} | <a href="{% url 'logout' %}">Выйти</a></li>
-{% else %}
-	<li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
-{% endif %}
+                    <!-- Sidebar слева -->
 
-	</ul>
-<div class="clear"></div>
-</div>
-{% endblock mainmenu %}
+                    <!-- Конец Sidebar'а -->
 
 
-<table class="table-content" border=0 cellpadding="0" cellspacing="0">
-<tr>
+                    <td valign="top" class="content">
+                        <!-- Хлебные крошки -->
+                        {% block breadcrumbs %}
+                        {% endblock %}
 
+                        <!-- Блок контента -->
+                        <div class="content-text">
+                            {% block content %}
+                            {% endblock %}
+                        </div>
+                        <!-- Конец блока контента -->
 
-<!-- Sidebar слева -->
-
-<!-- Конец Sidebar'а -->
-
-
-<td valign="top" class="content">
-	<!-- Хлебные крошки -->
-	{% block breadcrumbs %}
-	{% endblock %}
-
-<!-- Блок контента -->
-	<div class="content-text">
-{% block content %}
-{% endblock %}
-	</div>
-<!-- Конец блока контента -->
-
-</td></tr></table>
-</td></tr>
-<!-- Footer -->
-<tr><td valign=top>
-	<div id="footer">
-		<p>&copy; 2023 Частичное или полное копирование информации с данного сайта для распространения на других ресурсах, в том числе и бумажных, строго запрещено.</p>
-	</div>
-</td></tr></table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Footer -->
+    <tr>
+        <td valign=top>
+            <div id="footer">
+                <p>&copy; 2023 Частичное или полное копирование информации с данного сайта для распространения на других
+                    ресурсах, в том числе и бумажных, строго запрещено.</p>
+            </div>
+        </td>
+    </tr>
+</table>
 <!-- Конец footer'а и страницы -->
 </body>
 </html>

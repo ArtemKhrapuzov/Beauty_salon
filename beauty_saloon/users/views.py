@@ -10,7 +10,6 @@ from django.contrib.auth.tokens import default_token_generator as \
     token_generator
 
 from users.forms import RegisterUserForm, LoginUserForm
-from users.utils import send_email_for_verify
 from .tasks import send_email
 
 User = get_user_model()
@@ -24,10 +23,9 @@ class MyLoginView(LoginView):
         return reverse_lazy('home')
 
 
-
-
 class EmailVerify(View):
     def get(self, request, uidb64, token):
+
         user = self.get_user(uidb64)
 
         if user is not None and token_generator.check_token(user, token):
@@ -49,19 +47,19 @@ class EmailVerify(View):
         return user
 
 
-
-
-
 class RegisterUser(View):
+    """Регистрация пользователя"""
     template_name = 'registration/register.html'
 
     def get(self, request):
+        """Отображение формы регистрации"""
         context = {
             'form': RegisterUserForm
         }
         return render(request, self.template_name, context)
 
     def post(self, request):
+        """Подтверждение почты через Celery"""
         form = RegisterUserForm(request.POST)
 
         if form.is_valid():

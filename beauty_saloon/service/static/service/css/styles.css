@@ -78,6 +78,7 @@ ul.list-articles li {
 .header {
 	background: #3F4137;
 	height: 60px;
+
 }
 
 .logo {
@@ -92,7 +93,7 @@ ul.mainmenu {
 	padding: 0;
 	height: 60px;
 	color: #82c8f0;
-	font-size: 20px;
+	font-size: 17px;
 	overflow: hidden;
 }
 ul.mainmenu li {
