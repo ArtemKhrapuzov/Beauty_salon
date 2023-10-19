@@ -1,6 +1,40 @@
 from django.db import models
 
 
+CATEGORY = (
+    ('гель-лаки', 'гель-лаки/база'),
+    ('гель-лаки', 'гель-лаки/топ'),
+    ('гель-лаки', 'гель-лаки/цветной гель-лак'),
+    ('Наращивание и моделирование', 'Наращивание и моделирование/Гелевая система'),
+    ('Наращивание и моделирование', 'Наращивание и моделирование/Полигель/акригель'),
+    ('Наращивание и моделирование', 'Наращивание и моделирование/Акриловая система'),
+    ('Наращивание и моделирование', 'Наращивание и моделирование/Формы и типсы'),
+    ('Наращивание и моделирование', 'Наращивание и моделирование/Сопутствующие материалы'),
+    ('Dip система/Дизайн ногтей', 'Dip система/Дизайн ногтей/Блестки'),
+    ('Dip система/Дизайн ногтей', 'Dip система/Дизайн ногтей/Стемпинг дизайн'),
+    ('Dip система/Дизайн ногтей', 'Dip система/Дизайн ногтей/Втирка'),
+    ('Dip система/Дизайн ногтей', 'Dip система/Дизайн ногтей/Гель краска'),
+    ('Dip система/Дизайн ногтей', 'Dip система/Дизайн ногтей/Кисти дизайна'),
+    ('Уход за руками', 'Уход за руками/Масло для кутикулы'),
+    ('Уход за руками', 'Уход за руками/Крем для рук'),
+    ('Уход за руками', 'Уход за руками/Парафинотерапия'),
+    ('Уход за руками', 'Уход за руками/Воск для кутикулы'),
+    ('Уход за руками', 'Уход за руками/Средство для удаления кутикулы'),
+    ('Уход за ногами', 'Уход за ногами/Крем для ног'),
+    ('Уход за ногами', 'Уход за ногами/Дезодорирующие средства'),
+    ('Уход за ногами', 'Уход за ногами/Педикюрные ванны'),
+    ('Уход за ногами', 'Уход за ногами/Масло для ногтей'),
+    ('Уход за ногами', 'Уход за ногами/Спец. средства'),
+    ('Инструменты', 'Инструменты/Пилки основы и файлы для них'),
+    ('Инструменты', 'Инструменты/Ножницы'),
+    ('Инструменты', 'Инструменты/Щипцы и кусачки'),
+    ('Инструменты', 'Инструменты/Пушеры'),
+    ('Инструменты', 'Инструменты/Тампонодержатель (кюретки)'),
+    ('Инструменты', 'Инструменты/Диски и файлы сменные'),
+    ('Прочее', 'Прочее'),
+)
+
+
 class Product(models.Model):
     """Продукты"""
     name = models.CharField(max_length=255, verbose_name='Название')
@@ -13,8 +47,8 @@ class Product(models.Model):
     best_before_date = models.CharField(max_length=50, verbose_name='Срок годность')
     where_buy = models.CharField(max_length=50, verbose_name='Где купить')
     image = models.ImageField(upload_to="photos/%Y/%m/%d/", blank=True, verbose_name='Фото')
-    cat = models.ForeignKey('Subtitle', verbose_name='Подкатегория', on_delete=models.CASCADE)
     url = models.SlugField(max_length=160,  verbose_name='URL')
+    cat = models.CharField(max_length=100, choices=CATEGORY)
 
     def __str__(self):
         return f'{self.name}'
@@ -23,29 +57,6 @@ class Product(models.Model):
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
 
-
-class Category(models.Model):
-    title = models.CharField(max_length=50, verbose_name='Название категории')
-    url = models.SlugField(max_length=160, verbose_name='URL')
-
-    def __str__(self):
-        return f'{self.title}'
-
-    class Meta:
-        verbose_name = 'Категория'
-        verbose_name_plural = 'Категории'
-
-
-class Subtitle(models.Model):
-    title = models.CharField(max_length=50, verbose_name='Название подкатегории')
-    cat = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.title} - {self.cat}'
-
-    class Meta:
-        verbose_name = 'Подкатегория'
-        verbose_name_plural = 'Подкатегории'
 
 
 class Reviews(models.Model):
