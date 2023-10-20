@@ -29,8 +29,6 @@
                     {% if request.user.is_authenticated %}
                     <li><a href="/">Бренды</a></li>
                     {% endif %}
-
-
                     {% get_category as category %}
                     {% for cat in category %}
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
@@ -42,8 +40,6 @@
 
                         {% get_subtitle cat.id as subtitles %}
                         {% for subtitle in subtitles %}
-
-
                         <ul style="display:inline; "><a class="dropdown-item" href="#">{{ subtitle.title }}:</a></ul>
                         {% get_subsubtitle subtitle.id as subsubtitles %}
                         {% if subsubtitles %}
