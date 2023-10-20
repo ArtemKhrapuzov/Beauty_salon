@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load service_tags %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,76 +23,42 @@
             <div class="header">
 
                 <ul id="mainmenu" class="mainmenu">
-                    <li class="logo"><a href="/"><div class="logo"></div></a></li>
+                    <li class="logo"><a href="/">
+                        <div class="logo"></div>
+                    </a></li>
                     {% if request.user.is_authenticated %}
                     <li><a href="/">Бренды</a></li>
                     {% endif %}
 
+
+                    {% get_category as category %}
+                    {% for cat in category %}
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
                             style="color:#82c8f0; font-size:17px; overflow: hidden; height: 60px; background:#3F4137; border:none;"
                             data-bs-toggle="dropdown"
-                            aria-expanded="false">Гель-лаки/лаки
+                            aria-expanded="false">{{ cat.title }}
                     </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Лаки для ногтей</a></li>
-                        <li><a class="dropdown-item" href="#">Новинки</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <ul class="dropdown-menu" style=" max-height:450px; overflow:auto;">
+
+                        {% get_subtitle cat.id as subtitles %}
+                        {% for subtitle in subtitles %}
+
+
+                        <ul style="display:inline; "><a class="dropdown-item" href="#">{{ subtitle.title }}:</a></ul>
+                        {% get_subsubtitle subtitle.id as subsubtitles %}
+                        {% if subsubtitles %}
+                        {% for subsubtitle in subsubtitles %}
+                        <ul><a class="dropdown-item"
+                               style="color: black; font-size: 13px;"
+                               href="#">{{ subsubtitle.title }}</a></ul>
+                        {% endfor %}
+                        {% endif %}
+
+                        {% endfor %}
+
                     </ul>
-                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                            style="color:#82c8f0; font-size:17px; overflow: hidden; height: 60px; background:#3F4137; border:none;"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">Маникюр
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Оборудование</a></li>
-                        <li><a class="dropdown-item" href="#">Жидкости для маникюра</a></li>
-                        <li><a class="dropdown-item" href="#">Дизайн ногтей</a></li>
-                        <li><a class="dropdown-item" href="#">Инструменты</a></li>
-                    </ul>
-                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                            style="color:#82c8f0; font-size:17px; overflow: hidden; height: 60px; background:#3F4137; border:none;"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">Волосы
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Косметика для волос</a></li>
-                        <li><a class="dropdown-item" href="#">Инструменты для волос</a></li>
-                        <li><a class="dropdown-item" href="#">Средства для укладки</a></li>
-                        <li><a class="dropdown-item" href="#">Окрашивание волос</a></li>
-                    </ul>
-                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                            style="color:#82c8f0; font-size:17px; overflow: hidden; height: 60px; background:#3F4137; border:none;"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">Уход за кожей
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Косметика для волос</a></li>
-                        <li><a class="dropdown-item" href="#">Инструменты для волос</a></li>
-                        <li><a class="dropdown-item" href="#">Средства для укладки</a></li>
-                        <li><a class="dropdown-item" href="#">Окрашивание волос</a></li>
-                    </ul>
-                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                            style="color:#82c8f0; font-size:17px; overflow: hidden; height: 60px; background:#3F4137; border:none;"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">Макияж
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Косметика для волос</a></li>
-                        <li><a class="dropdown-item" href="#">Инструменты для волос</a></li>
-                        <li><a class="dropdown-item" href="#">Средства для укладки</a></li>
-                        <li><a class="dropdown-item" href="#">Окрашивание волос</a></li>
-                    </ul>
-                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                            style="color:#82c8f0; font-size:17px; overflow: hidden; height: 60px; background:#3F4137; border:none;"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">Прочее
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Косметика для волос</a></li>
-                        <li><a class="dropdown-item" href="#">Инструменты для волос</a></li>
-                        <li><a class="dropdown-item" href="#">Средства для укладки</a></li>
-                        <li><a class="dropdown-item" href="#">Окрашивание волос</a></li>
-                    </ul>
+                    {% endfor %}
+
 
                     {% if request.user.is_authenticated %}
                     <li class="last">{{ user.username }} | <a href="{% url 'logout' %}">Выйти</a></li>

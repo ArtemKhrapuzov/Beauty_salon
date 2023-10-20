@@ -10,6 +10,11 @@ register = template.Library()
 def get_category():
     return Category.objects.all()
 
-@register.simple_tag()
-def get_subtitle(cat_id):
-    return Subtitle.objects.filter(cat_id=cat_id)
+@register.simple_tag
+def get_subtitle(category_id):
+    return Subtitle.objects.filter(cat=category_id)
+
+
+@register.simple_tag
+def get_subsubtitle(subtitle_id):
+    return Subsubtitle.objects.filter(sub=subtitle_id)

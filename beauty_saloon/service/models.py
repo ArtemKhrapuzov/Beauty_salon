@@ -13,8 +13,12 @@ class Product(models.Model):
     best_before_date = models.CharField(max_length=50, verbose_name='Срок годность')
     where_buy = models.CharField(max_length=50, verbose_name='Где купить')
     image = models.ImageField(upload_to="photos/%Y/%m/%d/", blank=True, verbose_name='Фото')
-    cat = models.ForeignKey('Subtitle', verbose_name='Подкатегория', on_delete=models.CASCADE)
-    url = models.SlugField(max_length=160,  verbose_name='URL')
+    cat = models.ForeignKey('Category', verbose_name='Категория', on_delete=models.CASCADE)
+    subtitle = models.ForeignKey('Subtitle', verbose_name='Подкатегория', on_delete=models.CASCADE, null=True,
+                                 blank=True)
+    subsub = models.ForeignKey('Subsubtitle', verbose_name='Подподкатегория', on_delete=models.CASCADE, null=True,
+                                 blank=True)
+    url = models.SlugField(max_length=160, verbose_name='URL')
 
     def __str__(self):
         return f'{self.name}'
@@ -38,15 +42,26 @@ class Category(models.Model):
 
 class Subtitle(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название подкатегории')
-    cat = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE)
+    cat = models.ForeignKey('Category', verbose_name='Категория', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.title} - {self.cat}'
+        return f'{self.cat} / {self.title}'
 
     class Meta:
         verbose_name = 'Подкатегория'
         verbose_name_plural = 'Подкатегории'
 
+
+class Subsubtitle(models.Model):
+    title = models.CharField(max_length=50, verbose_name='Подподкатегория')
+    sub = models.ForeignKey('Subtitle', verbose_name='Подкатегория', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.sub} / {self.title}'
+
+    class Meta:
+        verbose_name = 'Подподкатегория'
+        verbose_name_plural = 'Подподкатегории'
 
 class Reviews(models.Model):
     """Отзывы"""
