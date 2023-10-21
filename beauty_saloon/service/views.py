@@ -19,15 +19,9 @@ class ProductList(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        category_id = self.kwargs['category_id']
-        subtitle_id = self.kwargs['subtitle_id']
         subsub_id = self.kwargs['subsub_id']
         queryset = super().get_queryset()
-        return queryset.filter(cat_id=category_id, subtitle_id=subtitle_id, subsub_id=subsub_id)
+        return queryset.filter(subsub_id=subsub_id)
 
-    # def get_queryset(self):
-    #     category_id = self.kwargs['category_id']
-    #     queryset = super().get_queryset()
-    #     return queryset.filter(cat_id=category_id)
 
 

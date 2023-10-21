@@ -59,7 +59,7 @@
 
                         <ul><a class="dropdown-item"
                                style="color: black; font-size: 13px;"
-                               href="{% url 'product_list_by_subsub' category_id=subtitle.cat.id subtitle_id=subtitle.id subsub_id=subsubtitle.id %}">{{ subsubtitle.title }}</a></ul>
+                               href="{% url 'product_list_by_subsub' subsub_id=subsubtitle.id %}">{{ subsubtitle.title }}</a></ul>
                         {% endfor %}
                         {% endif %}
 
