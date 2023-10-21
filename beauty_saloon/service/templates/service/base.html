@@ -20,6 +20,7 @@
     <tr>
         <td valign=top>
             {% block mainmenu %}
+
             <div class="header">
 
                 <ul id="mainmenu" class="mainmenu">
@@ -30,10 +31,20 @@
                     <li><a href="/">Бренды</a></li>
                     {% endif %}
 
+
+                    {% if request.user.is_authenticated %}
+                    <li class="last">{{ user.username }} | <a href="{% url 'logout' %}">Выйти</a></li>
+                    {% else %}
+                    <li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a
+                            href="{% url 'login' %}">Войти</a></li>
+                    {% endif %}
+
+                </ul>
+                <div class="clear">
                     {% get_category as category %}
                     {% for cat in category %}
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                            style="color:#82c8f0; font-size:17px; overflow: hidden; height: 60px; background:#3F4137; border:none;"
+                            style="color:black; font-size:17px; overflow: hidden; height: 40px; background:#cafcf9; border:none;"
                             data-bs-toggle="dropdown"
                             aria-expanded="false">{{ cat.title }}
                     </button>
@@ -41,32 +52,24 @@
 
                         {% get_subtitle cat.id as subtitles %}
                         {% for subtitle in subtitles %}
-                        <ul style="display:inline; "><a class="dropdown-item" href="#">{{ subtitle.title }}:</a></ul>
+                        <ul style="display:inline;"><a class="dropdown-item" style="color:#4dd8f7; " href="#">{{ subtitle.title }}:</a></ul>
                         {% get_subsubtitle subtitle.id as subsubtitles %}
                         {% if subsubtitles %}
                         {% for subsubtitle in subsubtitles %}
+
                         <ul><a class="dropdown-item"
                                style="color: black; font-size: 13px;"
-                               href="#">{{ subsubtitle.title }}</a></ul>
+                               href="{% url 'product_list_by_subsub' category_id=subtitle.cat.id subtitle_id=subtitle.id subsub_id=subsubtitle.id %}">{{ subsubtitle.title }}</a></ul>
                         {% endfor %}
                         {% endif %}
 
                         {% endfor %}
-
-                        </ul>
-                        {% endfor %}
-
-
-                        {% if request.user.is_authenticated %}
-                        <li class="last">{{ user.username }} | <a href="{% url 'logout' %}">Выйти</a></li>
-                        {% else %}
-                        <li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a
-                                href="{% url 'login' %}">Войти</a></li>
-                        {% endif %}
-
                     </ul>
-                    <div class="clear"></div>
+                    {% endfor %}
+
+                </div>
             </div>
+
             {% endblock mainmenu %}
 
 

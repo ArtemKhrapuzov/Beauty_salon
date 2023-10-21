@@ -1,10 +1,11 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Product(models.Model):
     """Продукты"""
     name = models.CharField(max_length=255, verbose_name='Название')
-    trademark = models.CharField(max_length=255, unique=True, verbose_name='Название торговой марки')
+    trademark = models.CharField(max_length=255, verbose_name='Название торговой марки')
     compound = models.TextField(max_length=1000, verbose_name='Состав')
     volume = models.CharField(max_length=30, verbose_name='Объем')
     description = models.TextField(max_length=4000, blank=True, default='', verbose_name='Описание')
@@ -19,6 +20,9 @@ class Product(models.Model):
     subsub = models.ForeignKey('Subsubtitle', verbose_name='Подподкатегория', on_delete=models.CASCADE, null=True,
                                  blank=True)
     url = models.SlugField(max_length=160, verbose_name='URL')
+
+    def get_absolute_url(self):
+        return reverse('product-detail', kwargs={'slug': self.url})
 
     def __str__(self):
         return f'{self.name}'
@@ -44,6 +48,8 @@ class Subtitle(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название подкатегории')
     cat = models.ForeignKey('Category', verbose_name='Категория', on_delete=models.CASCADE)
 
+
+
     def __str__(self):
         return f'{self.cat} / {self.title}'
 
@@ -55,6 +61,8 @@ class Subtitle(models.Model):
 class Subsubtitle(models.Model):
     title = models.CharField(max_length=50, verbose_name='Подподкатегория')
     sub = models.ForeignKey('Subtitle', verbose_name='Подкатегория', on_delete=models.CASCADE)
+
+
 
     def __str__(self):
         return f'{self.sub} / {self.title}'

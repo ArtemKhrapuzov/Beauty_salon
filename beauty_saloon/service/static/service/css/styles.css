@@ -73,12 +73,20 @@ ul.list-articles li {
 }
 .table-page tr {height: 100%;}
 
-.clear {clear: both;}
+.clear {
+    clear: both;
+    background: #cafcf9;
+    height: 40px;
+}
 
 .header {
 	background: #3F4137;
 	height: 60px;
+}
 
+.header-bottom {
+	background: black;
+	height: 30px;
 }
 
 .logo {
