@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import View
 from django.views.generic import ListView, DetailView
 
@@ -18,10 +18,13 @@ class ProductList(ListView):
     slug_field = 'url'
     context_object_name = 'products'
 
+
     def get_queryset(self):
-        subsub_id = self.kwargs['subsub_id']
+        """Переход по меню"""
+        subsub_slug = self.kwargs['subsub_slug']
+        subsubtitle = get_object_or_404(Subsubtitle, url=subsub_slug)
         queryset = super().get_queryset()
-        return queryset.filter(subsub_id=subsub_id)
+        return queryset.filter(subsub=subsubtitle)
 
 
 

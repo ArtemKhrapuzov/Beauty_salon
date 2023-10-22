@@ -47,8 +47,7 @@ class Category(models.Model):
 class Subtitle(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название подкатегории')
     cat = models.ForeignKey('Category', verbose_name='Категория', on_delete=models.CASCADE)
-
-
+    url = models.SlugField(max_length=160, verbose_name='URL', default='')
 
     def __str__(self):
         return f'{self.cat} / {self.title}'
@@ -61,8 +60,7 @@ class Subtitle(models.Model):
 class Subsubtitle(models.Model):
     title = models.CharField(max_length=50, verbose_name='Подподкатегория')
     sub = models.ForeignKey('Subtitle', verbose_name='Подкатегория', on_delete=models.CASCADE)
-
-
+    url = models.SlugField(max_length=160, verbose_name='URL', default='')
 
     def __str__(self):
         return f'{self.sub} / {self.title}'
