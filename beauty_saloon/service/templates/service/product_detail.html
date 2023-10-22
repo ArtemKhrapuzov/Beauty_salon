@@ -1,22 +1,23 @@
 {% extends 'service/base.html' %}
 
+
+
 {% block content %}
 
 <div class="container-fluid">
     <div class="row g-0">
-        {% for prod in products %}
             <div class="card " style="width: 21rem; height: 34rem;">
-                <img class="card-img-top" src="{{ prod.image.url }}">
+                <img class="card-img-top" src="{{ product.image.url }}">
                 <div class="card-body">
-                    <h5 class="card-title">{{ prod.trademark }}, {{ prod.name }}, {{ prod.volume }}</h5>
+                    <h5 class="card-title">{{ product.trademark }}, {{ product.name }}, {{ product.volume }}</h5>
                     <p class="card-text">
 
                         </p>
                     <a href="{{ prod.get_absolute_url }}" class="btn btn-primary position-absolute bottom-0 end-0">О товаре</a>
                 </div>
             </div>
-        {% endfor %}
     </div>
 </div>
 
 {% endblock %}
+

@@ -22,7 +22,7 @@ class Product(models.Model):
     url = models.SlugField(max_length=160, verbose_name='URL')
 
     def get_absolute_url(self):
-        return reverse('product-detail', kwargs={'slug': self.url})
+        return reverse('product_detail', kwargs={'slug': self.url})
 
     def __str__(self):
         return f'{self.name}'

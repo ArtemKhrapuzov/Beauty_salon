@@ -1,13 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from django.views import View
 from django.views.generic import ListView, DetailView
 
 from service.models import *
 
 
-class MainListView(ListView):
-
-    template_name = 'service/index.html'
 
 def index(request):
     return render(request, 'service/index.html')
@@ -25,6 +21,12 @@ class ProductList(ListView):
         subsubtitle = get_object_or_404(Subsubtitle, url=subsub_slug)
         queryset = super().get_queryset()
         return queryset.filter(subsub=subsubtitle)
+
+
+class ProductDetail(DetailView):
+    model = Product
+    context_object_name = 'product'
+    slug_field = 'url'
 
 
 

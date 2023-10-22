@@ -7,6 +7,15 @@ html, body {
 	color: #444;
 }
 
+.card-body {
+  position: relative;
+}
+
+.btn-primary {
+  margin: 10px;
+}
+
+
 a {
 	color: #0059b2;
 	text-decoration: none;
