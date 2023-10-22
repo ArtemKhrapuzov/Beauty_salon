@@ -1,3 +1,4 @@
+
 html, body {
 	font-family: 'Arial';
 	margin: 0;
@@ -6,6 +7,46 @@ html, body {
 	width: 100%;
 	color: #444;
 }
+
+
+.search {
+  position: relative;
+  width: 300px;
+}
+.d1 {
+    background: #A3D0C3;
+
+}
+.d1 input {
+  width: 100%;
+  height: 42px;
+  padding-left: 10px;
+  border: 2px solid #7BA7AB;
+
+  outline: none;
+  background: white;
+  color: black;
+}
+.d1 button {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  background: #7BA7AB;
+
+
+}
+.d1 button:before {
+  content: "\f002";
+  font-family: FontAwesome;
+  font-size: 16px;
+  color: #F9F0DA;
+}
+
+
+
 
 .card-body {
   position: relative;
@@ -107,6 +148,7 @@ ul.list-articles li {
 .header {
 	background: #3F4137;
 	height: 60px;
+
 }
 
 .header-bottom {
@@ -133,6 +175,7 @@ ul.mainmenu {
 ul.mainmenu li {
 	float: left;
 	margin: 18px 40px 0 30px;
+
 }
 ul.mainmenu li.logo {margin: 0;}
 ul.mainmenu li.last {float: right; color: white;}
@@ -464,3 +507,5 @@ ul.lang-list li a:hover {color: #fdc073;}
 .list-pages .page-num-selected:hover {
 	box-shadow: none;
 }
+
+
