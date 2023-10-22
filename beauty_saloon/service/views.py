@@ -24,9 +24,17 @@ class ProductList(ListView):
 
 
 class ProductDetail(DetailView):
+    """Show product"""
     model = Product
     context_object_name = 'product'
     slug_field = 'url'
 
 
+class NewProduct(ListView):
+    """Вывод последних 10 записей из БД Product"""
+    model = Product
+    template_name = 'service/new.html'
+    context_object_name = 'products'
 
+    def get_queryset(self):
+        return Product.objects.all().order_by('-id')[:10]

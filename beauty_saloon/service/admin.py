@@ -8,7 +8,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ("name", "trademark", "cat", "subtitle")
     list_filter = ("cat", "subtitle", "name", "trademark")
     search_fields = ("name", "trademark")
-
+    ordering = ('-id',)
     prepopulated_fields = {"url": ("name",)}
 
 
