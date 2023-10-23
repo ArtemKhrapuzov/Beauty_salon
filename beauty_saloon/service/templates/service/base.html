@@ -59,6 +59,7 @@
                     <ul class="last-clear"><a href="{% url 'new_items' %}">Новинки</a></ul>
                     <ul class="last-clear"><a href="">Хит</a></ul>
                     {% get_category as category %}
+
                     {% for cat in category %}
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
                             style="color:black; font-size:17px; overflow: hidden; height: 40px; background:#cafcf9; border:none;"
@@ -69,24 +70,30 @@
 
                         {% get_subtitle cat.id as subtitles %}
                         {% for subtitle in subtitles %}
-                        <ul style="display:inline;"><a class="dropdown-item" style="color:#4dd8f7; " href="#">
+
+                        <ul style="display:inline;"><a class="dropdown-item" style="color:#4dd8f7; "
+          href="#">
                             {{subtitle.title}}:
                         </a>
                         </ul>
+
                         {% get_subsubtitle subtitle.id as subsubtitles %}
                         {% if subsubtitles %}
                         {% for subsubtitle in subsubtitles %}
 
                         <ul><a class="dropdown-item"
                                style="color: black; font-size: 13px;"
-                               href="{% url 'product_list_by_subsub' subsub_slug=subsubtitle.url %}">
+      href="{% url 'product_list' cat_slug=cat.url subtitle_slug=subtitle.url subsub_slug=subsubtitle.url %}">
                             {{subsubtitle.title}}
                         </a>
                         </ul>
+
                         {% endfor %}
+
                         {% endif %}
 
                         {% endfor %}
+
                     </ul>
                     {% endfor %}
 

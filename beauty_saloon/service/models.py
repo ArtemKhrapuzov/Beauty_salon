@@ -4,7 +4,7 @@ from django.urls import reverse
 
 class Product(models.Model):
     """Продукты"""
-    name = models.CharField(max_length=255, verbose_name='Название')
+    name = models.CharField(max_length=255, verbose_name='Название') # Сделать уникальным! Иначе выдает ошибку при переходе на продукт
     trademark = models.CharField(max_length=255, verbose_name='Название торговой марки')
     compound = models.TextField(max_length=1000, verbose_name='Состав')
     volume = models.CharField(max_length=30, verbose_name='Объем')

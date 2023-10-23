@@ -14,13 +14,13 @@ class ProductList(ListView):
     slug_field = 'url'
     context_object_name = 'products'
 
-
     def get_queryset(self):
-        """Переход по меню"""
-        subsub_slug = self.kwargs['subsub_slug']
-        subsubtitle = get_object_or_404(Subsubtitle, url=subsub_slug)
-        queryset = super().get_queryset()
-        return queryset.filter(subsub=subsubtitle)
+            subsub_slug = self.kwargs['subsub_slug']
+            subsubtitle = get_object_or_404(Subsubtitle, url=subsub_slug)
+            subtitle_slug = self.kwargs['subtitle_slug']
+            subtitle = get_object_or_404(Subtitle, url=subtitle_slug)
+            queryset = super().get_queryset()
+            return queryset.filter(subsub=subsubtitle, subtitle=subtitle)
 
 
 class ProductDetail(DetailView):

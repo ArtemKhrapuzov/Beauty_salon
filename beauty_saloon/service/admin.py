@@ -39,5 +39,14 @@ class SubsubtitleAdmin(admin.ModelAdmin):
 
     prepopulated_fields = {"url": ("title",)}
 
+@admin.register(Subtitle)
+class SubtitleAdmin(admin.ModelAdmin):
+    list_display = ("title",)
+    list_filter = ("title",)
+    search_fields = ("title",)
+
+    prepopulated_fields = {"url": ("title",)}
+
+
 admin.site.register(RatingStar)
-admin.site.register(Subtitle)
+
