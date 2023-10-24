@@ -15,12 +15,18 @@ class ProductList(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-            subsub_slug = self.kwargs['subsub_slug']
+        subsub_slug = self.kwargs.get('subsub_slug')
+        if subsub_slug:
             subsubtitle = get_object_or_404(Subsubtitle, url=subsub_slug)
-            subtitle_slug = self.kwargs['subtitle_slug']
-            subtitle = get_object_or_404(Subtitle, url=subtitle_slug)
-            queryset = super().get_queryset()
-            return queryset.filter(subsub=subsubtitle, subtitle=subtitle)
+        else:
+            subsubtitle = None
+        subtitle_slug = self.kwargs['subtitle_slug']
+        subtitle = get_object_or_404(Subtitle, url=subtitle_slug)
+        queryset = super().get_queryset()
+        if subsubtitle:
+            queryset = queryset.filter(subsub=subsubtitle)
+        return queryset.filter(subtitle=subtitle)
+
 
 
 class ProductDetail(DetailView):

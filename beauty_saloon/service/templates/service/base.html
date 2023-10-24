@@ -72,7 +72,7 @@
                         {% for subtitle in subtitles %}
 
                         <ul style="display:inline;"><a class="dropdown-item" style="color:#4dd8f7; "
-          href="#">
+          href="{% url 'product_list_sub' cat_slug=cat.url subtitle_slug=subtitle.url  %}">
                             {{subtitle.title}}:
                         </a>
                         </ul>
@@ -83,7 +83,7 @@
 
                         <ul><a class="dropdown-item"
                                style="color: black; font-size: 13px;"
-      href="{% url 'product_list' cat_slug=cat.url subtitle_slug=subtitle.url subsub_slug=subsubtitle.url %}">
+      href="{% url 'product_list_subsub' cat_slug=cat.url subtitle_slug=subtitle.url subsub_slug=subsubtitle.url %}">
                             {{subsubtitle.title}}
                         </a>
                         </ul>
