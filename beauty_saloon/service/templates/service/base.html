@@ -54,6 +54,7 @@
                     </li>
 
                 </ul>
+
                 <div class="clear">
 
                     <ul class="last-clear"><a href="{% url 'new_items' %}">Новинки</a></ul>
@@ -62,7 +63,7 @@
 
                     {% for cat in category %}
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                            style="color:black; font-size:17px; overflow: hidden; height: 40px; background:#cafcf9; border:none;"
+                style="color:black; font-size:17px; overflow: hidden; height: 40px; background:#cafcf9; border:none;"
                             data-bs-toggle="dropdown"
                             aria-expanded="false">{{ cat.title }}
                     </button>

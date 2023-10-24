@@ -2,19 +2,63 @@
 
 {% block content %}
 
+<h6><a href="/" style="text-decoration: none; color: black;">Главная</a> - {{ category_title }} - {{ subtitle_title }}
+</h6>
+
+<h1>{{ subtitle_title }}</h1>
+<small> колличество товаров: {{ products_count }}</small>
+
+<form action="{% url 'home' %}" method="GET">
+  <label for="filter"></label>
+  <select id="filter" name="filter">
+      <option value="">Категория</option>
+    {% for title in cat %}
+      <option value="{{ title }}">{{ title }}</option>
+    {% endfor %}
+  </select>
+
+  <label for="filter"></label>
+  <select id="filter" name="filter">
+    <option value="">Бренд</option>
+    {% for trademark in trademarks %}
+      <option value="{{ trademark }}">{{ trademark }}</option>
+    {% endfor %}
+  </select>
+
+  <label for="filter"></label>
+  <select id="filter" name="filter">
+      <option value="">Страна</option>
+    {% for country in countrys %}
+      <option value="{{ country }}">{{ country }}</option>
+    {% endfor %}
+  </select>
+
+  <label for="filter"></label>
+  <select id="filter" name="filter">
+      <option value="">Цвет</option>
+    {% for color in colors %}
+      <option value="{{ color }}">{{ color }}</option>
+    {% endfor %}
+  </select>
+  <button class="btn btn-secondary btn-sm" type="submit" aria-expanded="false" style="color:black; background:#cafcf9;">Применить</button>
+</form>
+
+
 <div class="container-fluid">
     <div class="row g-0">
         {% for prod in products %}
-            <div class="card " style="width: 21rem; height: 34rem;">
-                <img class="card-img-top" src="{{ prod.image.url }}">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">{{ prod.trademark }}, {{ prod.name }}, {{ prod.volume }}</h5>
-                    <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
-                            {{ prod.cat }} - {{ prod.subsub.title }}
-                        </p>
-                    <a href="{{ prod.get_absolute_url }}" class="btn btn-primary position-absolute bottom-0 end-0">О товаре</a>
-                </div>
+        <div class="card " style="width: 21rem; height: 34rem;">
+            <img class="card-img-top" src="{{ prod.image.url }}">
+            <div class="card-body">
+                <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
+                    {{ prod.trademark }}, {{ prod.name }}, {{ prod.volume }}</h5>
+                <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
+                    {{ prod.cat }} - {{ prod.subsub.title }}
+                </p>
+                <a href="{{ prod.get_absolute_url }}" class="btn btn-primary position-absolute bottom-0 end-0">
+                    О товаре</a>
             </div>
+        </div>
         {% endfor %}
     </div>
 </div>

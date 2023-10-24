@@ -16,10 +16,10 @@ class Product(models.Model):
     image = models.ImageField(upload_to="photos/%Y/%m/%d/", blank=True, verbose_name='Фото')
     cat = models.ForeignKey('Category', verbose_name='Категория', on_delete=models.CASCADE)
     subtitle = models.ForeignKey('Subtitle', verbose_name='Подкатегория', on_delete=models.CASCADE, null=True,
-                                 blank=True)
+                                 blank=True) #убрать бланк и нул
     subsub = models.ForeignKey('Subsubtitle', verbose_name='Подподкатегория', on_delete=models.CASCADE, null=True,
-                                 blank=True)
-    url = models.SlugField(max_length=160, verbose_name='URL')
+                                 blank=True) #убрать бланк и нул
+    url = models.SlugField(max_length=160, verbose_name='URL') # url во всех моделях поставить на 2 место
 
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'slug': self.url})
