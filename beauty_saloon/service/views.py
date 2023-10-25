@@ -1,15 +1,35 @@
-from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView
 
 from service.models import *
 
+class CatTrademarkCountryColor:
+    """Кверисет для фильтров по категориям, бренду, стране и цвету"""
+    def get_trademarks(self):
+        return Product.objects.all().values('trademark').distinct()
+
+    def get_colors(self):
+        return Product.objects.all().values('color').distinct()
+
+    def get_countrys(self):
+        return Product.objects.all().values('country').distinct()
+
+    def get_cats(self):
+        return Product.objects.all().values('subsub__title').distinct()
 
 
-def index(request):
-    return render(request, 'service/index.html')
+class Index(ListView):
+    """Главная"""
+    model = Product
+    template_name = 'service/index.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        return Product.objects.all()
 
 
-class ProductList(ListView):
+class ProductList(CatTrademarkCountryColor, ListView):
     model = Product
     slug_field = 'url'
     context_object_name = 'products'
@@ -37,12 +57,23 @@ class ProductList(ListView):
         context['category_title'] = category_title
         context['subtitle_title'] = subtitle_title
         context['products_count'] = products_count
-        # добавляем список всех возможных позиций в выпадающее меню
-        context['trademarks'] = Product.objects.values_list('trademark', flat=True).distinct()
-        context['cat'] = Product.objects.values_list('subsub__title', flat=True).distinct()
-        context['countrys'] = Product.objects.values_list('country', flat=True).distinct()
-        context['colors'] = Product.objects.values_list('color', flat=True).distinct()
         return context
+
+
+class Filter(CatTrademarkCountryColor, ListView):
+    """Фильтр"""
+    template_name = 'service/index.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        queryset = Product.objects.filter(
+            Q(trademark__in=self.request.GET.getlist('trademark')) |
+            Q(color__in=self.request.GET.getlist('color')) |
+            Q(country__in=self.request.GET.getlist('country')) |
+            Q(subsub__title__in=self.request.GET.getlist('subsub__title'))
+        )
+        return queryset
+
 
 
 class ProductDetail(DetailView):
@@ -53,7 +84,7 @@ class ProductDetail(DetailView):
 
 
 class NewProduct(ListView):
-    """Вывод последних 10 записей из БД Product"""
+    """Новинки. Вывод последних 10 записей из БД Product """
     model = Product
     template_name = 'service/new.html'
     context_object_name = 'products'

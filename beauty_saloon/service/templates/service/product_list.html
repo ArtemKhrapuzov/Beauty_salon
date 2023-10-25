@@ -8,40 +8,45 @@
 <h1>{{ subtitle_title }}</h1>
 <small> колличество товаров: {{ products_count }}</small>
 
-<form action="{% url 'home' %}" method="GET">
-  <label for="filter"></label>
-  <select id="filter" name="filter">
-      <option value="">Категория</option>
-    {% for title in cat %}
-      <option value="{{ title }}">{{ title }}</option>
+
+
+<form action="{% url 'filter' %}" method="get">
+
+     <label for="filter"></label>
+  <select id="filter" name="country">
+    <option value="">Категория</option>
+    {% for product in view.get_cats %}
+      <option value="{{ product.subsub__title }}">{{ product.subsub__title }}</option>
     {% endfor %}
   </select>
 
   <label for="filter"></label>
-  <select id="filter" name="filter">
+  <select id="filter" name="trademark">
     <option value="">Бренд</option>
-    {% for trademark in trademarks %}
-      <option value="{{ trademark }}">{{ trademark }}</option>
+    {% for product in view.get_trademarks %}
+      <option value="{{ product.trademark }}">{{ product.trademark }}</option>
     {% endfor %}
   </select>
 
   <label for="filter"></label>
-  <select id="filter" name="filter">
-      <option value="">Страна</option>
-    {% for country in countrys %}
-      <option value="{{ country }}">{{ country }}</option>
+  <select id="filter" name="color">
+    <option value="">Цвет</option>
+    {% for product in view.get_colors %}
+      <option value="{{ product.color }}">{{ product.color }}</option>
     {% endfor %}
   </select>
 
   <label for="filter"></label>
-  <select id="filter" name="filter">
-      <option value="">Цвет</option>
-    {% for color in colors %}
-      <option value="{{ color }}">{{ color }}</option>
+  <select id="filter" name="country">
+    <option value="">Страна</option>
+    {% for product in view.get_countrys %}
+      <option value="{{ product.country }}">{{ product.country }}</option>
     {% endfor %}
   </select>
-  <button class="btn btn-secondary btn-sm" type="submit" aria-expanded="false" style="color:black; background:#cafcf9;">Применить</button>
+
+    <button type="submit">Найти</button>
 </form>
+
 
 
 <div class="container-fluid">
