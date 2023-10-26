@@ -8,46 +8,103 @@
 <h1>{{ subtitle_title }}</h1>
 <small> колличество товаров: {{ products_count }}</small>
 
+<!--<form action="{% url 'filter' %}" method="get">-->
+<!--    <label for="category">Категория</label>-->
+<!--    <select id="category" name="category">-->
+<!--        <option value="" selected>Выберите категорию</option>-->
+<!--        {% for product in view.get_cats %}-->
+<!--        <option value="{{ product.subsub__title }}" {% if request.GET.category == product.subsub__title %}selected{% endif %}>{{ product.subsub__title }}</option>-->
+<!--        {% endfor %}-->
+<!--    </select>-->
+<!--    <button type="submit">Фильтровать</button>-->
+<!--</form>-->
 
 
-<form action="{% url 'filter' %}" method="get">
 
-     <label for="filter"></label>
-  <select id="filter" name="country">
-    <option value="">Категория</option>
-    {% for product in view.get_cats %}
-      <option value="{{ product.subsub__title }}">{{ product.subsub__title }}</option>
-    {% endfor %}
-  </select>
+<form action="{% url 'filter' %}" method="get" name="filter">
 
-  <label for="filter"></label>
-  <select id="filter" name="trademark">
-    <option value="">Бренд</option>
-    {% for product in view.get_trademarks %}
-      <option value="{{ product.trademark }}">{{ product.trademark }}</option>
-    {% endfor %}
-  </select>
+    <label for="category"></label>
+    <select id="category" name="category">
+         <option value="">Категория</option>
+        {% for product in view.get_cats %}
+        <option value="{{ product.subsub__title }}">{{ product.subsub__title }}</option>
+        {% endfor %}
+    </select>
 
-  <label for="filter"></label>
-  <select id="filter" name="color">
-    <option value="">Цвет</option>
-    {% for product in view.get_colors %}
-      <option value="{{ product.color }}">{{ product.color }}</option>
-    {% endfor %}
-  </select>
+    <label for="filter"></label>
+    <select id="filter" name="trademark">
+        <option value="">Бренд</option>
+        {% for product in view.get_trademarks %}
+        <option value="{{ product.trademark }}">{{ product.trademark }}</option>
+        {% endfor %}
+    </select>
 
-  <label for="filter"></label>
-  <select id="filter" name="country">
-    <option value="">Страна</option>
-    {% for product in view.get_countrys %}
-      <option value="{{ product.country }}">{{ product.country }}</option>
-    {% endfor %}
-  </select>
+    <label for="filter"></label>
+    <select id="filter" name="color">
+        <option value="">Цвет</option>
+        {% for product in view.get_colors %}
+        <option value="{{ product.color }}">{{ product.color }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="filter"></label>
+    <select id="filter" name="country">
+        <option value="">Страна</option>
+        {% for product in view.get_countrys %}
+        <option value="{{ product.country }}">{{ product.country }}</option>
+        {% endfor %}
+    </select>
 
     <button type="submit">Найти</button>
 </form>
 
-
+<!--<form action="{% url 'filter' %}" method="get" name="filter">-->
+<!--    <div class="left-side my-4">-->
+<!--        <h3 class="sear-head editContent">Категории</h3>-->
+<!--        <ul class="w3layouts-box-list">-->
+<!--            {% for product in view.get_cats %}-->
+<!--            <li class="editContent">-->
+<!--                <input type="checkbox" class="checked" name="category" value="{{ product.subsub__title }}">-->
+<!--                <span class="span editContent">{{ product.subsub__title }}</span>-->
+<!--            </li>-->
+<!--            {% endfor %}-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--    <div class="left-side">-->
+<!--        <h3 class="sear-head editContent">Бренд</h3>-->
+<!--        <ul class="w3layouts-box-list">-->
+<!--            {% for product in view.get_trademarks %}-->
+<!--            <li class="editContent">-->
+<!--                <input type="checkbox" class="checked" name="trademark" value="{{ product.trademark }}">-->
+<!--                <span class="span editContent">{{ product.trademark }}</span>-->
+<!--            </li>-->
+<!--            {% endfor %}-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--       <div class="left-side">-->
+<!--        <h3 class="sear-head editContent">Цвет</h3>-->
+<!--        <ul class="w3layouts-box-list">-->
+<!--            {% for product in view.get_colors %}-->
+<!--            <li class="editContent">-->
+<!--                <input type="checkbox" class="checked" name="color" value="{{ product.color }}">-->
+<!--                <span class="span editContent">{{ product.color }}</span>-->
+<!--            </li>-->
+<!--            {% endfor %}-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--       <div class="left-side">-->
+<!--        <h3 class="sear-head editContent">Страна</h3>-->
+<!--        <ul class="w3layouts-box-list">-->
+<!--            {% for product in view.get_countrys %}-->
+<!--            <li class="editContent">-->
+<!--                <input type="checkbox" class="checked" name="country" value="{{ product.country }}">-->
+<!--                <span class="span editContent">{{ product.country }}</span>-->
+<!--            </li>-->
+<!--            {% endfor %}-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--    <button type="submit">Найти</button>-->
+<!--</form>-->
 
 <div class="container-fluid">
     <div class="row g-0">

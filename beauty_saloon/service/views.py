@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView
 
@@ -65,16 +66,27 @@ class Filter(CatTrademarkCountryColor, ListView):
     template_name = 'service/index.html'
     context_object_name = 'products'
 
+    # def get_queryset(self):
+    #     queryset = Product.objects.filter(
+    #         Q(trademark__in=self.request.GET.getlist('trademark')) |
+    #         Q(color__in=self.request.GET.getlist('color')) |
+    #         Q(country__in=self.request.GET.getlist('country')) |
+    #         Q(subsub__title__in=self.request.GET.getlist('category'))
+    #     )
+    #     return queryset
+
+
     def get_queryset(self):
-        queryset = Product.objects.filter(
-            Q(trademark__in=self.request.GET.getlist('trademark')) |
-            Q(color__in=self.request.GET.getlist('color')) |
-            Q(country__in=self.request.GET.getlist('country')) |
-            Q(subsub__title__in=self.request.GET.getlist('subsub__title'))
-        )
+        queryset = Product.objects.all()
+        if "trademark" in self.request.GET:
+            queryset = queryset.filter(trademark__in=self.request.GET.getlist("trademark"))
+        if "color" in self.request.GET:
+            queryset = queryset.filter(color__in=self.request.GET.getlist("color"))
+        if "country" in self.request.GET:
+            queryset = queryset.filter(country__in=self.request.GET.getlist("country"))
+        if "category" in self.request.GET:
+            queryset = queryset.filter(subsub__title__in=self.request.GET.getlist("category"))
         return queryset
-
-
 
 class ProductDetail(DetailView):
     """Show product"""
@@ -91,3 +103,12 @@ class NewProduct(ListView):
 
     def get_queryset(self):
         return Product.objects.all().order_by('-id')[:10]
+
+
+
+
+
+
+
+
+
