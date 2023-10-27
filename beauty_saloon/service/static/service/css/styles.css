@@ -8,6 +8,15 @@ html, body {
 	color: #444;
 }
 
+.card-img-top {
+    width: 450px;
+    height: 450px;
+}
+.product_detail_description {
+    text-align: left;
+    width: 950px;
+    float: right;
+}
 
 .search {
   position: relative;
@@ -146,7 +155,7 @@ ul.list-articles li {
 }
 
 .header {
-	background: #3F4137;
+	background: #e1e362;
 	height: 60px;
 
 }

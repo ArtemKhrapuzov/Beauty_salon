@@ -1,28 +1,67 @@
 {% extends 'service/base.html' %}
 
 
-
 {% block content %}
-
-<div class="container-fluid">
-    <div class="row g-0">
-            <div class="card " style="width: 21rem; height: 34rem;">
-                <img class="card-img-top" src="{{ product.image.url }}">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
-                        {{ product.trademark }},
-                        {{ product.name }},
-                        {{ product.volume }}</h5>
-                    <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
-                            {{ product.cat }} - {{ product.subsub.title }}
-                        </p>
-                    <a href="{{ prod.get_absolute_url }}" class="btn btn-primary position-absolute bottom-0 end-0">
-                        О товаре
-                    </a>
-                </div>
-            </div>
-    </div>
+<center>
+    <h1>{{ product.trademark }}</h1>
+    <h2>{{ product.name }} </h2>
+</center>
+<img class="card-img-top"  src="{{ product.image.url }}" align="left">
+<div class="product_detail_description">
+<div style="width:900px;">
+    <ul style="width: 100%;">
+        <li style="display: block;  line-height: 1.5;"><u>Цвет: </u>
+            <span style="padding-left:195px;">{{ product.color }}</span></li>
+        <hr>
+        <li style="display: block;  line-height: 1.5;"><u>Объем:</u>
+            <span style="padding-left:180px;">{{ product.volume }}</span></li>
+        <hr>
+        <li style="display: block;  line-height: 1.5;"><u>Страна производитель:</u>
+            <span style="padding-left:45px;">{{ product.country }}</span></li>
+        <hr>
+        <li style="display: block;  line-height: 1.5;"><u>Где купить:</u>
+            <span style="padding-left:142px;">{{ product.where_buy }}</span></li>
+        <hr>
+    </ul>
 </div>
 
+<details>
+  <summary>Описание</summary>
+  <p>{{ product.description }}</p>
+</details>
+<details>
+  <summary>Состав</summary>
+  <p>{{ product.compound }}</p>
+</details>
+
+    <h5>Дополнительные характеристики</h5>
+<div style="width:900px;">
+    <ul style="width: 100%;">
+        <li style="display: block;  line-height: 1.5;"><u>Плотность: </u>
+            <span style="padding-left:195px;">{{ product.color }}</span></li>
+        <hr>
+        <li style="display: block;  line-height: 1.5;"><u>Эффект:</u>
+            <span style="padding-left:180px;">{{ product.volume }}</span></li>
+        <hr>
+        <li style="display: block;  line-height: 1.5;"><u>Консистенция:</u>
+            <span style="padding-left:45px;">{{ product.country }}</span></li>
+        <hr>
+        <li style="display: block;  line-height: 1.5;"><u>Жесткость:</u>
+            <span style="padding-left:142px;">{{ product.where_buy }}</span></li>
+        <hr>
+        <li style="display: block;  line-height: 1.5;"><u>Оттенок:</u>
+            <span style="padding-left:142px;">{{ product.where_buy }}</span></li>
+        <hr>
+        <li style="display: block;  line-height: 1.5;"><u>Коллекция:</u>
+            <span style="padding-left:142px;">{{ product.where_buy }}</span></li>
+        <hr>
+    </ul>
+</div>
+
+
+
+
+
+</div>
 {% endblock %}
 
