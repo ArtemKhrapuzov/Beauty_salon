@@ -2,66 +2,104 @@
 
 
 {% block content %}
+
 <center>
     <h1>{{ product.trademark }}</h1>
     <h2>{{ product.name }} </h2>
 </center>
-<img class="card-img-top"  src="{{ product.image.url }}" align="left">
-<div class="product_detail_description">
-<div style="width:900px;">
-    <ul style="width: 100%;">
-        <li style="display: block;  line-height: 1.5;"><u>Цвет: </u>
-            <span style="padding-left:195px;">{{ product.color }}</span></li>
-        <hr>
-        <li style="display: block;  line-height: 1.5;"><u>Объем:</u>
-            <span style="padding-left:180px;">{{ product.volume }}</span></li>
-        <hr>
-        <li style="display: block;  line-height: 1.5;"><u>Страна производитель:</u>
-            <span style="padding-left:45px;">{{ product.country }}</span></li>
-        <hr>
-        <li style="display: block;  line-height: 1.5;"><u>Где купить:</u>
-            <span style="padding-left:142px;">{{ product.where_buy }}</span></li>
-        <hr>
-    </ul>
+<div class="product-details" >
+  <div>
+  <div class="product-image">
+    <img src="{{ product.image.url }}" alt="Product Image">
+  </div>
+  <div class="product-reviews">
+    <h3>Leave a Review</h3>
+    <form action="#" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email">
+      <label for="review">Review:</label>
+      <textarea id="review" name="review"></textarea>
+      <button type="submit">Submit Review</button>
+    </form>
+  </div>
+  </div>
+
+<div style=" flex-basis: 50%; margin-top: 0; padding-top: 0;">
+  <div class="product-specs">
+    <h3>Основные характеристики</h3>
+    <table>
+      <tbody>
+      <tr>
+        <td class="name"><span>Цвет</span></td>
+        <td class="cur">{{ product.color }}</td>
+      </tr>
+      <tr>
+        <td class="name"><span>Объем</span></td>
+        <td class="cur">{{ product.volume }}</td>
+      </tr>
+      <tr>
+        <td class="name"><span>Производство</span></td>
+        <td class="cur">{{ product.country }}</td>
+      </tr>
+      <tr>
+        <td class="name"><span>Где купить</span></td>
+        <td class="cur">{{ product.where_buy }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="product-details-table">
+    <table>
+      <tr>
+        <td class="description">
+          <h3>Description</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod purus sed dolor venenatis, eu
+            sollicitudin augue pharetra. Donec euismod nisi vel nisl commodo, vel interdum sapien eleifend. Duis ut
+            bibendum lectus.</p>
+        </td>
+        <td class="composition">
+          <h3>Composition</h3>
+          <ul>
+            <li>100% Cotton</li>
+            <li>Machine Washable</li>
+            <li>Imported</li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="product-additional-specs" >
+    <h3>Additional Specifications</h3>
+    <tr>
+      <td class="name"><span>Плотность</span></td>
+      <td class="cur">{{ product.color }}</td>
+    </tr>
+    <tr>
+      <td class="name"><span>Эффект</span></td>
+      <td class="cur">{{ product.volume }}</td>
+    </tr>
+    <tr>
+      <td class="name"><span>Консистенция</span></td>
+      <td class="cur">{{ product.country }}</td>
+    </tr>
+    <tr>
+      <td class="name"><span>Жесткость</span></td>
+      <td class="cur">{{ product.where_buy }}</td>
+    </tr>
+    <tr>
+      <td class="name"><span>Оттенок</span></td>
+      <td class="cur">{{ product.where_buy }}</td>
+    </tr>
+    <tr>
+      <td class="name"><span>Коллекция</span></td>
+      <td class="cur">{{ product.where_buy }}</td>
+    </tr>
+  </div>
 </div>
 
-<details>
-  <summary>Описание</summary>
-  <p>{{ product.description }}</p>
-</details>
-<details>
-  <summary>Состав</summary>
-  <p>{{ product.compound }}</p>
-</details>
-
-    <h5>Дополнительные характеристики</h5>
-<div style="width:900px;">
-    <ul style="width: 100%;">
-        <li style="display: block;  line-height: 1.5;"><u>Плотность: </u>
-            <span style="padding-left:195px;">{{ product.color }}</span></li>
-        <hr>
-        <li style="display: block;  line-height: 1.5;"><u>Эффект:</u>
-            <span style="padding-left:180px;">{{ product.volume }}</span></li>
-        <hr>
-        <li style="display: block;  line-height: 1.5;"><u>Консистенция:</u>
-            <span style="padding-left:45px;">{{ product.country }}</span></li>
-        <hr>
-        <li style="display: block;  line-height: 1.5;"><u>Жесткость:</u>
-            <span style="padding-left:142px;">{{ product.where_buy }}</span></li>
-        <hr>
-        <li style="display: block;  line-height: 1.5;"><u>Оттенок:</u>
-            <span style="padding-left:142px;">{{ product.where_buy }}</span></li>
-        <hr>
-        <li style="display: block;  line-height: 1.5;"><u>Коллекция:</u>
-            <span style="padding-left:142px;">{{ product.where_buy }}</span></li>
-        <hr>
-    </ul>
 </div>
 
-
-
-
-
-</div>
 {% endblock %}
 
