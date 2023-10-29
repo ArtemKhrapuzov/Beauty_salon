@@ -19,6 +19,15 @@ class CatTrademarkCountryColor:
     def get_cats(self):
         return Product.objects.all().values('subsub__title').distinct()
 
+    def get_volumes(self):
+        return Product.objects.all().values('volume').distinct()
+
+    def get_for_whats(self):
+        return Product.objects.all().values('for_what').distinct()
+
+    def get_for_what_tools(self):
+        return Product.objects.all().values('for_what_tools').distinct()
+
 
 class Index(ListView):
     """Главная"""
@@ -61,6 +70,33 @@ class ProductList(CatTrademarkCountryColor, ListView):
         return context
 
 
+class ProductOtherList(ListView):
+    model = Product
+    slug_field = 'url'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        cat_slug = self.kwargs.get('cat_slug')
+        if cat_slug:
+            cattitle = get_object_or_404(Category, url=cat_slug)
+        else:
+            cattitle = None
+        queryset = super().get_queryset()
+        if cattitle:
+            queryset = queryset.filter(cat=cattitle)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products_count = self.get_queryset().count()
+
+        category = Category.objects.get(url=self.kwargs['cat_slug'])
+        category_title = category.title
+
+        context['products_count'] = products_count
+        context['category_title'] = category_title # добавляем в контекст значение category.title
+        return context
+
 class Filter(CatTrademarkCountryColor, ListView):
     """Фильтр"""
     template_name = 'service/index.html'
@@ -74,6 +110,12 @@ class Filter(CatTrademarkCountryColor, ListView):
             queryset = queryset.filter(color__in=self.request.GET.getlist("color"))
         if "category" in self.request.GET:
             queryset = queryset.filter(subsub__title__in=self.request.GET.getlist("category"))
+        if "volume" in self.request.GET:
+            queryset = queryset.filter(volume__in=self.request.GET.getlist("volume"))
+        if "for_what" in self.request.GET:
+            queryset = queryset.filter(for_what__in=self.request.GET.getlist("for_what"))
+        if "for_what_tools" in self.request.GET:
+            queryset = queryset.filter(for_what_tools__in=self.request.GET.getlist("for_what_tools"))
         return queryset
 
 

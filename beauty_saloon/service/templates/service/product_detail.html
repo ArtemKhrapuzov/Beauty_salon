@@ -8,11 +8,10 @@
     <h2>{{ product.name }} </h2>
 </center>
 <div class="product-details" >
-  <div>
   <div class="product-image">
     <img src="{{ product.image.url }}" alt="Product Image">
   </div>
-  <div class="product-reviews">
+ <div class="product-reviews">
     <h3>Leave a Review</h3>
     <form action="#" method="post">
       <label for="name">Name:</label>
@@ -24,9 +23,6 @@
       <button type="submit">Submit Review</button>
     </form>
   </div>
-  </div>
-
-<div style=" flex-basis: 50%; margin-top: 0; padding-top: 0;">
   <div class="product-specs">
     <h3>Основные характеристики</h3>
     <table>
@@ -97,7 +93,6 @@
       <td class="cur">{{ product.where_buy }}</td>
     </tr>
   </div>
-</div>
 
 </div>
 

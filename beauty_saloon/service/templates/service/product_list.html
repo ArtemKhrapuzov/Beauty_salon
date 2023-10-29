@@ -1,14 +1,25 @@
 {% extends 'service/base.html' %}
 
 {% block content %}
-
+{% if subtitle_title %}
 <h6 style="margin-left:10px"><a href="/" style="text-decoration: none; color: black;">Главная</a> - {{ category_title }} - {{ subtitle_title }}
 </h6>
 
 <h1 style="margin-left:10px">{{ subtitle_title }}</h1>
 <small style="margin-left:10px; color:grey; font-size:15px;"> колличество товаров: {{ products_count }}</small>
+{% else %}
+<h6 style="margin-left:10px"><a href="/" style="text-decoration: none; color: black;">Главная</a>
+</h6>
 
-{% if category_title == 'Гель-лаки' %}
+<h1 style="margin-left:10px">{{ category_title }}</h1>
+<small style="margin-left:10px; color:grey; font-size:15px;"> колличество товаров: {{ products_count }}</small>
+{% endif%}
+
+
+
+
+
+{% if category_title == 'Гель-лаки' or category_title == 'Наращивание и моделирование' or category_title == 'Dip система' %}
 <form action="{% url 'filter' %}" method="get" >
     <div class="container" style="margin-left: 0;">
         <div class="dropdown">
@@ -19,19 +30,19 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                     style="background:#cafcf9; color: black; width: 150px;" >
-                КАТЕГОРИИ
+                ОБЪЁМ
             </button>
             <ul class="dropdown-menu"
                 aria-labelledby="multiSelectDropdown"
             style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-                {% for product in view.get_cats %}
+                {% for product in view.get_volumes %}
                 <li style="margin-left:10px;">
                       <label>
                         <input type="checkbox"
-                               name="category"
-                               value="{{ product.subsub__title }}">
-                        {{ product.subsub__title }}
+                               name="volume"
+                               value="{{ product.volume }}">
+                        {{ product.volume }}
                     </label>
                 </li>
                 {% endfor %}
@@ -99,42 +110,299 @@
 {% endif %}
 
 
-<!--<form action="{% url 'filter' %}" method="get" name="filter">-->
+{% if category_title == 'Дизайн ногтей' or category_title == 'Оборудование'%}
+<form action="{% url 'filter' %}" method="get" >
+    <div class="container" style="margin-left: 0;">
+        <div class="dropdown">
 
-<!--    <label for="category"></label>-->
-<!--    <select id="category" name="category">-->
-<!--         <option value="">Категория</option>-->
-<!--        {% for product in view.get_cats %}-->
-<!--        <option value="{{ product.subsub__title }}">{{ product.subsub__title }}</option>-->
-<!--        {% endfor %}-->
-<!--    </select>-->
 
-<!--    <label for="filter"></label>-->
-<!--    <select id="filter" name="trademark">-->
-<!--        <option value="">Бренд</option>-->
-<!--        {% for product in view.get_trademarks %}-->
-<!--        <option value="{{ product.trademark }}">{{ product.trademark }}</option>-->
-<!--        {% endfor %}-->
-<!--    </select>-->
+            <button class="btn btn-success dropdown-toggle"
+                    type="button"
+                    id="multiSelectDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+             style="background:#cafcf9; color: black;  width: 150px;">
+                БРЕНД
+            </button>
+            <ul class="dropdown-menu "
+                aria-labelledby="multiSelectDropdown"
+            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-<!--    <label for="filter"></label>-->
-<!--    <select id="filter" name="color">-->
-<!--        <option value="">Цвет</option>-->
-<!--        {% for product in view.get_colors %}-->
-<!--        <option value="{{ product.color }}">{{ product.color }}</option>-->
-<!--        {% endfor %}-->
-<!--    </select>-->
+                {% for product in view.get_trademarks %}
+                <li style="margin-left:10px;">
+                      <label>
+                        <input type="checkbox"
+                               name="trademark"
+                               value="{{ product.trademark }}">
+                        {{ product.trademark }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
 
-<!--    <label for="filter"></label>-->
-<!--    <select id="filter" name="country">-->
-<!--        <option value="">Страна</option>-->
-<!--        {% for product in view.get_countrys %}-->
-<!--        <option value="{{ product.country }}">{{ product.country }}</option>-->
-<!--        {% endfor %}-->
-<!--    </select>-->
+            <button class="btn btn-success dropdown-toggle"
+                    type="button"
+                    id="multiSelectDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+             style="background:#cafcf9; color: black;  width: 150px; ">
+            ЦВЕТ
+            </button>
+            <ul class="dropdown-menu"
+                aria-labelledby="multiSelectDropdown"
+            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-<!--    <button type="submit">Найти</button>-->
-<!--</form>-->
+                {% for product in view.get_colors %}
+                <li style="margin-left:10px;">
+                      <label>
+                        <input type="checkbox"
+                               name="color"
+                               value="{{ product.color }}">
+                        {{ product.color }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <button class="btn btn-success"
+                    type="submit"
+                     style="background:#cafcf9; color: black;"
+                    aria-expanded="false">
+                НАЙТИ
+            </button>
+
+        </div>
+    </div>
+
+</form>
+{% endif %}
+
+
+{% if category_title == 'Уход за кожей' %}
+<form action="{% url 'filter' %}" method="get" >
+    <div class="container" style="margin-left: 0;">
+        <div class="dropdown">
+
+
+            <button class="btn btn-success dropdown-toggle"
+                    type="button"
+                    id="multiSelectDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+             style="background:#cafcf9; color: black;  width: 150px;">
+                БРЕНД
+            </button>
+            <ul class="dropdown-menu "
+                aria-labelledby="multiSelectDropdown"
+            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+
+                {% for product in view.get_trademarks %}
+                <li style="margin-left:10px;">
+                      <label>
+                        <input type="checkbox"
+                               name="trademark"
+                               value="{{ product.trademark }}">
+                        {{ product.trademark }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <button class="btn btn-success dropdown-toggle"
+                    type="button"
+                    id="multiSelectDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+             style="background:#cafcf9; color: black;  width: 150px; ">
+            ДЛЯ ЧЕГО
+            </button>
+            <ul class="dropdown-menu"
+                aria-labelledby="multiSelectDropdown"
+            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+
+                {% for product in view.for_whats %}
+                <li style="margin-left:10px;">
+                      <label>
+                        <input type="checkbox"
+                               name="for_what"
+                               value="{{ product.for_what }}">
+                        {{ product.for_what }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <button class="btn btn-success"
+                    type="submit"
+                     style="background:#cafcf9; color: black;"
+                    aria-expanded="false">
+                НАЙТИ
+            </button>
+
+        </div>
+    </div>
+
+</form>
+{% endif %}
+
+
+{% if category_title == 'Инструменты' %}
+<form action="{% url 'filter' %}" method="get" >
+    <div class="container" style="margin-left: 0;">
+        <div class="dropdown">
+
+
+            <button class="btn btn-success dropdown-toggle"
+                    type="button"
+                    id="multiSelectDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+             style="background:#cafcf9; color: black;  width: 150px;">
+                БРЕНД
+            </button>
+            <ul class="dropdown-menu "
+                aria-labelledby="multiSelectDropdown"
+            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+
+                {% for product in view.get_trademarks %}
+                <li style="margin-left:10px;">
+                      <label>
+                        <input type="checkbox"
+                               name="trademark"
+                               value="{{ product.trademark }}">
+                        {{ product.trademark }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <button class="btn btn-success dropdown-toggle"
+                    type="button"
+                    id="multiSelectDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+             style="background:#cafcf9; color: black;  width: 150px; ">
+            ДЛЯ ЧЕГО
+            </button>
+            <ul class="dropdown-menu"
+                aria-labelledby="multiSelectDropdown"
+            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+
+                {% for product in view.for_what_tools %}
+                <li style="margin-left:10px;">
+                      <label>
+                        <input type="checkbox"
+                               name="for_what_tools"
+                               value="{{ product.for_what_tools }}">
+                        {{ product.for_what_tools }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <button class="btn btn-success"
+                    type="submit"
+                     style="background:#cafcf9; color: black;"
+                    aria-expanded="false">
+                НАЙТИ
+            </button>
+
+        </div>
+    </div>
+
+</form>
+{% endif %}
+
+{% if category_title == 'Прочее' %}
+<form action="{% url 'filter' %}" method="get" >
+    <div class="container" style="margin-left: 0;">
+        <div class="dropdown">
+
+
+            <button class="btn btn-success dropdown-toggle"
+                    type="button"
+                    id="multiSelectDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+             style="background:#cafcf9; color: black;  width: 150px;">
+                БРЕНД
+            </button>
+            <ul class="dropdown-menu "
+                aria-labelledby="multiSelectDropdown"
+            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+
+                {% for product in view.get_trademarks %}
+                <li style="margin-left:10px;">
+                      <label>
+                        <input type="checkbox"
+                               name="trademark"
+                               value="{{ product.trademark }}">
+                        {{ product.trademark }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <button class="btn btn-success dropdown-toggle"
+                    type="button"
+                    id="multiSelectDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+             style="background:#cafcf9; color: black;  width: 150px; ">
+            ДЛЯ ЧЕГО
+            </button>
+            <ul class="dropdown-menu"
+                aria-labelledby="multiSelectDropdown"
+            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+
+                {% for product in view.for_whats %}
+                <li style="margin-left:10px;">
+                      <label>
+                        <input type="checkbox"
+                               name="for_what"
+                               value="{{ product.for_what }}">
+                        {{ product.for_what }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <button class="btn btn-success dropdown-toggle"
+                    type="button"
+                    id="multiSelectDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+             style="background:#cafcf9; color: black;  width: 150px; ">
+            ЦВЕТ
+            </button>
+            <ul class="dropdown-menu"
+                aria-labelledby="multiSelectDropdown"
+            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+
+                {% for product in view.get_colors %}
+                <li style="margin-left:10px;">
+                      <label>
+                        <input type="checkbox"
+                               name="color"
+                               value="{{ product.color }}">
+                        {{ product.color }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <button class="btn btn-success"
+                    type="submit"
+                     style="background:#cafcf9; color: black;"
+                    aria-expanded="false">
+                НАЙТИ
+            </button>
+
+        </div>
+    </div>
+
+</form>
+{% endif %}
 
 
 <div class="container-fluid" style="margin-top:30px;">
