@@ -408,11 +408,12 @@
 <div class="container-fluid" style="margin-top:30px;">
     <div class="row g-0">
         {% for prod in products %}
+        {% if category_title == 'Dip система' %}
         <div class="card " style="width: 21rem; height: 34rem;">
             <img class="card-img-top" src="{{ prod.image.url }}">
             <div class="card-body">
                 <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
-                    {{ prod.trademark }}, {{ prod.name }}, {{ prod.volume }}</h5>
+                    {{ prod.trademark }}, {{ prod.name }}, {{ prod.color}}, {{ prod.volume }} гр</h5>
                 <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                     {{ prod.cat }} - {{ prod.subsub.title }}
                 </p>
@@ -420,6 +421,20 @@
                     О товаре</a>
             </div>
         </div>
+        {% else %}
+        <div class="card " style="width: 21rem; height: 34rem;">
+            <img class="card-img-top" src="{{ prod.image.url }}">
+            <div class="card-body">
+                <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
+                    {{ prod.trademark }}, {{ prod.name }}, {{ prod.color}}, {{ prod.volume }} мл</h5>
+                <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
+                    {{ prod.cat }} - {{ prod.subsub.title }}
+                </p>
+                <a href="{{ prod.get_absolute_url }}" class="btn btn-primary position-absolute bottom-0 end-0">
+                    О товаре</a>
+            </div>
+        </div>
+        {% endif %}
         {% endfor %}
     </div>
 </div>

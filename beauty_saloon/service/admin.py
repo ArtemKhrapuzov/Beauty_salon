@@ -9,7 +9,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ("cat", "subtitle", "name", "trademark")
     search_fields = ("name", "trademark")
     ordering = ('-id',)
-    prepopulated_fields = {"url": ("name",)}
+    prepopulated_fields = {"url": ("name", "trademark", "cat")}
 
 
 @admin.register(Category)

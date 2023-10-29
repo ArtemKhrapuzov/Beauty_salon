@@ -8,7 +8,7 @@ class CatTrademarkCountryColor:
     """Кверисет для фильтров по категориям, бренду, стране и цвету"""
 
     def get_trademarks(self):
-        return Product.objects.all().values('trademark').distinct()
+        return Product.objects.all().values('trademark').order_by('trademark').distinct()
 
     def get_colors(self):
         return Product.objects.all().values('color').distinct()
@@ -20,7 +20,7 @@ class CatTrademarkCountryColor:
         return Product.objects.all().values('subsub__title').distinct()
 
     def get_volumes(self):
-        return Product.objects.all().values('volume').distinct()
+        return Product.objects.all().values('volume').order_by('volume').distinct()
 
     def get_for_whats(self):
         return Product.objects.all().values('for_what').distinct()

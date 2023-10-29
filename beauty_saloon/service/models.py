@@ -17,22 +17,22 @@ FOR_WHAT_TOOLS = (
 
 class Product(models.Model):
     """Продукты"""
-    name = models.CharField(max_length=255, unique=True, verbose_name='Название')
-    url = models.SlugField(max_length=160, verbose_name='URL')
+    name = models.CharField(max_length=255, verbose_name='Название')
+    url = models.SlugField(max_length=160, unique=True, verbose_name='URL')
     trademark = models.CharField(max_length=255, verbose_name='Название торговой марки')
-    compound = models.TextField(max_length=1000, verbose_name='Состав')
-    volume = models.IntegerField(verbose_name='Объем (мл,гр)')
+    compound = models.TextField(max_length=1000, verbose_name='Состав', blank=True, default='')
+    volume = models.IntegerField(verbose_name='Объем (мл,гр)', blank=True, null=True)
     description = models.TextField(max_length=4000, blank=True, default='', verbose_name='Описание')
-    color = models.CharField(max_length=50, verbose_name='Цвет')
-    country = models.CharField(max_length=50, verbose_name='Страна производитель')
+    color = models.CharField(max_length=50, verbose_name='Цвет', blank=True, default='')
+    country = models.CharField(max_length=50, verbose_name='Страна производитель', blank=True, default='')
     for_what = models.CharField(max_length=30, verbose_name='Для чего', choices=FOR_WHAT, default='default',
                                 blank=True)
     for_what_tools = models.CharField(max_length=30, verbose_name='Для чего инструменты', choices=FOR_WHAT_TOOLS,
                                       default='default', blank=True)
-    best_before_date = models.CharField(max_length=50, verbose_name='Срок годность')
-    where_buy = models.CharField(max_length=50, verbose_name='Где купить')
-    link = models.TextField(max_length=2000, verbose_name='Ссылка на товар')
-    image = models.ImageField(upload_to="photos/%Y/%m/%d/", blank=True, verbose_name='Фото')
+    best_before_date = models.CharField(max_length=50, verbose_name='Срок годность', blank=True, default='')
+    where_buy = models.CharField(max_length=50, verbose_name='Где купить', blank=True, default='')
+    link = models.TextField(max_length=2000, verbose_name='Ссылка на товар', blank=True, default='')
+    image = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name='Фото')
     cat = models.ForeignKey('Category', verbose_name='Категория', on_delete=models.CASCADE)
     subtitle = models.ForeignKey('Subtitle', verbose_name='Подкатегория', on_delete=models.CASCADE, blank=True,
                                  default='')
