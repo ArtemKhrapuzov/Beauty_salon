@@ -60,6 +60,8 @@ table {
 
 .product-reviews {
   flex-basis: 30%;
+  width: 450px;
+  padding-top: 50px;
 }
 
 .product-reviews form {

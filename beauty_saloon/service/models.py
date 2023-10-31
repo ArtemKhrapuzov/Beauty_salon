@@ -25,6 +25,14 @@ class Product(models.Model):
     description = models.TextField(max_length=4000, blank=True, default='', verbose_name='Описание')
     color = models.CharField(max_length=50, verbose_name='Цвет', blank=True, default='')
     country = models.CharField(max_length=50, verbose_name='Страна производитель', blank=True, default='')
+
+    density = models.CharField(max_length=50, verbose_name='Плотность', blank=True, default='')
+    effect = models.CharField(max_length=50, verbose_name='Эффект', blank=True, default='')
+    consistency = models.CharField(max_length=50, verbose_name='Консистенция', blank=True, default='')
+    rigidity = models.CharField(max_length=50, verbose_name='Жесткость', blank=True, default='')
+    shade = models.CharField(max_length=50, verbose_name='Оттенок', blank=True, default='')
+    collection = models.CharField(max_length=50, verbose_name='Коллекция', blank=True, default='')
+
     for_what = models.CharField(max_length=30, verbose_name='Для чего', choices=FOR_WHAT, blank=True, default='')
     for_what_tools = models.CharField(max_length=30, verbose_name='Для чего инструменты', choices=FOR_WHAT_TOOLS,
                                       blank=True, default='')
@@ -37,6 +45,8 @@ class Product(models.Model):
                                  default='')
     subsub = models.ForeignKey('Subsubtitle', verbose_name='Подподкатегория', on_delete=models.CASCADE, blank=True,
                                default='')
+
+
 
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'slug': self.url})

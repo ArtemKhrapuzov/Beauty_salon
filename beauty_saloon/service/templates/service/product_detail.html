@@ -1,100 +1,215 @@
 {% extends 'service/base.html' %}
+{% load static %}
+{% block head %}
+<link type="text/css" href="{% static 'service/css/detail.css' %}" rel="stylesheet"/>
 
+{% endblock head %}
 
 {% block content %}
 
-<center>
-    <h1>{{ product.trademark }}</h1>
-    <h2>{{ product.name }} </h2>
-</center>
-<div class="product-details" >
-  <div class="product-image">
-    <img src="{{ product.image.url }}" alt="Product Image">
-  </div>
- <div class="product-reviews">
-    <h3>Leave a Review</h3>
-    <form action="#" method="post">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email">
-      <label for="review">Review:</label>
-      <textarea id="review" name="review"></textarea>
-      <button type="submit">Submit Review</button>
-    </form>
-  </div>
-  <div class="product-specs">
-    <h3>Основные характеристики</h3>
-    <table>
-      <tbody>
-      <tr>
-        <td class="name"><span>Цвет</span></td>
-        <td class="cur">{{ product.color }}</td>
-      </tr>
-      <tr>
-        <td class="name"><span>Объем</span></td>
-        <td class="cur">{{ product.volume }}</td>
-      </tr>
-      <tr>
-        <td class="name"><span>Производство</span></td>
-        <td class="cur">{{ product.country }}</td>
-      </tr>
-      <tr>
-        <td class="name"><span>Где купить</span></td>
-        <td class="cur">{{ product.where_buy }}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="product-details-table">
-    <table>
-      <tr>
-        <td class="description">
-          <h3>Description</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod purus sed dolor venenatis, eu
-            sollicitudin augue pharetra. Donec euismod nisi vel nisl commodo, vel interdum sapien eleifend. Duis ut
-            bibendum lectus.</p>
-        </td>
-        <td class="composition">
-          <h3>Composition</h3>
-          <ul>
-            <li>100% Cotton</li>
-            <li>Machine Washable</li>
-            <li>Imported</li>
-          </ul>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="product-additional-specs" >
-    <h3>Additional Specifications</h3>
-    <tr>
-      <td class="name"><span>Плотность</span></td>
-      <td class="cur">{{ product.color }}</td>
-    </tr>
-    <tr>
-      <td class="name"><span>Эффект</span></td>
-      <td class="cur">{{ product.volume }}</td>
-    </tr>
-    <tr>
-      <td class="name"><span>Консистенция</span></td>
-      <td class="cur">{{ product.country }}</td>
-    </tr>
-    <tr>
-      <td class="name"><span>Жесткость</span></td>
-      <td class="cur">{{ product.where_buy }}</td>
-    </tr>
-    <tr>
-      <td class="name"><span>Оттенок</span></td>
-      <td class="cur">{{ product.where_buy }}</td>
-    </tr>
-    <tr>
-      <td class="name"><span>Коллекция</span></td>
-      <td class="cur">{{ product.where_buy }}</td>
-    </tr>
-  </div>
+<!--<center>-->
+<!--    <h1>{{ product.trademark }}</h1>-->
+<!--    <h2>{{ product.name }} </h2>-->
+<!--</center>-->
+<!--<div class="product-details" >-->
+<!--  <div class="product-image">-->
+<!--    <img src="{{ product.image.url }}" alt="Product Image">-->
+<!--  </div>-->
+<!-- <div class="product-reviews">-->
+<!--    <h3>Leave a Review</h3>-->
+<!--    <form action="#" method="post">-->
+<!--      <label for="name">Name:</label>-->
+<!--      <input type="text" id="name" name="name">-->
+<!--      <label for="email">Email:</label>-->
+<!--      <input type="email" id="email" name="email">-->
+<!--      <label for="review">Review:</label>-->
+<!--      <textarea id="review" name="review"></textarea>-->
+<!--      <button type="submit">Submit Review</button>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--  <div class="product-specs">-->
+<!--    <h3>Основные характеристики</h3>-->
+<!--    <table>-->
+<!--      <tbody>-->
+<!--      <tr>-->
+<!--        <td class="name"><span>Цвет</span></td>-->
+<!--        <td class="cur">{{ product.color }}</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td class="name"><span>Объем</span></td>-->
+<!--        <td class="cur">{{ product.volume }}</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td class="name"><span>Производство</span></td>-->
+<!--        <td class="cur">{{ product.country }}</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td class="name"><span>Где купить</span></td>-->
+<!--        <td class="cur">{{ product.where_buy }}</td>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+<!--  <div class="product-details-table">-->
+<!--    <table>-->
+<!--      <tr>-->
+<!--        <td class="description">-->
+<!--          <h3>Description</h3>-->
+<!--          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod purus sed dolor venenatis, eu-->
+<!--            sollicitudin augue pharetra. Donec euismod nisi vel nisl commodo, vel interdum sapien eleifend. Duis ut-->
+<!--            bibendum lectus.</p>-->
+<!--        </td>-->
+<!--        <td class="composition">-->
+<!--          <h3>Composition</h3>-->
+<!--          <ul>-->
+<!--            <li>100% Cotton</li>-->
+<!--            <li>Machine Washable</li>-->
+<!--            <li>Imported</li>-->
+<!--          </ul>-->
+<!--        </td>-->
+<!--      </tr>-->
+<!--    </table>-->
+<!--  </div>-->
+<!--  <div class="product-additional-specs" >-->
+<!--    <h3>Additional Specifications</h3>-->
+<!--    <tr>-->
+<!--      <td class="name"><span>Плотность</span></td>-->
+<!--      <td class="cur">{{ product.color }}</td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td class="name"><span>Эффект</span></td>-->
+<!--      <td class="cur">{{ product.volume }}</td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td class="name"><span>Консистенция</span></td>-->
+<!--      <td class="cur">{{ product.country }}</td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td class="name"><span>Жесткость</span></td>-->
+<!--      <td class="cur">{{ product.where_buy }}</td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td class="name"><span>Оттенок</span></td>-->
+<!--      <td class="cur">{{ product.where_buy }}</td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td class="name"><span>Коллекция</span></td>-->
+<!--      <td class="cur">{{ product.where_buy }}</td>-->
+<!--    </tr>-->
+<!--  </div>-->
 
-</div>
+<!--</div>-->
+
+<section class="product">
+    <div class="product__photo">
+        <img src="{{ product.image.url }}" alt="">
+        <div class="product-reviews">
+            <h3>Leave a Review</h3>
+            <form action="#" method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <label for="review">Review:</label>
+                <textarea id="review" name="review"></textarea>
+                <button type="submit">Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="product__info">
+        <div class="title">
+            <h1>{{ product.trademark }}, {{ product.name }}</h1>
+            <span>чото там чототам</span>
+        </div>
+        <div class="product-specs">
+            <h3>Основные характеристики</h3>
+            <table>
+                <tbody>
+                <tr>
+                    <td class="name"><span>Цвет</span></td>
+                    <td class="cur">{{ product.color }}</td>
+                </tr>
+                <tr>
+                    <td class="name"><span>Объем</span></td>
+                    <td class="cur">{{ product.volume }} мл</td>
+                </tr>
+                <tr>
+                    <td class="name"><span>Производство</span></td>
+                    <td class="cur">{{ product.country }}</td>
+                </tr>
+                <tr>
+                    <td class="name"><span>Где купить</span></td>
+                    <td class="cur"><a href="#">{{ product.where_buy }}</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="product-details-table">
+                <div class="button-detail" style="background: #f0f0f0">
+                <button class="active" onclick="toggleTab('description')">Описание</button>
+                <button onclick="toggleTab('composition')">Состав</button>
+                </div>
+
+                <div id="description" class="tab active">
+                    <p>{{ product.description }}</p>
+                </div>
+                <div id="composition" class="tab">
+                    <p>{{ product.compound }}</p>
+
+            </div>
+            <script>
+function toggleTab(tabName) {
+  var tabs = document.getElementsByClassName("tab");
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("active");
+  }
+  var button = document.querySelector("button.active");
+  button.classList.remove("active");
+  document.getElementById(tabName).classList.add("active");
+  event.currentTarget.classList.add("active");
+}
+
+            </script>
+
+        </div>
+        <div class="product-specs">
+            <h3>Дополнительные характеристики</h3>
+            <table>
+                <tbody>
+                <tr>
+                    <td class="name"><span>Плотность</span></td>
+                    <td class="cur">{{ product.density }}</td>
+                </tr>
+                <tr>
+                    <td class="name"><span>Эффект</span></td>
+                    <td class="cur">{{ product.effect }}</td>
+                </tr>
+                <tr>
+                    <td class="name"><span>Консистенция</span></td>
+                    <td class="cur">{{ product.consistency }}</td>
+                </tr>
+                <tr>
+                    <td class="name"><span>Жесткость</span></td>
+                    <td class="cur">{{ product.rigidity }}</td>
+                </tr>
+                <tr>
+                    <td class="name"><span>Оттенок</span></td>
+                    <td class="cur">{{ product.shade }}</td>
+                </tr>
+                <tr>
+                    <td class="name"><span>Коллекция</span></td>
+                    <td class="cur">{{ product.collection }}</td>
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</section>
+
 
 {% endblock %}
 

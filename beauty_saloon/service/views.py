@@ -11,7 +11,7 @@ class CatTrademarkCountryColor:
         if 'cat_slug' in self.kwargs:
             cat_slug = self.kwargs['cat_slug']
             return Product.objects.filter(cat__url=cat_slug).order_by('trademark').values_list('trademark',
-                                                                                           flat=True).distinct()
+                                                                                               flat=True).distinct()
         else:
             return []
 
@@ -22,7 +22,6 @@ class CatTrademarkCountryColor:
                                                                                            flat=True).distinct()
         else:
             return []
-
 
     def get_volumes(self):
         if 'cat_slug' in self.kwargs:
@@ -36,19 +35,17 @@ class CatTrademarkCountryColor:
         if 'cat_slug' in self.kwargs:
             cat_slug = self.kwargs['cat_slug']
             return Product.objects.filter(cat__url=cat_slug).order_by('for_what').values_list('for_what',
-                                                                                           flat=True).distinct()
+                                                                                              flat=True).distinct()
         else:
             return []
-
 
     def get_for_what_tools(self):
         if 'cat_slug' in self.kwargs:
             cat_slug = self.kwargs['cat_slug']
-            return Product.objects.filter(cat__url=cat_slug).order_by('for_what_tools').values_list('for_what_tools',
-                                                                                           flat=True).distinct()
+            return Product.objects.filter(cat__url=cat_slug).order_by('for_what_tools').\
+                values_list('for_what_tools', flat=True).distinct()
         else:
             return []
-
 
 
 class Index(ListView):
