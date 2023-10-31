@@ -2,16 +2,16 @@ from django.db import models
 from django.urls import reverse
 
 FOR_WHAT = (
-    ('default', ''),
-    ('for hands', 'Для рук'),
-    ('for legs', 'Для ног'),
-    ('for nails', 'Для ногтей'),
+
+    ('Для рук', 'Для рук'),
+    ('Для ног', 'Для ног'),
+    ('Для ногтей', 'Для ногтей'),
 )
 
 FOR_WHAT_TOOLS = (
-    ('default', ''),
-    ('for a manicure', 'Для маникюра'),
-    ('for pedicure', 'Для педикюра'),
+
+    ('Для маникюра', 'Для маникюра'),
+    ('Для педикюра', 'Для педикюра'),
 )
 
 
@@ -25,10 +25,9 @@ class Product(models.Model):
     description = models.TextField(max_length=4000, blank=True, default='', verbose_name='Описание')
     color = models.CharField(max_length=50, verbose_name='Цвет', blank=True, default='')
     country = models.CharField(max_length=50, verbose_name='Страна производитель', blank=True, default='')
-    for_what = models.CharField(max_length=30, verbose_name='Для чего', choices=FOR_WHAT, default='default',
-                                blank=True)
+    for_what = models.CharField(max_length=30, verbose_name='Для чего', choices=FOR_WHAT, blank=True, default='')
     for_what_tools = models.CharField(max_length=30, verbose_name='Для чего инструменты', choices=FOR_WHAT_TOOLS,
-                                      default='default', blank=True)
+                                      blank=True, default='')
     best_before_date = models.CharField(max_length=50, verbose_name='Срок годность', blank=True, default='')
     where_buy = models.CharField(max_length=50, verbose_name='Где купить', blank=True, default='')
     link = models.TextField(max_length=2000, verbose_name='Ссылка на товар', blank=True, default='')

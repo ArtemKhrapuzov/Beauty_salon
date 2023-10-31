@@ -5,28 +5,50 @@ from service.models import *
 
 
 class CatTrademarkCountryColor:
-    """Кверисет для фильтров по категориям, бренду, стране и цвету"""
+    """queryset для фильтров"""
 
     def get_trademarks(self):
-        return Product.objects.all().values('trademark').order_by('trademark').distinct()
+        if 'cat_slug' in self.kwargs:
+            cat_slug = self.kwargs['cat_slug']
+            return Product.objects.filter(cat__url=cat_slug).order_by('trademark').values_list('trademark',
+                                                                                           flat=True).distinct()
+        else:
+            return []
 
     def get_colors(self):
-        return Product.objects.all().values('color').distinct()
+        if 'cat_slug' in self.kwargs:
+            cat_slug = self.kwargs['cat_slug']
+            return Product.objects.filter(cat__url=cat_slug).order_by('color').values_list('color',
+                                                                                           flat=True).distinct()
+        else:
+            return []
 
-    def get_countrys(self):
-        return Product.objects.all().values('country').distinct()
-
-    def get_cats(self):
-        return Product.objects.all().values('subsub__title').distinct()
 
     def get_volumes(self):
-        return Product.objects.all().values('volume').order_by('volume').distinct()
+        if 'cat_slug' in self.kwargs:
+            cat_slug = self.kwargs['cat_slug']
+            return Product.objects.filter(cat__url=cat_slug).order_by('volume').values_list('volume',
+                                                                                            flat=True).distinct()
+        else:
+            return []
 
     def get_for_whats(self):
-        return Product.objects.all().values('for_what').distinct()
+        if 'cat_slug' in self.kwargs:
+            cat_slug = self.kwargs['cat_slug']
+            return Product.objects.filter(cat__url=cat_slug).order_by('for_what').values_list('for_what',
+                                                                                           flat=True).distinct()
+        else:
+            return []
+
 
     def get_for_what_tools(self):
-        return Product.objects.all().values('for_what_tools').distinct()
+        if 'cat_slug' in self.kwargs:
+            cat_slug = self.kwargs['cat_slug']
+            return Product.objects.filter(cat__url=cat_slug).order_by('for_what_tools').values_list('for_what_tools',
+                                                                                           flat=True).distinct()
+        else:
+            return []
+
 
 
 class Index(ListView):
@@ -70,7 +92,8 @@ class ProductList(CatTrademarkCountryColor, ListView):
         return context
 
 
-class ProductOtherList(ListView):
+class ProductOtherList(CatTrademarkCountryColor, ListView):
+    """ context and queryset for Прочее"""
     model = Product
     slug_field = 'url'
     context_object_name = 'products'
@@ -94,8 +117,9 @@ class ProductOtherList(ListView):
         category_title = category.title
 
         context['products_count'] = products_count
-        context['category_title'] = category_title # добавляем в контекст значение category.title
+        context['category_title'] = category_title
         return context
+
 
 class Filter(CatTrademarkCountryColor, ListView):
     """Фильтр"""
@@ -108,8 +132,6 @@ class Filter(CatTrademarkCountryColor, ListView):
             queryset = queryset.filter(trademark__in=self.request.GET.getlist("trademark"))
         if "color" in self.request.GET:
             queryset = queryset.filter(color__in=self.request.GET.getlist("color"))
-        if "category" in self.request.GET:
-            queryset = queryset.filter(subsub__title__in=self.request.GET.getlist("category"))
         if "volume" in self.request.GET:
             queryset = queryset.filter(volume__in=self.request.GET.getlist("volume"))
         if "for_what" in self.request.GET:

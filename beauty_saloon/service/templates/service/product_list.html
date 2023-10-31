@@ -20,7 +20,7 @@
 
 
 {% if category_title == 'Гель-лаки' or category_title == 'Наращивание и моделирование' or category_title == 'Dip система' %}
-<form action="{% url 'filter' %}" method="get" >
+<form action="{% url 'filter'  %}" method="get" >
     <div class="container" style="margin-left: 0;">
         <div class="dropdown">
 
@@ -36,15 +36,17 @@
                 aria-labelledby="multiSelectDropdown"
             style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-                {% for product in view.get_volumes %}
+                {% for volume in view.get_volumes %}
+                {% if volume %}
                 <li style="margin-left:10px;">
                       <label>
                         <input type="checkbox"
                                name="volume"
-                               value="{{ product.volume }}">
-                        {{ product.volume }}
+                               value="{{ volume }}">
+                        {{ volume }}
                     </label>
                 </li>
+                {% endif %}
                 {% endfor %}
             </ul>
 
@@ -60,13 +62,13 @@
                 aria-labelledby="multiSelectDropdown"
             style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-                {% for product in view.get_trademarks %}
+                {% for trademark in view.get_trademarks %}
                 <li style="margin-left:10px;">
                       <label>
                         <input type="checkbox"
                                name="trademark"
-                               value="{{ product.trademark }}">
-                        {{ product.trademark }}
+                               value="{{ trademark }}">
+                        {{ trademark }}
                     </label>
                 </li>
                 {% endfor %}
@@ -84,15 +86,17 @@
                 aria-labelledby="multiSelectDropdown"
             style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-                {% for product in view.get_colors %}
+                {% for color in view.get_colors %}
+                {% if color %}
                 <li style="margin-left:10px;">
                       <label>
                         <input type="checkbox"
                                name="color"
-                               value="{{ product.color }}">
-                        {{ product.color }}
+                               value="{{ color }}">
+                        {{ color }}
                     </label>
                 </li>
+                {% endif %}
                 {% endfor %}
             </ul>
 
@@ -107,10 +111,9 @@
     </div>
 
 </form>
-{% endif %}
 
 
-{% if category_title == 'Дизайн ногтей' or category_title == 'Оборудование'%}
+{% elif category_title == 'Дизайн ногтей' or category_title == 'Оборудование'%}
 <form action="{% url 'filter' %}" method="get" >
     <div class="container" style="margin-left: 0;">
         <div class="dropdown">
@@ -128,13 +131,13 @@
                 aria-labelledby="multiSelectDropdown"
             style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-                {% for product in view.get_trademarks %}
+                {% for trademark in view.get_trademarks %}
                 <li style="margin-left:10px;">
                       <label>
                         <input type="checkbox"
                                name="trademark"
-                               value="{{ product.trademark }}">
-                        {{ product.trademark }}
+                               value="{{ trademark }}">
+                        {{ trademark }}
                     </label>
                 </li>
                 {% endfor %}
@@ -152,15 +155,17 @@
                 aria-labelledby="multiSelectDropdown"
             style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-                {% for product in view.get_colors %}
+                {% for color in view.get_colors %}
+                {% if color %}
                 <li style="margin-left:10px;">
                       <label>
                         <input type="checkbox"
                                name="color"
-                               value="{{ product.color }}">
-                        {{ product.color }}
+                               value="{{ color }}">
+                        {{ color }}
                     </label>
                 </li>
+                {% endif %}
                 {% endfor %}
             </ul>
 
@@ -175,10 +180,9 @@
     </div>
 
 </form>
-{% endif %}
 
 
-{% if category_title == 'Уход за кожей' %}
+{% elif category_title == 'Уход за кожей' %}
 <form action="{% url 'filter' %}" method="get" >
     <div class="container" style="margin-left: 0;">
         <div class="dropdown">
@@ -196,13 +200,13 @@
                 aria-labelledby="multiSelectDropdown"
             style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-                {% for product in view.get_trademarks %}
+                {% for trademark in view.get_trademarks %}
                 <li style="margin-left:10px;">
                       <label>
                         <input type="checkbox"
                                name="trademark"
-                               value="{{ product.trademark }}">
-                        {{ product.trademark }}
+                               value="{{ trademark }}">
+                        {{ trademark }}
                     </label>
                 </li>
                 {% endfor %}
@@ -220,15 +224,17 @@
                 aria-labelledby="multiSelectDropdown"
             style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-                {% for product in view.for_whats %}
+                {% for for_what in view.get_for_whats %}
+                {% if for_what not in 'default' %}
                 <li style="margin-left:10px;">
                       <label>
                         <input type="checkbox"
                                name="for_what"
-                               value="{{ product.for_what }}">
-                        {{ product.for_what }}
+                               value="{{ for_what }}">
+                        {{ for_what }}
                     </label>
                 </li>
+                {% endif %}
                 {% endfor %}
             </ul>
 
@@ -243,10 +249,9 @@
     </div>
 
 </form>
-{% endif %}
 
 
-{% if category_title == 'Инструменты' %}
+{% elif category_title == 'Инструменты' %}
 <form action="{% url 'filter' %}" method="get" >
     <div class="container" style="margin-left: 0;">
         <div class="dropdown">
@@ -264,13 +269,13 @@
                 aria-labelledby="multiSelectDropdown"
             style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-                {% for product in view.get_trademarks %}
+                {% for trademark in view.get_trademarks %}
                 <li style="margin-left:10px;">
                       <label>
                         <input type="checkbox"
                                name="trademark"
-                               value="{{ product.trademark }}">
-                        {{ product.trademark }}
+                               value="{{ trademark }}">
+                        {{ trademark }}
                     </label>
                 </li>
                 {% endfor %}
@@ -288,15 +293,17 @@
                 aria-labelledby="multiSelectDropdown"
             style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-                {% for product in view.for_what_tools %}
+                {% for for_what_tools in view.get_for_what_tools %}
+                {% if for_what_tools not in 'default' %}
                 <li style="margin-left:10px;">
                       <label>
                         <input type="checkbox"
                                name="for_what_tools"
-                               value="{{ product.for_what_tools }}">
-                        {{ product.for_what_tools }}
+                               value="{{ for_what_tools }}">
+                        {{ for_what_tools }}
                     </label>
                 </li>
+                {% endif %}
                 {% endfor %}
             </ul>
 
@@ -311,9 +318,9 @@
     </div>
 
 </form>
-{% endif %}
 
-{% if category_title == 'Прочее' %}
+
+{% elif category_title == 'Прочее' %}
 <form action="{% url 'filter' %}" method="get" >
     <div class="container" style="margin-left: 0;">
         <div class="dropdown">
@@ -331,13 +338,13 @@
                 aria-labelledby="multiSelectDropdown"
             style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-                {% for product in view.get_trademarks %}
+                {% for trademark in view.get_trademarks %}
                 <li style="margin-left:10px;">
                       <label>
                         <input type="checkbox"
                                name="trademark"
-                               value="{{ product.trademark }}">
-                        {{ product.trademark }}
+                               value="{{ trademark }}">
+                        {{ trademark }}
                     </label>
                 </li>
                 {% endfor %}
@@ -355,15 +362,17 @@
                 aria-labelledby="multiSelectDropdown"
             style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-                {% for product in view.for_whats %}
+                {% for for_what in view.get_for_whats %}
+                {% if for_what not in 'default' %}
                 <li style="margin-left:10px;">
                       <label>
                         <input type="checkbox"
                                name="for_what"
-                               value="{{ product.for_what }}">
-                        {{ product.for_what }}
+                               value="{{ for_what }}">
+                        {{ for_what }}
                     </label>
                 </li>
+                {% endif %}
                 {% endfor %}
             </ul>
 
@@ -379,15 +388,17 @@
                 aria-labelledby="multiSelectDropdown"
             style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
-                {% for product in view.get_colors %}
+                {% for color in view.get_colors %}
+                {% if color %}
                 <li style="margin-left:10px;">
                       <label>
                         <input type="checkbox"
                                name="color"
-                               value="{{ product.color }}">
-                        {{ product.color }}
+                               value="{{ color }}">
+                        {{ color }}
                     </label>
                 </li>
+                {% endif %}
                 {% endfor %}
             </ul>
 
@@ -408,12 +419,12 @@
 <div class="container-fluid" style="margin-top:30px;">
     <div class="row g-0">
         {% for prod in products %}
-        {% if category_title == 'Dip система' %}
+        {% if category_title == 'Уход за кожей' or category_title == 'Инструменты' %}
         <div class="card " style="width: 21rem; height: 34rem;">
             <img class="card-img-top" src="{{ prod.image.url }}">
             <div class="card-body">
                 <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
-                    {{ prod.trademark }}, {{ prod.name }}, {{ prod.color}}, {{ prod.volume }} гр</h5>
+                    {{ prod.trademark }}, {{ prod.name }}</h5>
                 <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                     {{ prod.cat }} - {{ prod.subsub.title }}
                 </p>
@@ -421,12 +432,27 @@
                     О товаре</a>
             </div>
         </div>
-        {% else %}
+        {% elif category_title == 'Прочее' %}
         <div class="card " style="width: 21rem; height: 34rem;">
             <img class="card-img-top" src="{{ prod.image.url }}">
             <div class="card-body">
                 <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
-                    {{ prod.trademark }}, {{ prod.name }}, {{ prod.color}}, {{ prod.volume }} мл</h5>
+                    {{ prod.trademark }}, {{ prod.name }}</h5>
+                <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
+                    {{ prod.cat }}
+                </p>
+                <a href="{{ prod.get_absolute_url }}" class="btn btn-primary position-absolute bottom-0 end-0">
+                    О товаре</a>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="card " style="width: 21rem; height: 34rem;">
+
+            <img class="card-img-top" src="{{ prod.image.url }}">
+            <div class="card-body">
+                <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
+                    {{ prod.trademark }}, {{ prod.name }}, {{ prod.color}}</h5>
                 <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                     {{ prod.cat }} - {{ prod.subsub.title }}
                 </p>
