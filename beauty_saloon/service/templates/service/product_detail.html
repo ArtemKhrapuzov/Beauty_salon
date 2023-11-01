@@ -105,16 +105,7 @@
         <img src="{{ product.image.url }}" alt="">
         {% if request.user.is_authenticated %}
         <div class="product-reviews">
-            <h3>Оставить отзыв</h3>
-            <!--            <form action="#" method="post">-->
-            <!--                <label for="name">Name:</label>-->
-            <!--                <input type="text" id="name" name="name">-->
-            <!--                <label for="email">Email:</label>-->
-            <!--                <input type="email" id="email" name="email">-->
-            <!--                <label for="review">Review:</label>-->
-            <!--                <textarea id="review" name="review"></textarea>-->
-            <!--                <button type="submit">Submit Review</button>-->
-            <!--            </form>-->
+            <h3>Оставить отзыв {{ product.reviews_set.count }} </h3>
             <form action="{% url 'add_review' product.id %}" method="post" class="mt-4" id="formReview">
                 {% csrf_token %}
                 <input type="hidden" name="parent" id="contactparent" value="">
@@ -147,33 +138,41 @@
                 </button>
             </form>
 
-            {% for review in product.reviews_set.all %}
-                <div class="media py-5">
-                    <img src="" class="mr-3 img-fluid" alt="image">
-                    <div class="media-body mt-4">
-                        <h5 class="mt-0 editContent">
-                            {{ review.name }}
-                        </h5>
-                        <p class="mt-2 editContent">
-                            {{ review.text }}
-                        </p>
-                        <a href="#formReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">Ответить</a>
-                        {% for rew in review.reviews_set.all %}
-                        <div class="media mt-5 editContent">
-                            <a class="pr-3" href="#">
-                                <img src="{% static 'images/te1.jpg' %}" class="img-fluid " alt="image">
-                            </a>
-                            <div class="media-body">
-                                <h5 class="mt-0 editContent">{{ rew.name }}</h5>
-                                <p class="mt-2 editContent">{{ rew.text }}</p>
-                            </div>
+            {% for review in product.get_review %}
+            <div class="media py-5" >
+                <img src="{% static 'service/images/инкогнито.jpg' %}" align="left" style="width: 70px; height: 60px;"
+                     class="mr-3 img-fluid" alt="image">
+                <div class="media-body mt-4" style="margin: 0 0 0 80px!important;">
+                    <h5 class="mt-0 editContent">
+                        {{ review.name }}
+                    </h5>
+                    <p class="mt-2 editContent">
+                        {{ review.text }}
+                    </p>
+                    <a href="#formReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">Ответить</a>
+                    {% for rew in review.reviews_set.all %}
+                    <div class="media mt-5 editContent">
+                        <a class="pr-3" href="#">
+                            <img src="{% static 'service/images/инкогнито.jpg' %}"  align="left"
+                                 style="width: 70px; height: 60px;" class="img-fluid " alt="image">
+                        </a>
+                        <div class="media-body" style="margin: 0 0 0 80px!important;">
+                            <h5 class="mt-0 editContent">{{ rew.name }}</h5>
+                            <p class="mt-2 editContent">{{ rew.text }}</p>
                         </div>
-                        {% endfor %}
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+            </div>
+            {% endfor %}
 
         </div>
+        <script>
+            function addReview(name, id) {
+                document.getElementById("contactparent").value = id;
+                document.getElementById("contactcomment").innerText = `${name}, `
+            }
+        </script>
         {% endif %}
     </div>
 

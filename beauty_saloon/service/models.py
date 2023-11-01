@@ -46,6 +46,9 @@ class Product(models.Model):
     subsub = models.ForeignKey('Subsubtitle', verbose_name='Подподкатегория', on_delete=models.CASCADE, blank=True,
                                default='')
 
+    def get_review(self):
+        return self.reviews_set.filter(parent__isnull=True)
+
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'slug': self.url})
 
