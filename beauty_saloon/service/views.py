@@ -1,6 +1,8 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+from django.views import View
 from django.views.generic import ListView, DetailView
 
+from service.forms import ReviewForm
 from service.models import *
 
 
@@ -120,7 +122,7 @@ class ProductOtherList(CatTrademarkCountryColor, ListView):
 
 class Filter(CatTrademarkCountryColor, ListView):
     """Фильтр"""
-    template_name = 'service/index.html'
+    template_name = 'service/product_list.html'
     context_object_name = 'products'
 
     def get_queryset(self):
@@ -153,3 +155,18 @@ class NewProduct(ListView):
 
     def get_queryset(self):
         return Product.objects.all().order_by('-id')[:10]
+
+
+class AddReview(View):
+    """Отзывы"""
+
+    def post(self, request, pk):
+        form = ReviewForm(request.POST)
+        product = Product.objects.get(id=pk)
+        if form.is_valid():
+            form = form.save(commit=False)
+            if request.POST.get("parent", None):
+                form.parent_id = int(request.POST.get("parent"))
+            form.product = product
+            form.save()
+        return redirect(product.get_absolute_url())

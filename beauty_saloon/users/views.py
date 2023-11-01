@@ -74,6 +74,24 @@ class RegisterUser(View):
         }
         return render(request, self.template_name, context)
 
+    # def post(self, request):
+    #     """Подтверждение почты через Celery"""
+    #     form = RegisterUserForm(request.POST)
+    #
+    #     if form.is_valid():
+    #         user = form.save(commit=False)  # создаем новый объект модели, но не сохраняем его в БД
+    #         email = form.cleaned_data.get('email')
+    #         password = form.cleaned_data.get('password1')
+    #         user.set_password(password)  # устанавливаем пароль для пользователя
+    #         user.save()  # сохраняем пользователя в БД
+    #         user = authenticate(request, email=email, password=password)
+    #         send_email.delay(user.id)
+    #         return redirect('confirm_email')
+    #     context = {
+    #         'form': form
+    #     }
+    #     return render(request, self.template_name, context)
+
 
 def logout_user(request):
     """Выход из авторизации"""
