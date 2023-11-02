@@ -1,8 +1,10 @@
 {% extends 'service/base.html' %}
+{% load static %}
 
 {% block content %}
 {% if subtitle_title %}
-<h6 style="margin-left:10px"><a href="/" style="text-decoration: none; color: black;">Главная</a> - {{ category_title }} - {{ subtitle_title }}
+<h6 style="margin-left:10px"><a href="/" style="text-decoration: none; color: black;">Главная</a> - {{ category_title }}
+    - {{ subtitle_title }}
 </h6>
 
 <h1 style="margin-left:10px">{{ subtitle_title }}</h1>
@@ -16,11 +18,8 @@
 {% endif%}
 
 
-
-
-
 {% if category_title == 'Гель-лаки' or category_title == 'Наращивание и моделирование' or category_title == 'Dip система' %}
-<form action="{% url 'filter'  %}" method="get" >
+<form action="{% url 'filter'  %}" method="get">
     <div class="container" style="margin-left: 0;">
         <div class="dropdown">
 
@@ -29,17 +28,17 @@
                     id="multiSelectDropdown"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-                    style="background:#cafcf9; color: black; width: 150px;" >
+                    style="background:#cafcf9; color: black; width: 150px;">
                 ОБЪЁМ
             </button>
             <ul class="dropdown-menu"
                 aria-labelledby="multiSelectDropdown"
-            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
                 {% for volume in view.get_volumes %}
                 {% if volume %}
                 <li style="margin-left:10px;">
-                      <label>
+                    <label>
                         <input type="checkbox"
                                name="volume"
                                value="{{ volume }}">
@@ -55,16 +54,16 @@
                     id="multiSelectDropdown"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-             style="background:#cafcf9; color: black;  width: 150px;">
+                    style="background:#cafcf9; color: black;  width: 150px;">
                 БРЕНД
             </button>
             <ul class="dropdown-menu "
                 aria-labelledby="multiSelectDropdown"
-            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
                 {% for trademark in view.get_trademarks %}
                 <li style="margin-left:10px;">
-                      <label>
+                    <label>
                         <input type="checkbox"
                                name="trademark"
                                value="{{ trademark }}">
@@ -79,17 +78,17 @@
                     id="multiSelectDropdown"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-             style="background:#cafcf9; color: black;  width: 150px; ">
-            ЦВЕТ
+                    style="background:#cafcf9; color: black;  width: 150px; ">
+                ЦВЕТ
             </button>
             <ul class="dropdown-menu"
                 aria-labelledby="multiSelectDropdown"
-            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
                 {% for color in view.get_colors %}
                 {% if color %}
                 <li style="margin-left:10px;">
-                      <label>
+                    <label>
                         <input type="checkbox"
                                name="color"
                                value="{{ color }}">
@@ -102,7 +101,7 @@
 
             <button class="btn btn-success"
                     type="submit"
-                     style="background:#cafcf9; color: black;"
+                    style="background:#cafcf9; color: black;"
                     aria-expanded="false">
                 НАЙТИ
             </button>
@@ -114,7 +113,7 @@
 
 
 {% elif category_title == 'Дизайн ногтей' or category_title == 'Оборудование'%}
-<form action="{% url 'filter' %}" method="get" >
+<form action="{% url 'filter' %}" method="get">
     <div class="container" style="margin-left: 0;">
         <div class="dropdown">
 
@@ -124,16 +123,16 @@
                     id="multiSelectDropdown"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-             style="background:#cafcf9; color: black;  width: 150px;">
+                    style="background:#cafcf9; color: black;  width: 150px;">
                 БРЕНД
             </button>
             <ul class="dropdown-menu "
                 aria-labelledby="multiSelectDropdown"
-            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
                 {% for trademark in view.get_trademarks %}
                 <li style="margin-left:10px;">
-                      <label>
+                    <label>
                         <input type="checkbox"
                                name="trademark"
                                value="{{ trademark }}">
@@ -148,17 +147,17 @@
                     id="multiSelectDropdown"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-             style="background:#cafcf9; color: black;  width: 150px; ">
-            ЦВЕТ
+                    style="background:#cafcf9; color: black;  width: 150px; ">
+                ЦВЕТ
             </button>
             <ul class="dropdown-menu"
                 aria-labelledby="multiSelectDropdown"
-            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
                 {% for color in view.get_colors %}
                 {% if color %}
                 <li style="margin-left:10px;">
-                      <label>
+                    <label>
                         <input type="checkbox"
                                name="color"
                                value="{{ color }}">
@@ -171,7 +170,7 @@
 
             <button class="btn btn-success"
                     type="submit"
-                     style="background:#cafcf9; color: black;"
+                    style="background:#cafcf9; color: black;"
                     aria-expanded="false">
                 НАЙТИ
             </button>
@@ -183,7 +182,7 @@
 
 
 {% elif category_title == 'Уход за кожей' %}
-<form action="{% url 'filter' %}" method="get" >
+<form action="{% url 'filter' %}" method="get">
     <div class="container" style="margin-left: 0;">
         <div class="dropdown">
 
@@ -193,16 +192,16 @@
                     id="multiSelectDropdown"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-             style="background:#cafcf9; color: black;  width: 150px;">
+                    style="background:#cafcf9; color: black;  width: 150px;">
                 БРЕНД
             </button>
             <ul class="dropdown-menu "
                 aria-labelledby="multiSelectDropdown"
-            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
                 {% for trademark in view.get_trademarks %}
                 <li style="margin-left:10px;">
-                      <label>
+                    <label>
                         <input type="checkbox"
                                name="trademark"
                                value="{{ trademark }}">
@@ -217,17 +216,17 @@
                     id="multiSelectDropdown"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-             style="background:#cafcf9; color: black;  width: 150px; ">
-            ДЛЯ ЧЕГО
+                    style="background:#cafcf9; color: black;  width: 150px; ">
+                ДЛЯ ЧЕГО
             </button>
             <ul class="dropdown-menu"
                 aria-labelledby="multiSelectDropdown"
-            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
                 {% for for_what in view.get_for_whats %}
                 {% if for_what not in 'default' %}
                 <li style="margin-left:10px;">
-                      <label>
+                    <label>
                         <input type="checkbox"
                                name="for_what"
                                value="{{ for_what }}">
@@ -240,7 +239,7 @@
 
             <button class="btn btn-success"
                     type="submit"
-                     style="background:#cafcf9; color: black;"
+                    style="background:#cafcf9; color: black;"
                     aria-expanded="false">
                 НАЙТИ
             </button>
@@ -252,7 +251,7 @@
 
 
 {% elif category_title == 'Инструменты' %}
-<form action="{% url 'filter' %}" method="get" >
+<form action="{% url 'filter' %}" method="get">
     <div class="container" style="margin-left: 0;">
         <div class="dropdown">
 
@@ -262,16 +261,16 @@
                     id="multiSelectDropdown"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-             style="background:#cafcf9; color: black;  width: 150px;">
+                    style="background:#cafcf9; color: black;  width: 150px;">
                 БРЕНД
             </button>
             <ul class="dropdown-menu "
                 aria-labelledby="multiSelectDropdown"
-            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
                 {% for trademark in view.get_trademarks %}
                 <li style="margin-left:10px;">
-                      <label>
+                    <label>
                         <input type="checkbox"
                                name="trademark"
                                value="{{ trademark }}">
@@ -286,17 +285,17 @@
                     id="multiSelectDropdown"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-             style="background:#cafcf9; color: black;  width: 150px; ">
-            ДЛЯ ЧЕГО
+                    style="background:#cafcf9; color: black;  width: 150px; ">
+                ДЛЯ ЧЕГО
             </button>
             <ul class="dropdown-menu"
                 aria-labelledby="multiSelectDropdown"
-            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
                 {% for for_what_tools in view.get_for_what_tools %}
                 {% if for_what_tools not in 'default' %}
                 <li style="margin-left:10px;">
-                      <label>
+                    <label>
                         <input type="checkbox"
                                name="for_what_tools"
                                value="{{ for_what_tools }}">
@@ -309,7 +308,7 @@
 
             <button class="btn btn-success"
                     type="submit"
-                     style="background:#cafcf9; color: black;"
+                    style="background:#cafcf9; color: black;"
                     aria-expanded="false">
                 НАЙТИ
             </button>
@@ -321,7 +320,7 @@
 
 
 {% elif category_title == 'Прочее' %}
-<form action="{% url 'filter' %}" method="get" >
+<form action="{% url 'filter' %}" method="get">
     <div class="container" style="margin-left: 0;">
         <div class="dropdown">
 
@@ -331,16 +330,16 @@
                     id="multiSelectDropdown"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-             style="background:#cafcf9; color: black;  width: 150px;">
+                    style="background:#cafcf9; color: black;  width: 150px;">
                 БРЕНД
             </button>
             <ul class="dropdown-menu "
                 aria-labelledby="multiSelectDropdown"
-            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
                 {% for trademark in view.get_trademarks %}
                 <li style="margin-left:10px;">
-                      <label>
+                    <label>
                         <input type="checkbox"
                                name="trademark"
                                value="{{ trademark }}">
@@ -355,17 +354,17 @@
                     id="multiSelectDropdown"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-             style="background:#cafcf9; color: black;  width: 150px; ">
-            ДЛЯ ЧЕГО
+                    style="background:#cafcf9; color: black;  width: 150px; ">
+                ДЛЯ ЧЕГО
             </button>
             <ul class="dropdown-menu"
                 aria-labelledby="multiSelectDropdown"
-            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
                 {% for for_what in view.get_for_whats %}
                 {% if for_what not in 'default' %}
                 <li style="margin-left:10px;">
-                      <label>
+                    <label>
                         <input type="checkbox"
                                name="for_what"
                                value="{{ for_what }}">
@@ -381,17 +380,17 @@
                     id="multiSelectDropdown"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-             style="background:#cafcf9; color: black;  width: 150px; ">
-            ЦВЕТ
+                    style="background:#cafcf9; color: black;  width: 150px; ">
+                ЦВЕТ
             </button>
             <ul class="dropdown-menu"
                 aria-labelledby="multiSelectDropdown"
-            style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
 
                 {% for color in view.get_colors %}
                 {% if color %}
                 <li style="margin-left:10px;">
-                      <label>
+                    <label>
                         <input type="checkbox"
                                name="color"
                                value="{{ color }}">
@@ -404,7 +403,7 @@
 
             <button class="btn btn-success"
                     type="submit"
-                     style="background:#cafcf9; color: black;"
+                    style="background:#cafcf9; color: black;"
                     aria-expanded="false">
                 НАЙТИ
             </button>
@@ -428,6 +427,8 @@
                 <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                     {{ prod.cat }} - {{ prod.subsub.title }}
                 </p>
+                <p><img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
+                    {{ prod.reviews_set.count }}</p>
                 <a href="{{ prod.get_absolute_url }}" class="btn btn-primary position-absolute bottom-0 end-0">
                     О товаре</a>
             </div>
@@ -441,6 +442,8 @@
                 <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                     {{ prod.cat }}
                 </p>
+                <p><img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
+                    {{ prod.reviews_set.count }}</p>
                 <a href="{{ prod.get_absolute_url }}" class="btn btn-primary position-absolute bottom-0 end-0">
                     О товаре</a>
             </div>
@@ -456,8 +459,11 @@
                 <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                     {{ prod.cat }} - {{ prod.subsub.title }}
                 </p>
-                <a href="{{ prod.get_absolute_url }}" class="btn btn-primary position-absolute bottom-0 end-0">
-                    О товаре</a>
+                <p class="position-absolute bottom-0 end-0">
+                    <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
+                    {{ prod.reviews_set.count }}
+                <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
+                    О товаре</a></p>
             </div>
         </div>
         {% endif %}
