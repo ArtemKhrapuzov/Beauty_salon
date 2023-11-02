@@ -427,10 +427,11 @@
                 <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                     {{ prod.cat }} - {{ prod.subsub.title }}
                 </p>
-                <p><img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
-                    {{ prod.reviews_set.count }}</p>
-                <a href="{{ prod.get_absolute_url }}" class="btn btn-primary position-absolute bottom-0 end-0">
-                    О товаре</a>
+                <p class="position-absolute bottom-0 end-0">
+                    <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
+                    {{ prod.reviews_set.count }}
+                <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
+                    О товаре</a></p>
             </div>
         </div>
         {% elif category_title == 'Прочее' %}
@@ -442,10 +443,11 @@
                 <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                     {{ prod.cat }}
                 </p>
-                <p><img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
-                    {{ prod.reviews_set.count }}</p>
-                <a href="{{ prod.get_absolute_url }}" class="btn btn-primary position-absolute bottom-0 end-0">
-                    О товаре</a>
+                <p class="position-absolute bottom-0 end-0">
+                    <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
+                    {{ prod.reviews_set.count }}
+                <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
+                    О товаре</a></p>
             </div>
         </div>
 
