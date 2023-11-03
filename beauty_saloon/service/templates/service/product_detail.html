@@ -12,21 +12,30 @@
     <div class="product__photo">
         <img src="{{ product.image.url }}" alt="">
 
-        <form action="{% url 'add_rating' %}" method="post" name="rating">
-            <b>Рейтинг:</b>
-            {% csrf_token %}
-            <input type="hidden" value="{{ product.id }}" name="product">
-            <span class="rating">
-                                {% for k, v in star_form.fields.star.choices %}
-                                    <input id="rating{{ v }}" type="radio" name="star"
-                                           value="{{ k }}">
-                                    <label for="rating{{ v }}">{{ k }}</label>
-                                {% endfor %}
-                            </span>
-            {% if product.average_rating %}
-            <span class="editContent">{{ product.average_rating }}</span>
-            {% endif %}
-        </form>
+        <div class="form__itemm">
+            <div class="form__labell"></div>
+            <center>
+                <div class="ratingg" style="">
+                <div class="rating__bodyy">
+                <div class="rating__activee"></div>
+                <div class="rating__itemss">
+                    <input type="radio" class="rating__itemm" value="1" name="ratingg">
+                    <input type="radio" class="rating__itemm" value="2" name="ratingg">
+                    <input type="radio" class="rating__itemm" value="3" name="ratingg">
+                    <input type="radio" class="rating__itemm" value="4" name="ratingg">
+                    <input type="radio" class="rating__itemm" value="5" name="ratingg">
+                </div>
+                </div>
+                {% if product.average_rating != 'None' %}
+                <div class="rating__valuee" >{{ product.average_rating }}</div>
+                {% endif %}
+            </div>
+            </center>
+
+        </div>
+
+
+
 
 
         <div class="product-reviews">
@@ -116,23 +125,38 @@
                 </div>
 
         </div>
-        <script>
-            function addReview(name, id) {
-                document.getElementById("contactparent").value = id;
-                document.getElementById("contactcomment").innerText = `${name}, `
-            }
-
-
-
-
-        </script>
-
     </div>
 
     <div class="product__info">
         <div class="title">
             <h1>{{ product.trademark }}, {{ product.name }}</h1>
-            <span>чото там чототам</span>
+
+
+            <form action="{% url 'add_rating' %}" method="post" name="rating">
+                <b>Рейтинг:</b>
+                {% csrf_token %}
+                <input type="hidden" value="{{ product.id }}" name="product">
+                <span class="rating">
+            {% for k, v in star_form.fields.star.choices %}
+                <input id="rating{{ v }}" type="radio" name="star"
+                       value="{{ k }}">
+                <label for="rating{{ v }}">{{ k }}</label>
+            {% endfor %}
+            </span>
+                {% if product.average_rating != 'None' %}
+                <span class="editContent">{{ product.average_rating }}</span>
+                {% endif %}
+            </form>
+
+            <script>
+        function addReview(name, id) {
+            document.getElementById("contactparent").value = id;
+            document.getElementById("contactcomment").innerText = `${name}, `
+        }
+
+            </script>
+
+
         </div>
         <div class="product-specs">
             <h3>Основные характеристики</h3>
@@ -181,6 +205,8 @@ function toggleTab(tabName) {
   document.getElementById(tabName).classList.add("active");
   event.currentTarget.classList.add("active");
 }
+
+
 
 
 

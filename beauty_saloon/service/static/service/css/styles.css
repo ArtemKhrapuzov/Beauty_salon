@@ -151,6 +151,8 @@ table {
   height: 30px;
 }
 
+
+
 .rating > input {
   opacity: 0;
   margin-right: -100%;
@@ -177,6 +179,102 @@ table {
 
 .rating > label:hover:before,  .rating > label:hover ~ label:before,  .rating:not(:hover) > :checked ~ label:before { opacity: 1; }
 /* //Checkbox stars */
+
+/* static stars rating */
+
+.form__itemm {
+    width: 450px;
+}
+.ratingg {
+    display: flex;
+    align-items: flex-end;
+    font-size; 40px;
+    line-height: 0.75;
+    width: 155px;
+    height: 30px;
+}
+
+.rating__bodyy {
+    position: relative;
+}
+.rating__bodyy::before {
+    content: "★★★★★";
+    display: block;
+    font-size:40px;
+    color: grey;
+}
+.rating__bodyy_list {
+    position: relative;
+}
+
+.rating__bodyy_list::before {
+    content: "★★★★★";
+    display: block;
+    font-size:20px;
+    color: grey;
+}
+
+.rating__activee {
+    position: absolute;
+    width: 0%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.rating__activee::before {
+    content: "★★★★★";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    color: #ffd300;
+    font-size:40px;
+}
+
+.rating__activee_list {
+    position: absolute;
+    width: 0%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.rating__activee_list::before {
+    content: "★★★★★";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    color: #ffd300;
+    font-size:20px;
+}
+
+.rating__itemss {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.rating__itemm {
+    flex: 0 0 20%;
+    height: 100%;
+    opacity: 0;
+}
+
+.rating__valuee {
+    font-size: 100%;
+    line-height: 1;
+    padding: 0px; 0px; 0px; 10px;
+}
+
+
+/* end stars rating */
 
 .search {
   position: relative;

@@ -12,28 +12,54 @@ rating.addEventListener("change", function (e) {
         .catch(error => alert("Ошибка"))
 });
 
-//const rating = document.querySelector('form[name=rating]');
-//const stars = document.querySelectorAll('.rating input[type=radio]');
-//
-//rating.addEventListener("change", function (e) {
-//    // Получаем данные из формы
-//    let data = new FormData(this);
-//    fetch(${this.action}, {
-//        method: 'POST',
-//        body: data
-//    })
-//        .then(response => {
-//            alert("Рейтинг установлен");
-//            // Обновляем количество звезд
-//            const averageRating = document.querySelector('.editContent').textContent;
-//            const fullStars = Math.floor(averageRating);
-//            const halfStar = (averageRating - fullStars) >= 0.5 ? 1 : 0;
-//            for (let i = 0; i < fullStars; i++) {
-//                stars[i].classList.add('active');
-//            }
-//            if (halfStar) {
-//                stars[fullStars].classList.add('half');
-//            }
-//        })
-//        .catch(error => alert("Ошибка"))
-//});
+
+//static star //
+
+"use strict"
+const ratings = document.querySelectorAll('.ratingg');
+if (ratings.length > 0) {
+    initRatings();
+}
+
+// base fun
+function initRatings() {
+    let ratingActive, ratingValue;
+    for (let index = 0; index < ratings.length; index++) {
+        const rating = ratings[index];
+        initRating(rating);
+    }
+
+    function initRating(rating) {
+        initRatingVars(rating);
+
+        setRatingActiveWidth();
+    }
+    function initRatingVars(rating) {
+        ratingActive = rating.querySelector('.rating__activee');
+        ratingValue = rating.querySelector('.rating__valuee');
+    }
+
+    function setRatingActiveWidth(index = ratingValue.innerHTML) {
+        const ratingActiveWidth = index / 0.05;
+        ratingActive.style.width = `${ratingActiveWidth}%`;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

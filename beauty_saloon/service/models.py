@@ -46,7 +46,9 @@ class Product(models.Model):
                                default='')
 
     def average_rating(self):
-        return Rating.objects.filter(product=self).aggregate(Avg('star'))['star__avg']
+        result = Rating.objects.filter(product=self).aggregate(Avg('star'))['star__avg']
+        return str(round(result, 1)).replace(',', '.')
+
 
     def get_review(self):
         return self.reviews_set.filter(parent__isnull=True)

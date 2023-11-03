@@ -427,11 +427,34 @@
                 <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                     {{ prod.cat }} - {{ prod.subsub.title }}
                 </p>
-                <p class="position-absolute bottom-0 end-0">
-                    <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
+                <div class="position-absolute bottom-0 end-0" style="display: flex;">
+
+                    <div class="form__itemm" style="width:100px; padding-right:30px;">
+                        <div class="form__labell"></div>
+                        <div class="ratingg" style="">
+                            <div class="rating__bodyy_list">
+                                <div class="rating__activee_list"></div>
+                                <div class="rating__itemss">
+                                    <input type="radio" class="rating__itemm" value="1" name="ratingg">
+                                    <input type="radio" class="rating__itemm" value="2" name="ratingg">
+                                    <input type="radio" class="rating__itemm" value="3" name="ratingg">
+                                    <input type="radio" class="rating__itemm" value="4" name="ratingg">
+                                    <input type="radio" class="rating__itemm" value="5" name="ratingg">
+                                </div>
+                            </div>
+                            {% if prod.average_rating != 'None' %}
+                            <div class="rating__valuee" style="font-size: 60%;">{{ prod.average_rating }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div>
+                        <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
                     {{ prod.reviews_set.count }}
-                <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
-                    О товаре</a></p>
+                    <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
+                        О товаре</a>
+                    </div>
+
+                </div>
             </div>
         </div>
         {% elif category_title == 'Прочее' %}
@@ -443,11 +466,34 @@
                 <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                     {{ prod.cat }}
                 </p>
-                <p class="position-absolute bottom-0 end-0">
-                    <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
+                <div class="position-absolute bottom-0 end-0" style="display: flex;">
+
+                    <div class="form__itemm" style="width:100px; padding-right:30px;">
+                        <div class="form__labell"></div>
+                        <div class="ratingg" style="">
+                            <div class="rating__bodyy_list">
+                                <div class="rating__activee_list"></div>
+                                <div class="rating__itemss">
+                                    <input type="radio" class="rating__itemm" value="1" name="ratingg">
+                                    <input type="radio" class="rating__itemm" value="2" name="ratingg">
+                                    <input type="radio" class="rating__itemm" value="3" name="ratingg">
+                                    <input type="radio" class="rating__itemm" value="4" name="ratingg">
+                                    <input type="radio" class="rating__itemm" value="5" name="ratingg">
+                                </div>
+                            </div>
+                            {% if prod.average_rating != 'None' %}
+                            <div class="rating__valuee" style="font-size: 60%;">{{ prod.average_rating }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div>
+                        <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
                     {{ prod.reviews_set.count }}
-                <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
-                    О товаре</a></p>
+                    <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
+                        О товаре</a>
+                    </div>
+
+                </div>
             </div>
         </div>
 
@@ -461,16 +507,73 @@
                 <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                     {{ prod.cat }} - {{ prod.subsub.title }}
                 </p>
-                <p class="position-absolute bottom-0 end-0">
-                    <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
+                <div class="position-absolute bottom-0 end-0" style="display: flex;">
+
+                    <div class="form__itemm" style="width:100px;">
+                        <div class="form__labell"></div>
+                        <div class="ratingg" style="">
+                            <div class="rating__bodyy_list">
+                                <div class="rating__activee_list"></div>
+                                <div class="rating__itemss">
+                                    <input type="radio" class="rating__itemm" value="1" name="ratingg">
+                                    <input type="radio" class="rating__itemm" value="2" name="ratingg">
+                                    <input type="radio" class="rating__itemm" value="3" name="ratingg">
+                                    <input type="radio" class="rating__itemm" value="4" name="ratingg">
+                                    <input type="radio" class="rating__itemm" value="5" name="ratingg">
+                                </div>
+                            </div>
+                            {% if prod.average_rating != 'None' %}
+                            <div class="rating__valuee" style="font-size: 60%;">{{ prod.average_rating }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div>
+                        <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
                     {{ prod.reviews_set.count }}
-                <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
-                    О товаре</a></p>
+                    <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
+                        О товаре</a>
+                    </div>
+
+                </div>
             </div>
         </div>
         {% endif %}
+
         {% endfor %}
     </div>
 </div>
 
+
+
+<script>
+    "use strict"
+const ratings = document.querySelectorAll('.ratingg');
+if (ratings.length > 0) {
+    initRatings();
+}
+
+// base fun
+function initRatings() {
+    let ratingActive, ratingValue;
+    for (let index = 0; index < ratings.length; index++) {
+        const rating = ratings[index];
+        initRating(rating);
+    }
+
+    function initRating(rating) {
+        initRatingVars(rating);
+
+        setRatingActiveWidth();
+    }
+    function initRatingVars(rating) {
+        ratingActive = rating.querySelector('.rating__activee_list');
+        ratingValue = rating.querySelector('.rating__valuee');
+    }
+
+    function setRatingActiveWidth(index = ratingValue.innerHTML) {
+        const ratingActiveWidth = index / 0.05;
+        ratingActive.style.width = `${ratingActiveWidth}%`;
+    }
+}
+</script>
 {% endblock %}
