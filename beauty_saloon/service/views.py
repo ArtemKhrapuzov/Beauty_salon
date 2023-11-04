@@ -1,4 +1,4 @@
-from django.db.models import Avg
+from django.db.models import Avg, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
@@ -19,13 +19,15 @@ class CatTrademarkCountryColor:
         else:
             return []
 
+
     def get_colors(self):
-        if 'cat_slug' in self.kwargs:
-            cat_slug = self.kwargs['cat_slug']
-            return Product.objects.filter(cat__url=cat_slug).order_by('color').values_list('color',
-                                                                                           flat=True).distinct()
-        else:
-            return []
+            if 'cat_slug' in self.kwargs:
+                cat_slug = self.kwargs['cat_slug']
+                return Product.objects.filter(cat__url=cat_slug).order_by('color').values_list('color',
+                                                                                               flat=True).distinct()
+            else:
+                return []
+
 
     def get_volumes(self):
         if 'cat_slug' in self.kwargs:
@@ -63,6 +65,7 @@ class Index(ListView):
 
 
 class ProductList(CatTrademarkCountryColor, ListView):
+    """Product list"""
     model = Product
     slug_field = 'url'
     context_object_name = 'products'
@@ -124,7 +127,8 @@ class ProductOtherList(CatTrademarkCountryColor, ListView):
 
 class Filter(CatTrademarkCountryColor, ListView):
     """Фильтр"""
-    template_name = 'service/product_list.html'
+
+    template_name = 'service/filter_result.html'
     context_object_name = 'products'
 
     def get_queryset(self):
@@ -140,6 +144,13 @@ class Filter(CatTrademarkCountryColor, ListView):
         if "for_what_tools" in self.request.GET:
             queryset = queryset.filter(for_what_tools__in=self.request.GET.getlist("for_what_tools"))
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products_count = self.get_queryset().count()
+        context['products_count'] = products_count
+        return context
+
 
 
 class ProductDetail(DetailView):
@@ -203,3 +214,22 @@ class AddStarRating(View):
             return HttpResponse(status=400)
 
 
+class Search(ListView):
+    """Поиск продуктов"""
+    #paginate_by = 3
+    template_name = 'service/filter_result.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        product = Product.objects.filter(Q(name__icontains=self.request.GET.get("q")) |
+                                         Q(trademark__icontains=self.request.GET.get("q")) |
+                                         Q(color__icontains=self.request.GET.get("q")))
+        return product
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["q"] = self.request.GET.get("q")
+        products_count = self.get_queryset().count()
+        context['products_count'] = products_count
+        return context

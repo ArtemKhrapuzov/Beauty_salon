@@ -13,29 +13,30 @@
         <img src="{{ product.image.url }}" alt="">
 
         <div class="form__itemm">
-            <div class="form__labell"></div>
             <center>
+            <div class="form__labell"></div>
+
                 <div class="ratingg" style="">
-                <div class="rating__bodyy">
-                <div class="rating__activee"></div>
-                <div class="rating__itemss">
-                    <input type="radio" class="rating__itemm" value="1" name="ratingg">
-                    <input type="radio" class="rating__itemm" value="2" name="ratingg">
-                    <input type="radio" class="rating__itemm" value="3" name="ratingg">
-                    <input type="radio" class="rating__itemm" value="4" name="ratingg">
-                    <input type="radio" class="rating__itemm" value="5" name="ratingg">
+                    <b>Рейтинг:</b>
+                    <div class="rating__bodyy">
+                        <div class="rating__activee"></div>
+                        <div class="rating__itemss">
+                            <input type="radio" class="rating__itemm" value="1" name="ratingg">
+                            <input type="radio" class="rating__itemm" value="2" name="ratingg">
+                            <input type="radio" class="rating__itemm" value="3" name="ratingg">
+                            <input type="radio" class="rating__itemm" value="4" name="ratingg">
+                            <input type="radio" class="rating__itemm" value="5" name="ratingg">
+                        </div>
+                    </div>
+                    {% if product.average_rating != 'None' %}
+                    <div class="rating__valuee">{{ product.average_rating }}</div>
+                    {% else %}
+                    <div class="rating__valuee" hidden>0</div>
+                    {% endif %}
                 </div>
-                </div>
-                {% if product.average_rating != 'None' %}
-                <div class="rating__valuee" >{{ product.average_rating }}</div>
-                {% endif %}
-            </div>
             </center>
 
         </div>
-
-
-
 
 
         <div class="product-reviews">
@@ -133,7 +134,7 @@
 
 
             <form action="{% url 'add_rating' %}" method="post" name="rating">
-                <b>Рейтинг:</b>
+                <b>Ваш рейтинг:</b>
                 {% csrf_token %}
                 <input type="hidden" value="{{ product.id }}" name="product">
                 <span class="rating">
@@ -153,6 +154,7 @@
             document.getElementById("contactparent").value = id;
             document.getElementById("contactcomment").innerText = `${name}, `
         }
+
 
             </script>
 
@@ -205,6 +207,7 @@ function toggleTab(tabName) {
   document.getElementById(tabName).classList.add("active");
   event.currentTarget.classList.add("active");
 }
+
 
 
 

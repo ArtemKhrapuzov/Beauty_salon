@@ -3,14 +3,12 @@ from django.db.models import Avg
 from django.urls import reverse
 
 FOR_WHAT = (
-
     ('Для рук', 'Для рук'),
     ('Для ног', 'Для ног'),
     ('Для ногтей', 'Для ногтей'),
 )
 
 FOR_WHAT_TOOLS = (
-
     ('Для маникюра', 'Для маникюра'),
     ('Для педикюра', 'Для педикюра'),
 )

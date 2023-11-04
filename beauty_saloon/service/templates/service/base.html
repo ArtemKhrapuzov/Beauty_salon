@@ -48,12 +48,15 @@
 
                     <li class="last" style="margin: 8px 0 0 0;">
                         <div class="d1">
-                            <form class="search">
-                                <input type="text" style="background: #cafcf9" placeholder="Искать здесь...">
+                            <form action="{% url 'search' %}" method="get" class="search">
+                                <input type="search" style="background: #cafcf9" name="q" placeholder="Поиск..."
+                                       required="">
                                 <button type="submit"></button>
                             </form>
                         </div>
                     </li>
+
+
 
                 </ul>
 
@@ -70,7 +73,7 @@
                         border:none;" aria-expanded="false">{{ cat.title }}</a>
                     {% else %}
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                style="color:black; font-size:17px; overflow: hidden; height: 40px; background:#cafcf9; border:none;"
+                            style="color:black; font-size:17px; overflow: hidden; height: 40px; background:#cafcf9; border:none;"
                             data-bs-toggle="dropdown"
                             aria-expanded="false">{{ cat.title }}
                     </button>
@@ -80,7 +83,7 @@
                         {% for subtitle in subtitles %}
 
                         <ul style="display:inline;"><a class="dropdown-item" style="color:#4dd8f7; "
-          href="{% url 'product_list_sub' cat_slug=cat.url subtitle_slug=subtitle.url  %}">
+                                                       href="{% url 'product_list_sub' cat_slug=cat.url subtitle_slug=subtitle.url  %}">
                             {{subtitle.title}}:
                         </a>
                         </ul>
@@ -91,7 +94,7 @@
 
                         <ul><a class="dropdown-item"
                                style="color: black; font-size: 13px;"
-      href="{% url 'product_list_subsub' cat_slug=cat.url subtitle_slug=subtitle.url subsub_slug=subsubtitle.url %}">
+                               href="{% url 'product_list_subsub' cat_slug=cat.url subtitle_slug=subtitle.url subsub_slug=subsubtitle.url %}">
                             {{subsubtitle.title}}
                         </a>
                         </ul>
