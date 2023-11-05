@@ -1,6 +1,8 @@
 {% extends 'service/base.html' %}
 
 {% block content %}
+<small style="margin-left:10px; color:grey; font-size:15px;"> колличество товаров: {{ products|length }}</small>
+
 <div class="container-fluid">
     <div class="row g-0">
         {% for prod in products %}

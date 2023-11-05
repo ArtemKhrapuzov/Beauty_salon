@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView
+from django.contrib.postgres.search import SearchVector
 
 from service.forms import ReviewForm, RatingForm
 from service.models import *
@@ -221,11 +222,10 @@ class Search(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        product = Product.objects.filter(Q(name__icontains=self.request.GET.get("q")) |
-                                         Q(trademark__icontains=self.request.GET.get("q")) |
-                                         Q(color__icontains=self.request.GET.get("q")))
-        return product
-
+        search_vector = SearchVector('name', 'trademark', 'color')
+        if ('q' in self.request.GET) and self.request.GET['q'].strip():
+            query_string = self.request.GET['q']
+            return Product.objects.annotate(search=search_vector).filter(search=query_string)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

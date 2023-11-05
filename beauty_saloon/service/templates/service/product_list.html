@@ -8,13 +8,13 @@
 </h6>
 
 <h1 style="margin-left:10px">{{ subtitle_title }}</h1>
-<small style="margin-left:10px; color:grey; font-size:15px;"> колличество товаров: {{ products_count }}</small>
+<small style="margin-left:10px; color:grey; font-size:15px;"> колличество товаров: {{ products|length }}</small>
 {% else %}
 <h6 style="margin-left:10px"><a href="/" style="text-decoration: none; color: black;">Главная</a>
 </h6>
 
 <h1 style="margin-left:10px">{{ category_title }}</h1>
-<small style="margin-left:10px; color:grey; font-size:15px;"> колличество товаров: {{ products_count }}</small>
+<small style="margin-left:10px; color:grey; font-size:15px;"> колличество товаров: {{ products|length }}</small>
 {% endif%}
 
 
