@@ -20,15 +20,13 @@ class CatTrademarkCountryColor:
         else:
             return []
 
-
     def get_colors(self):
-            if 'cat_slug' in self.kwargs:
-                cat_slug = self.kwargs['cat_slug']
-                return Product.objects.filter(cat__url=cat_slug).order_by('color').values_list('color',
-                                                                                               flat=True).distinct()
-            else:
-                return []
-
+        if 'cat_slug' in self.kwargs:
+            cat_slug = self.kwargs['cat_slug']
+            return Product.objects.filter(cat__url=cat_slug).order_by('color').values_list('color',
+                                                                                           flat=True).distinct()
+        else:
+            return []
 
     def get_volumes(self):
         if 'cat_slug' in self.kwargs:
@@ -49,7 +47,7 @@ class CatTrademarkCountryColor:
     def get_for_what_tools(self):
         if 'cat_slug' in self.kwargs:
             cat_slug = self.kwargs['cat_slug']
-            return Product.objects.filter(cat__url=cat_slug).order_by('for_what_tools').\
+            return Product.objects.filter(cat__url=cat_slug).order_by('for_what_tools'). \
                 values_list('for_what_tools', flat=True).distinct()
         else:
             return []
@@ -64,12 +62,17 @@ class Index(ListView):
     def get_queryset(self):
         return Product.objects.all()
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Интернет портал косметики'
+        return context
 
 class ProductList(CatTrademarkCountryColor, ListView):
     """Product list"""
     model = Product
     slug_field = 'url'
     context_object_name = 'products'
+    paginate_by = 60
 
     def get_queryset(self):
         subsub_slug = self.kwargs.get('subsub_slug')
@@ -90,10 +93,9 @@ class ProductList(CatTrademarkCountryColor, ListView):
         subtitle = get_object_or_404(Subtitle, url=subtitle_slug)
         category_title = subtitle.cat.title
         subtitle_title = subtitle.title
-        products_count = self.get_queryset().count()
         context['category_title'] = category_title
         context['subtitle_title'] = subtitle_title
-        context['products_count'] = products_count
+        context['title'] = f'{category_title}, {subtitle_title}'
         return context
 
 
@@ -102,6 +104,7 @@ class ProductOtherList(CatTrademarkCountryColor, ListView):
     model = Product
     slug_field = 'url'
     context_object_name = 'products'
+    paginate_by = 60
 
     def get_queryset(self):
         cat_slug = self.kwargs.get('cat_slug')
@@ -116,21 +119,19 @@ class ProductOtherList(CatTrademarkCountryColor, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        products_count = self.get_queryset().count()
-
         category = Category.objects.get(url=self.kwargs['cat_slug'])
         category_title = category.title
-
-        context['products_count'] = products_count
         context['category_title'] = category_title
+        context['title'] = f'{category_title}'
         return context
 
 
 class Filter(CatTrademarkCountryColor, ListView):
-    """Фильтр"""
+    """Сортировка"""
 
     template_name = 'service/filter_result.html'
     context_object_name = 'products'
+    paginate_by = 60
 
     def get_queryset(self):
         queryset = Product.objects.all()
@@ -148,11 +149,8 @@ class Filter(CatTrademarkCountryColor, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        products_count = self.get_queryset().count()
-        context['products_count'] = products_count
+        context['title'] = 'Сортировка товаров'
         return context
-
-
 
 class ProductDetail(DetailView):
     """Show product"""
@@ -163,17 +161,25 @@ class ProductDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["star_form"] = RatingForm
+        context['title'] = f'{self.object.name}, {self.object.trademark}'
         return context
 
 
 class NewProduct(ListView):
-    """Новинки. Вывод последних 10 записей из БД Product """
+    """Новинки. Вывод последних n записей из БД Product """
     model = Product
     template_name = 'service/new.html'
     context_object_name = 'products'
+    paginate_by = 60
 
     def get_queryset(self):
-        return Product.objects.all().order_by('-id')[:10]
+        return Product.objects.all().order_by('-id')[:200]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Новинки'
+        return context
+
 
 
 class AddReview(View):
@@ -217,9 +223,9 @@ class AddStarRating(View):
 
 class Search(ListView):
     """Поиск продуктов"""
-    #paginate_by = 3
     template_name = 'service/filter_result.html'
     context_object_name = 'products'
+    paginate_by = 60
 
     def get_queryset(self):
         search_vector = SearchVector('name', 'trademark', 'color')
@@ -230,6 +236,4 @@ class Search(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context["q"] = self.request.GET.get("q")
-        products_count = self.get_queryset().count()
-        context['products_count'] = products_count
         return context

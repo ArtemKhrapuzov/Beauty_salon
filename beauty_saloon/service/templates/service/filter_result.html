@@ -1,10 +1,11 @@
 {% extends 'service/base.html' %}
 {% load static %}
 
+{% block title %} {{title}} {% endblock %}
 
 {% block content %}
 
-<small style="margin-left:10px; color:grey; font-size:15px;"> колличество товаров: {{ products_count }}</small>
+<small style="margin-left:10px; color:grey; font-size:15px;"> Колличество товаров: {{ products|length }}</small>
 
 
 <form action="{% url 'filter' %}" method="get">

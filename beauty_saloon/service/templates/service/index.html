@@ -1,5 +1,7 @@
 {% extends 'service/base.html' %}
 
+{% block title %} {{title}} {% endblock %}
+
 {% block content %}
 <small style="margin-left:10px; color:grey; font-size:15px;"> колличество товаров: {{ products|length }}</small>
 

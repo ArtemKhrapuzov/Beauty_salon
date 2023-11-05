@@ -1,6 +1,8 @@
 {% extends 'service/base.html' %}
 {% load static %}
 
+{% block title %} {{title}} {% endblock %}
+
 {% block content %}
 {% if subtitle_title %}
 <h6 style="margin-left:10px"><a href="/" style="text-decoration: none; color: black;">Главная</a> - {{ category_title }}

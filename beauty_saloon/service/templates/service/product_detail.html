@@ -1,5 +1,8 @@
 {% extends 'service/base.html' %}
 {% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
 {% block head %}
 <link type="text/css" href="{% static 'service/css/detail.css' %}" rel="stylesheet"/>
 
@@ -207,15 +210,6 @@ function toggleTab(tabName) {
   document.getElementById(tabName).classList.add("active");
   event.currentTarget.classList.add("active");
 }
-
-
-
-
-
-
-
-
-
             </script>
 
         </div>
