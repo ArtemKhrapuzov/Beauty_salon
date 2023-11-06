@@ -1,4 +1,3 @@
-from django.db.models import Avg, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
@@ -136,11 +135,8 @@ class Filter(CatTrademarkCountryColor, ListView):
     slug_field = 'url'
 
     def get_queryset(self):
-        queryset = Product.objects.all()
-
-        #queryset = Product.objects.filter(cat__url=self.kwargs['cat_slug'])
-
-
+        """Сортировка по категории и полю"""
+        queryset = Product.objects.filter(cat__url=self.kwargs['cat_url'])
         if "trademark" in self.request.GET:
             queryset = queryset.filter(trademark__in=self.request.GET.getlist("trademark"))
         if "color" in self.request.GET:
@@ -155,7 +151,6 @@ class Filter(CatTrademarkCountryColor, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['cat'] = get_object_or_404(Category, url=self.kwargs['cat_slug'])
         context['title'] = 'Сортировка товаров'
         return context
 

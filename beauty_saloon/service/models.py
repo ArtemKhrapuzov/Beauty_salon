@@ -66,7 +66,6 @@ class Category(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название категории')
     url = models.SlugField(max_length=160, verbose_name='URL')
 
-
     def __str__(self):
         return f'{self.title}'
 
