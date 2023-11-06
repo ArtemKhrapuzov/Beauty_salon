@@ -8,101 +8,6 @@
 <small style="margin-left:10px; color:grey; font-size:15px;"> Колличество товаров: {{ products|length }}</small>
 
 
-<form action="{% url 'filter' %}" method="get">
-    <div class="container" style="margin-left: 0;">
-        <div class="dropdown">
-
-            <button class="btn btn-success dropdown-toggle"
-                    type="button"
-                    id="multiSelectDropdown"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    style="background:#cafcf9; color: black; width: 150px;">
-                ОБЪЁМ
-            </button>
-            <ul class="dropdown-menu"
-                aria-labelledby="multiSelectDropdown"
-                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
-
-                {% for volume in view.get_volumes %}
-                {% if volume %}
-                <li style="margin-left:10px;">
-                    <label>
-                        <input type="checkbox"
-                               name="volume"
-                               value="{{ volume }}">
-                        {{ volume }}
-                    </label>
-                </li>
-                {% endif %}
-                {% endfor %}
-            </ul>
-
-            <button class="btn btn-success dropdown-toggle"
-                    type="button"
-                    id="multiSelectDropdown"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    style="background:#cafcf9; color: black;  width: 150px; ">
-                ЦВЕТ
-            </button>
-            <ul class="dropdown-menu"
-                aria-labelledby="multiSelectDropdown"
-                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
-
-                {% for color in view.get_colors %}
-                {% if color %}
-                <li style="margin-left:10px;">
-                    <label>
-                        <input type="checkbox"
-                               name="color"
-                               value="{{ color }}">
-                        {{ color }}
-                    </label>
-                </li>
-                {% endif %}
-                {% endfor %}
-            </ul>
-
-            <button class="btn btn-success dropdown-toggle"
-                    type="button"
-                    id="multiSelectDropdown"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    style="background:#cafcf9; color: black;  width: 150px;">
-                БРЕНД
-            </button>
-            <ul class="dropdown-menu "
-                aria-labelledby="multiSelectDropdown"
-                style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
-
-                {% for trademark in view.get_trademarks %}
-
-                <li style="margin-left:10px;">
-                    <label>
-                        <input type="checkbox"
-                               name="trademark"
-                               value="{{ trademark }}">
-                        {{ trademark }}
-                    </label>
-                </li>
-
-                {% endfor %}
-            </ul>
-            <button class="btn btn-success"
-                    type="submit"
-                    style="background:#cafcf9; color: black;"
-                    aria-expanded="false">
-                НАЙТИ
-            </button>
-
-        </div>
-    </div>
-
-</form>
-
-
-
 
 <div class="container-fluid" style="margin-top:30px;">
     <div class="row g-0">
@@ -113,7 +18,11 @@
             <div class="card-body" style="display:flex; justify-content: space-between; align-items: flex-end;">
                 <div>
                     <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
+                        {% if prod.color %}
                         {{ prod.trademark }}, {{ prod.name }}, {{ prod.color}}
+                        {% else %}
+                        {{ prod.trademark }}, {{ prod.name }}
+                        {% endif %}
                     </h5>
                     <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                         {{ prod.cat }} - {{ prod.subsub.title }}
@@ -154,5 +63,39 @@
         {% endfor %}
     </div>
 </div>
+
+<script>
+    "use strict"
+const ratings = document.querySelectorAll('.ratingg');
+if (ratings.length > 0) {
+    initRatings();
+}
+
+// base fun
+function initRatings() {
+    let ratingActive, ratingValue;
+    for (let index = 0; index < ratings.length; index++) {
+        const rating = ratings[index];
+        initRating(rating);
+    }
+
+    function initRating(rating) {
+        initRatingVars(rating);
+
+        setRatingActiveWidth();
+    }
+    function initRatingVars(rating) {
+        ratingActive = rating.querySelector('.rating__activee_list');
+        ratingValue = rating.querySelector('.rating__valuee');
+    }
+
+    function setRatingActiveWidth(index = ratingValue.innerHTML) {
+        const ratingActiveWidth = index / 0.05;
+        ratingActive.style.width = `${ratingActiveWidth}%`;
+    }
+}
+
+
+</script>
 
 {% endblock %}

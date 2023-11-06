@@ -67,6 +67,7 @@ class Index(ListView):
         context['title'] = 'Интернет портал косметики'
         return context
 
+
 class ProductList(CatTrademarkCountryColor, ListView):
     """Product list"""
     model = Product
@@ -128,13 +129,18 @@ class ProductOtherList(CatTrademarkCountryColor, ListView):
 
 class Filter(CatTrademarkCountryColor, ListView):
     """Сортировка"""
-
+    model = Product
     template_name = 'service/filter_result.html'
     context_object_name = 'products'
     paginate_by = 60
+    slug_field = 'url'
 
     def get_queryset(self):
         queryset = Product.objects.all()
+
+        #queryset = Product.objects.filter(cat__url=self.kwargs['cat_slug'])
+
+
         if "trademark" in self.request.GET:
             queryset = queryset.filter(trademark__in=self.request.GET.getlist("trademark"))
         if "color" in self.request.GET:
@@ -149,8 +155,10 @@ class Filter(CatTrademarkCountryColor, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # context['cat'] = get_object_or_404(Category, url=self.kwargs['cat_slug'])
         context['title'] = 'Сортировка товаров'
         return context
+
 
 class ProductDetail(DetailView):
     """Show product"""
@@ -179,7 +187,6 @@ class NewProduct(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Новинки'
         return context
-
 
 
 class AddReview(View):
