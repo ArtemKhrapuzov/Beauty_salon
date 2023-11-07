@@ -4,7 +4,7 @@ from service.views import *
 
 urlpatterns = [
     path('', Index.as_view(), name='home'),
-
+    path('', Index_new.as_view(), name='home_new'),
     path("search/", Search.as_view(), name='search'),
     path('new_items/', NewProduct.as_view(), name='new_items'),
     path('add-rating/', AddStarRating.as_view(), name='add_rating'),

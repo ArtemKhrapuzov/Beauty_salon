@@ -712,15 +712,15 @@
         {% if category_title == 'Уход за кожей' or category_title == 'Инструменты' %}
         <div class="card " style="width: 21rem; height: 34rem;">
             <img class="card-img-top" src="{{ prod.image.url }}">
-            <div class="card-body">
-                <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
-                    {{ prod.trademark }}, {{ prod.name }}</h5>
-                <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
-                    {{ prod.cat }} - {{ prod.subsub.title }}
-                </p>
-                <div class="position-absolute bottom-0 end-0" style="display: flex;">
-
-                    <div class="form__itemm" style="width:100px; padding-right:30px;">
+            <div class="card-body" style="display:flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
+                        {{ prod.trademark }}, {{ prod.name }}
+                    </h5>
+                    <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
+                        {{ prod.cat }} - {{ prod.subsub.title }}
+                    </p>
+                    <div class="form__itemm" style="width:100px;">
                         <div class="form__labell"></div>
                         <div class="ratingg" style="">
                             <div class="rating__bodyy_list">
@@ -739,29 +739,33 @@
                             <div class="rating__valuee" hidden style="font-size: 60%;">0</div>
                             {% endif %}
                         </div>
+                        <div class="review_image_count">
+                            <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;"
+                                 alt="">
+                            {{ prod.reviews_set.count }}
+                        </div>
                     </div>
-                    <div>
-                        <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
-                        {{ prod.reviews_set.count }}
-                        <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
-                            О товаре</a>
-                    </div>
-
+                </div>
+                <div class="position-absolute bottom-0 end-0" style="">
+                    <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
+                        О товаре
+                    </a>
                 </div>
             </div>
         </div>
         {% elif category_title == 'Прочее' %}
         <div class="card " style="width: 21rem; height: 34rem;">
-            <img class="card-img-top" src="{{ prod.image.url }}">
-            <div class="card-body">
-                <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
-                    {{ prod.trademark }}, {{ prod.name }}</h5>
-                <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
-                    {{ prod.cat }}
-                </p>
-                <div class="position-absolute bottom-0 end-0" style="display: flex;">
 
-                    <div class="form__itemm" style="width:100px; padding-right:30px;">
+            <img class="card-img-top" src="{{ prod.image.url }}">
+            <div class="card-body" style="display:flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
+                        {{ prod.trademark }}, {{ prod.name }}
+                    </h5>
+                    <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
+                        {{ prod.cat }}
+                    </p>
+                    <div class="form__itemm" style="width:100px;">
                         <div class="form__labell"></div>
                         <div class="ratingg" style="">
                             <div class="rating__bodyy_list">
@@ -780,14 +784,17 @@
                             <div class="rating__valuee" hidden style="font-size: 60%;">0</div>
                             {% endif %}
                         </div>
+                        <div class="review_image_count">
+                            <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;"
+                                 alt="">
+                            {{ prod.reviews_set.count }}
+                        </div>
                     </div>
-                    <div>
-                        <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;" alt="">
-                        {{ prod.reviews_set.count }}
-                        <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
-                            О товаре</a>
-                    </div>
-
+                </div>
+                <div class="position-absolute bottom-0 end-0" style="">
+                    <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
+                        О товаре
+                    </a>
                 </div>
             </div>
         </div>
