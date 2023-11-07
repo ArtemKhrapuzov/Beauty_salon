@@ -12,13 +12,13 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"url": ("name", "trademark", "cat")}
 
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("title",)
-    list_filter = ("title",)
-    search_fields = ("title",)
-
-    prepopulated_fields = {"url": ("title",)}
+# @admin.register(Category)
+# class CategoryAdmin(admin.ModelAdmin):
+#     list_display = ("title",)
+#     list_filter = ("title",)
+#     search_fields = ("title",)
+#
+#     prepopulated_fields = {"url": ("title",)}
 
 
 @admin.register(Reviews)

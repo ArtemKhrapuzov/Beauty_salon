@@ -4,52 +4,9 @@ from django.views import View
 from django.views.generic import ListView, DetailView
 from django.contrib.postgres.search import SearchVector
 
-from service.forms import ReviewForm, RatingForm
-from service.models import *
-
-
-class CatTrademarkCountryColor:
-    """queryset для фильтров"""
-
-    def get_trademarks(self):
-        if 'cat_slug' in self.kwargs:
-            cat_slug = self.kwargs['cat_slug']
-            return Product.objects.filter(cat__url=cat_slug).order_by('trademark').values_list('trademark',
-                                                                                               flat=True).distinct()
-        else:
-            return []
-
-    def get_colors(self):
-        if 'cat_slug' in self.kwargs:
-            cat_slug = self.kwargs['cat_slug']
-            return Product.objects.filter(cat__url=cat_slug).order_by('color').values_list('color',
-                                                                                           flat=True).distinct()
-        else:
-            return []
-
-    def get_volumes(self):
-        if 'cat_slug' in self.kwargs:
-            cat_slug = self.kwargs['cat_slug']
-            return Product.objects.filter(cat__url=cat_slug).order_by('volume').values_list('volume',
-                                                                                            flat=True).distinct()
-        else:
-            return []
-
-    def get_for_whats(self):
-        if 'cat_slug' in self.kwargs:
-            cat_slug = self.kwargs['cat_slug']
-            return Product.objects.filter(cat__url=cat_slug).order_by('for_what').values_list('for_what',
-                                                                                              flat=True).distinct()
-        else:
-            return []
-
-    def get_for_what_tools(self):
-        if 'cat_slug' in self.kwargs:
-            cat_slug = self.kwargs['cat_slug']
-            return Product.objects.filter(cat__url=cat_slug).order_by('for_what_tools'). \
-                values_list('for_what_tools', flat=True).distinct()
-        else:
-            return []
+from .forms import ReviewForm, RatingForm
+from .models import *
+from .utils import QuerysetMixin
 
 
 class Index(ListView):
@@ -67,12 +24,8 @@ class Index(ListView):
         return context
 
 
-class ProductList(CatTrademarkCountryColor, ListView):
+class ProductList(QuerysetMixin, ListView):
     """Product list"""
-    model = Product
-    slug_field = 'url'
-    context_object_name = 'products'
-    paginate_by = 60
 
     def get_queryset(self):
         subsub_slug = self.kwargs.get('subsub_slug')
@@ -99,12 +52,8 @@ class ProductList(CatTrademarkCountryColor, ListView):
         return context
 
 
-class ProductOtherList(CatTrademarkCountryColor, ListView):
+class ProductOtherList(QuerysetMixin, ListView):
     """ context and queryset for Прочее"""
-    model = Product
-    slug_field = 'url'
-    context_object_name = 'products'
-    paginate_by = 60
 
     def get_queryset(self):
         cat_slug = self.kwargs.get('cat_slug')
@@ -126,27 +75,17 @@ class ProductOtherList(CatTrademarkCountryColor, ListView):
         return context
 
 
-class Filter(CatTrademarkCountryColor, ListView):
+class Filter(QuerysetMixin, ListView):
     """Сортировка"""
-    model = Product
     template_name = 'service/filter_result.html'
-    context_object_name = 'products'
-    paginate_by = 60
-    slug_field = 'url'
 
     def get_queryset(self):
         """Сортировка по категории и полю"""
         queryset = Product.objects.filter(cat__url=self.kwargs['cat_url'])
-        if "trademark" in self.request.GET:
-            queryset = queryset.filter(trademark__in=self.request.GET.getlist("trademark"))
-        if "color" in self.request.GET:
-            queryset = queryset.filter(color__in=self.request.GET.getlist("color"))
-        if "volume" in self.request.GET:
-            queryset = queryset.filter(volume__in=self.request.GET.getlist("volume"))
-        if "for_what" in self.request.GET:
-            queryset = queryset.filter(for_what__in=self.request.GET.getlist("for_what"))
-        if "for_what_tools" in self.request.GET:
-            queryset = queryset.filter(for_what_tools__in=self.request.GET.getlist("for_what_tools"))
+        fields = ['trademark', 'color', 'volume', 'for_what', 'for_what_tools']
+        for field in fields:
+            if field in self.request.GET:
+                queryset = queryset.filter(**{f'{field}__in': self.request.GET.getlist(field)})
         return queryset
 
     def get_context_data(self, **kwargs):
@@ -237,5 +176,5 @@ class Search(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["q"] = self.request.GET.get("q")
+        context["q"] = f'q={self.request.GET.get("q")}&'
         return context
