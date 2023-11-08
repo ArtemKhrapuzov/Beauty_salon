@@ -5,7 +5,7 @@ class QuerysetMixin:
     """queryset для фильтров"""
     model = Product
     context_object_name = 'products'
-    paginate_by = 60
+    paginate_by = 3
 
     def get_trademarks(self):
         if 'cat_slug' in self.kwargs:
