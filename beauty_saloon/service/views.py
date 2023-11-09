@@ -2,6 +2,7 @@ from random import sample
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
+from django.template.loader import render_to_string
 from django.views import View
 from django.views.generic import ListView, DetailView
 from django.contrib.postgres.search import SearchVector
@@ -9,6 +10,17 @@ from django.contrib.postgres.search import SearchVector
 from .forms import ReviewForm, RatingForm
 from .models import *
 from .utils import QuerysetMixin
+
+
+def load_products(request):
+    index = int(request.GET.get('index'))
+    start_index = index * 3
+    end_index = start_index + 3
+    products = Product.objects.all().order_by('-id')[start_index:end_index]
+    html = render_to_string('service/products.html', {'products': products})
+    return HttpResponse(html)
+
+
 
 
 class Index(ListView):

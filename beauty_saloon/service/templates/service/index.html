@@ -63,13 +63,20 @@
             {% endfor %}
         </div>
     </div>
+
+    <div class="text-center mt-4">
+        <button id="prev-btn" class="btn btn-primary me-2">&lt;</button>
+        <button id="next-btn" class="btn btn-primary">&gt;</button>
+    </div>
 </div>
 
 
-<div style="">
+
+<div id="">
     <center>
         <h1>Новинки</h1>
     </center>
+
     <div class="container-fluid">
         <div class="row g-0">
             {% for prod in products %}
@@ -123,9 +130,84 @@
             {% endfor %}
         </div>
     </div>
-
+    <div class="text-center mt-4">
+        <button id="prev-btnn" class="btn btn-primary me-2">&lt;</button>
+        <button id="next-btnn" class="btn btn-primary">&gt;</button>
+    </div>
 
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+    var currentIndex = 0;
+    var maxIndex = {{ products|length }} - 1;
+
+    function loadProducts(index) {
+        $.ajax({
+            url: '/load_products/',
+            type: 'GET',
+            data: {
+                index: index
+            },
+            success: function(response) {
+                $('.row').html(response);
+            }
+        });
+    }
+
+    $('#prev-btn').click(function() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            loadProducts(currentIndex);
+        }
+    });
+
+    $('#next-btn').click(function() {
+        if (currentIndex < maxIndex) {
+            currentIndex++;
+            loadProducts(currentIndex);
+        }
+    });
+});
+
+</script>
+<script>
+    $(document).ready(function() {
+    var currentIndex = 0;
+    var maxIndex = {{ products|length }} - 1;
+
+    function loadProducts(index) {
+        $.ajax({
+            url: '/load_products_new/',
+            type: 'GET',
+            data: {
+                index: index
+            },
+            success: function(response) {
+                $('.row').html(response);
+            }
+        });
+    }
+
+    $('#prev-btnn').click(function() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            loadProducts(currentIndex);
+        }
+    });
+
+    $('#next-btnn').click(function() {
+        if (currentIndex < maxIndex) {
+            currentIndex++;
+            loadProducts(currentIndex);
+        }
+    });
+});
+
+</script>
+
+
 
 
 
@@ -161,12 +243,6 @@ function initRatings() {
         ratingActive.style.width = `${ratingActiveWidth}%`;
     }
 }
-
-
-
-
-
-
 
 </script>
 
