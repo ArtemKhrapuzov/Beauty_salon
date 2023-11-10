@@ -63,7 +63,7 @@
                 <div class="clear">
 
                     <ul class="last-clear"><a href="{% url 'new_items' %}">Новинки</a></ul>
-                    <ul class="last-clear"><a href="">Хит</a></ul>
+                    <ul class="last-clear"><a href="{% url 'hit_items' %}">Хит</a></ul>
                     {% get_category as category %}
 
                     {% for cat in category %}

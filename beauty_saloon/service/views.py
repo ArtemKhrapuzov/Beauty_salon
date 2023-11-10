@@ -1,5 +1,4 @@
 import random
-
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
@@ -9,8 +8,6 @@ from django.contrib.postgres.search import SearchVector
 from .forms import ReviewForm, RatingForm
 from .models import *
 from .utils import QuerysetMixin
-
-
 
 
 class Index(ListView):
@@ -27,12 +24,9 @@ class Index(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Интернет портал косметики'
-
-
         queryset_new = Product.objects.order_by('-id')[:12]
         random_products_new = random.sample(list(queryset_new), 3)
         context['products_new'] = random_products_new
-
         return context
 
 
@@ -132,6 +126,23 @@ class NewProduct(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Новинки'
+        return context
+
+
+class HitProduct(ListView):
+    """Хиты. Вывод товаров с рейтингом 4 и выше"""
+    model = Product
+    template_name = 'service/hit.html'
+    context_object_name = 'products'
+    paginate_by = 60
+
+    def get_queryset(self):
+        queryset = Product.objects.annotate(avg_rating=Avg('rating__star__value')).filter(avg_rating__gte=4)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Хиты'
         return context
 
 
