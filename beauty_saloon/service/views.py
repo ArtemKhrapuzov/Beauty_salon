@@ -12,19 +12,17 @@ from .models import *
 from .utils import QuerysetMixin
 
 
-def load_products(request):
-    index = int(request.GET.get('index'))
-    start_index = index * 3
-    end_index = start_index + 3
-    products = Product.objects.all().order_by('-id')[start_index:end_index]
-    html = render_to_string('service/products.html', {'products': products})
-    return HttpResponse(html)
-
-
+# def load_products(request):
+#     index = int(request.GET.get('index'))
+#     start_index = index * 3
+#     end_index = start_index + 3
+#     products = Product.objects.all().order_by('-id')[start_index:end_index]
+#     html = render_to_string('service/products.html', {'products': products})
+#     return HttpResponse(html)
 
 
 class Index(ListView):
-    """Отображение товаров со средним рейтингом выше 3.5"""
+    """Отображение товаров со средним рейтингом выше 3.5 и новинок"""
     model = Product
     template_name = 'service/index.html'
     context_object_name = 'products'
@@ -37,19 +35,13 @@ class Index(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Интернет портал косметики'
+
+        queryset_new = Product.objects.all().order_by('-id')
+        random_products_new = queryset_new.order_by('?')[:3]
+        context['products_new'] = random_products_new
+
         return context
 
-
-class Index_new(ListView):
-    """Отображение новинок 3 рандомных"""
-    model = Product
-    template_name = 'service/index.html'
-    context_object_name = 'products'
-
-    def get_queryset(self):
-        queryset = Product.objects.all().order_by('-id')[:9]
-        random_products = queryset.order_by('?')[:3]
-        return random_products
 
 class ProductList(QuerysetMixin, ListView):
     """Product list"""

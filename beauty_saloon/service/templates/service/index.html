@@ -64,10 +64,6 @@
         </div>
     </div>
 
-    <div class="text-center mt-4">
-        <button id="prev-btn" class="btn btn-primary me-2">&lt;</button>
-        <button id="next-btn" class="btn btn-primary">&gt;</button>
-    </div>
 </div>
 
 
@@ -79,7 +75,7 @@
 
     <div class="container-fluid">
         <div class="row g-0">
-            {% for prod in products %}
+            {% for prod in products_new %}
             <div class="card mb-3" style="max-width: 450px;">
                 <div class="row g-0">
                     <div class="col-md-4">
@@ -130,85 +126,8 @@
             {% endfor %}
         </div>
     </div>
-    <div class="text-center mt-4">
-        <button id="prev-btnn" class="btn btn-primary me-2">&lt;</button>
-        <button id="next-btnn" class="btn btn-primary">&gt;</button>
-    </div>
 
 </div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-    var currentIndex = 0;
-    var maxIndex = {{ products|length }} - 1;
-
-    function loadProducts(index) {
-        $.ajax({
-            url: '/load_products/',
-            type: 'GET',
-            data: {
-                index: index
-            },
-            success: function(response) {
-                $('.row').html(response);
-            }
-        });
-    }
-
-    $('#prev-btn').click(function() {
-        if (currentIndex > 0) {
-            currentIndex--;
-            loadProducts(currentIndex);
-        }
-    });
-
-    $('#next-btn').click(function() {
-        if (currentIndex < maxIndex) {
-            currentIndex++;
-            loadProducts(currentIndex);
-        }
-    });
-});
-
-</script>
-<script>
-    $(document).ready(function() {
-    var currentIndex = 0;
-    var maxIndex = {{ products|length }} - 1;
-
-    function loadProducts(index) {
-        $.ajax({
-            url: '/load_products_new/',
-            type: 'GET',
-            data: {
-                index: index
-            },
-            success: function(response) {
-                $('.row').html(response);
-            }
-        });
-    }
-
-    $('#prev-btnn').click(function() {
-        if (currentIndex > 0) {
-            currentIndex--;
-            loadProducts(currentIndex);
-        }
-    });
-
-    $('#next-btnn').click(function() {
-        if (currentIndex < maxIndex) {
-            currentIndex++;
-            loadProducts(currentIndex);
-        }
-    });
-});
-
-</script>
-
-
-
 
 
 
