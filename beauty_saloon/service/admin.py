@@ -5,7 +5,7 @@ from service.models import *
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("name", "trademark", "cat", "subtitle")
+    list_display = ("id", "name", "trademark", "cat", "subtitle")
     list_filter = ("cat", "subtitle", "name", "trademark")
     search_fields = ("name", "trademark")
     ordering = ('-id',)

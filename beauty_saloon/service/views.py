@@ -1,8 +1,7 @@
-from random import sample
+import random
 
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
-from django.template.loader import render_to_string
 from django.views import View
 from django.views.generic import ListView, DetailView
 from django.contrib.postgres.search import SearchVector
@@ -12,23 +11,16 @@ from .models import *
 from .utils import QuerysetMixin
 
 
-# def load_products(request):
-#     index = int(request.GET.get('index'))
-#     start_index = index * 3
-#     end_index = start_index + 3
-#     products = Product.objects.all().order_by('-id')[start_index:end_index]
-#     html = render_to_string('service/products.html', {'products': products})
-#     return HttpResponse(html)
 
 
 class Index(ListView):
-    """Отображение товаров со средним рейтингом выше 3.5 и новинок"""
+    """Отображение товаров со средним рейтингом выше 4.0 и новинок (рандомно 3 из последних 12)"""
     model = Product
     template_name = 'service/index.html'
     context_object_name = 'products'
 
     def get_queryset(self):
-        queryset = Product.objects.annotate(avg_rating=Avg('rating__star__value')).filter(avg_rating__gte=3.5)
+        queryset = Product.objects.annotate(avg_rating=Avg('rating__star__value')).filter(avg_rating__gte=4)
         random_products = queryset.order_by('?')[:3]
         return random_products
 
@@ -36,8 +28,9 @@ class Index(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Интернет портал косметики'
 
-        queryset_new = Product.objects.all().order_by('-id')
-        random_products_new = queryset_new.order_by('?')[:3]
+
+        queryset_new = Product.objects.order_by('-id')[:12]
+        random_products_new = random.sample(list(queryset_new), 3)
         context['products_new'] = random_products_new
 
         return context
