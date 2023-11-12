@@ -17,7 +17,7 @@
 
         <div class="form__itemm">
             <center>
-            <div class="form__labell"></div>
+                <div class="form__labell"></div>
 
                 <div class="ratingg" style="">
                     <b>Рейтинг:</b>
@@ -38,6 +38,10 @@
                     {% endif %}
                 </div>
             </center>
+
+            <script>
+
+            </script>
 
         </div>
 
@@ -135,7 +139,7 @@
         <div class="title">
             <h1>{{ product.trademark }}, {{ product.name }}</h1>
 
-
+            {% if request.user.is_authenticated %}
             <form action="{% url 'add_rating' %}" method="post" name="rating">
                 <b>Ваш рейтинг:</b>
                 {% csrf_token %}
@@ -151,6 +155,23 @@
                 <span class="editContent">{{ product.average_rating }}</span>
                 {% endif %}
             </form>
+            {% else %}
+            <form action="{% url 'add_rating' %}" method="post" name="rating">
+                <b><a href="{% url 'login' %}" style=" color: black;">Aвторизуйтесь</a></b>
+                {% csrf_token %}
+                <input type="hidden" value="{{ product.id }}" name="product">
+                <span class="rating">
+            {% for k, v in star_form.fields.star.choices %}
+                <input id="rating{{ v }}" type="radio" name="star"
+                       value="{{ k }}">
+                <label for="rating{{ v }}">{{ k }}</label>
+            {% endfor %}
+            </span>
+                {% if product.average_rating != 'None' %}
+                <span class="editContent">{{ product.average_rating }}</span>
+                {% endif %}
+            </form>
+            {% endif %}
 
             <script>
         function addReview(name, id) {
@@ -159,8 +180,8 @@
         }
 
 
-            </script>
 
+            </script>
 
         </div>
         <div class="product-specs">
@@ -210,6 +231,7 @@ function toggleTab(tabName) {
   document.getElementById(tabName).classList.add("active");
   event.currentTarget.classList.add("active");
 }
+
             </script>
 
         </div>
@@ -250,6 +272,54 @@ function toggleTab(tabName) {
     </div>
 </section>
 
+
+<script>
+    const rating = document.querySelector('form[name=rating]');
+
+rating.addEventListener("change", function (e) {
+    // Получаем данные из формы
+    let data = new FormData(this);
+    fetch(`${this.action}`, {
+        method: 'POST',
+        body: data
+    })
+        .then(response => alert("Рейтинг установлен"))
+        .catch(error => alert("Ошибка"))
+});
+</script>
+
+<script>
+
+    "use strict"
+const ratings = document.querySelectorAll('.ratingg');
+if (ratings.length > 0) {
+    initRatings();
+}
+
+// base fun
+function initRatings() {
+    let ratingActive, ratingValue;
+    for (let index = 0; index < ratings.length; index++) {
+        const rating = ratings[index];
+        initRating(rating);
+    }
+
+    function initRating(rating) {
+        initRatingVars(rating);
+
+        setRatingActiveWidth();
+    }
+    function initRatingVars(rating) {
+        ratingActive = rating.querySelector('.rating__activee');
+        ratingValue = rating.querySelector('.rating__valuee');
+    }
+
+    function setRatingActiveWidth(index = ratingValue.innerHTML) {
+        const ratingActiveWidth = index / 0.05;
+        ratingActive.style.width = `${ratingActiveWidth}%`;
+    }
+}
+</script>
 
 {% endblock %}
 

@@ -128,8 +128,12 @@
     </div>
 
 </div>
-
-
+{% if not request.user.is_authenticated %}
+<div style="text-align:center">
+    <button type="button" class="btn btn-secondary btn-lg btn-block" style="width:450px;">
+        <a href="{% url 'register' %}" style="text-decoration:none; color: white;">Присоединиться к нам</a></button>
+</div>
+{% endif %}
 
 
 <script>

@@ -1,8 +1,32 @@
 {% extends 'service/base.html' %}
+{% load static %}
+
+{% block head %}
+<link type="text/css" href="{% static 'service/css/login.css' %}" rel="stylesheet"/>
+{% endblock head %}
 
 {% block content %}
-<h5>Пожалуйста, проверьте свою почту и перейдите по ссылке, чтобы завершить регистрацию! Если вы не получили письмо,
-    пожалуйста, убедитесь, что вы ввели адрес с которым Вы зарегистрировались, и проверьте
-    папку со спамом.</h5>
 
+
+
+<div class="overlay">
+<form class="formm" method="post">
+        {% csrf_token %}
+    <div class="form-error">{{ form.non_field_errors }}</div>
+   <div class="con">
+   <header class="head-form">
+      <p>Пожалуйста, проверьте свою почту и перейдите по ссылке, чтобы завершить регистрацию! Если вы не получили письмо,
+    пожалуйста, убедитесь, что вы ввели адрес с которым Вы зарегистрировались, и проверьте
+    папку со спамом.</p>
+   </header>
+   <br>
+
+
+  </div>
+</form>
+</div>
+
+
+
+<script src="{% static 'service/js/login.js' %}"></script>
 {% endblock %}

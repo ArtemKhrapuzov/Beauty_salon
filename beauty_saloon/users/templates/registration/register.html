@@ -1,14 +1,38 @@
 {% extends 'service/base.html' %}
+{% load static %}
+
+{% block head %}
+<link type="text/css" href="{% static 'service/css/login.css' %}" rel="stylesheet"/>
+{% endblock head %}
 
 {% block content %}
-<h1>Регистрация</h1>
-    <form action="{% url 'register' %}" method="post">
+<div class="overlay">
+<form class="formm"  action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+    <div class="form-error">{{ form.non_field_errors }}</div>
     {% csrf_token %}
+   <div class="con">
+   <header class="head-form">
+      <h2>Регистрация</h2>
+      <p>Введите данные или <a href="{% url 'login' %}" class="log-in">войдите</a> в свой аккаунт</p>
+   </header>
+   <br>
+   <div class="field-set">
     {% for f in form %}
     <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
     <div class="form-error">{{ f.errors }}</div>
     {% endfor %}
-    <button type="submit">Регистрация</button>
-</form>
 
+        <button type="submit" class="log-in">Зарегестрироваться</button>
+
+   </div>
+
+  </div>
+</form>
+</div>
+
+
+
+
+<script src="{% static 'service/js/login.js' %}"></script>
 {% endblock %}

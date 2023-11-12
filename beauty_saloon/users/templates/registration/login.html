@@ -1,21 +1,41 @@
 {% extends 'service/base.html' %}
+{% load static %}
+
+{% block head %}
+<link type="text/css" href="{% static 'service/css/login.css' %}" rel="stylesheet"/>
+{% endblock head %}
 
 
 {% block content %}
-<h1>Авторизация</h1>
+<div class="overlay">
+<form class="formm" method="post">
+        {% csrf_token %}
+    <div class="form-error">{{ form.non_field_errors }}</div>
+   <div class="con">
+   <header class="head-form">
+      <h2>Вход</h2>
+      <p>Войдите сюда, используя адрес электронной почты и пароль или
+          <a href="{% url 'register' %}" >зарегестрируйтесь</a></p>
+   </header>
+   <br>
+   <div class="field-set">
+       {% for f in form %}
+        <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label></p>
+       {{ f }}
+        <div class="form-error">{{ f.errors }}</div>
 
-<form method="post">
-    {% csrf_token %}
+        {% endfor %}
 
-<div class="form-error">{{ form.non_field_errors }}</div>
+      <button type="submit" class="log-in">Войти</button>
+   </div>
+   <div class="other">
+      <button class="btn submits frgt-pass" >
+          <a href="{% url 'password_reset' %}" style="color:black; text-decoration: none;">Забыли пароль?</a></button>
 
-{% for f in form %}
-<p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
-<div class="form-error">{{ f.errors }}</div>
-{% endfor %}
-    <button type="submit">Войти</button>
+   </div>
+  </div>
 </form>
+</div>
 
-
-<a href="{% url 'password_reset' %}">Забыли пароль?</a>
+<script src="{% static 'service/js/login.js' %}"></script>
 {% endblock %}
