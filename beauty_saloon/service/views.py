@@ -24,9 +24,30 @@ class Index(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Интернет портал косметики'
+
         queryset_new = Product.objects.order_by('-id')[:12]
         random_products_new = random.sample(list(queryset_new), 3)
         context['products_new'] = random_products_new
+
+        queryset_article = Article.objects.filter(is_published=True).order_by('-id')[:3]
+        context['articles'] = queryset_article
+        return context
+
+
+class ArticleDetail(DetailView):
+    model = Article
+    context_object_name = 'article'
+    slug_field = 'url'
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = f'{self.object.title}'
+
+        queryset = Product.objects.annotate(avg_rating=Avg('rating__star__value')).filter(avg_rating__gte=4)
+        random_products = queryset.order_by('?')[:3]
+        context['random_products'] = random_products
+
         return context
 
 
@@ -201,3 +222,4 @@ class Search(ListView):
         context = super().get_context_data(*args, **kwargs)
         context["q"] = f'q={self.request.GET.get("q")}&'
         return context
+

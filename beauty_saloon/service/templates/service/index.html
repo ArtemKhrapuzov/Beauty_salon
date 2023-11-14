@@ -67,7 +67,6 @@
 </div>
 
 
-
 <div id="">
     <center>
         <a href="{% url 'new_items' %}"><h1>Новинки</h1></a>
@@ -135,6 +134,24 @@
 </div>
 {% endif %}
 
+<div>
+    <h1><a href="#">Статьи</a></h1>
+    <div class="container-fluid">
+        <div class="row g-0">
+            {% for article in articles %}
+            <div class="card" style="max-width: 450px;">
+                <a href="{{ article.get_absolute_url }}"><img class="card-img-top" style="height:350px;" src="{{ article.image.url }}" alt="Card image cap"></a>
+                <div class="card-body">
+                    <b ><a href="{{ article.get_absolute_url }}" style="color:black; text-decoration: none;">{{ article.title }}</a></b>
+                    {% autoescape on %}
+                    <p class="card-text" style="font-size: 1rem;">{{ article.description_1|linebreaks|truncatewords:15 }}</p>
+                    {% endautoescape %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
 <script>
     "use strict"
@@ -166,6 +183,7 @@ function initRatings() {
         ratingActive.style.width = `${ratingActiveWidth}%`;
     }
 }
+
 
 </script>
 

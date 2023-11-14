@@ -31,6 +31,7 @@ class ReviewAdmin(admin.ModelAdmin):
 class RatingAdmin(admin.ModelAdmin):
     list_display = ("star", "product", "ip")
 
+
 @admin.register(Subsubtitle)
 class SubsubtitleAdmin(admin.ModelAdmin):
     list_display = ("title",)
@@ -38,6 +39,7 @@ class SubsubtitleAdmin(admin.ModelAdmin):
     search_fields = ("title",)
 
     prepopulated_fields = {"url": ("title",)}
+
 
 @admin.register(Subtitle)
 class SubtitleAdmin(admin.ModelAdmin):
@@ -48,5 +50,19 @@ class SubtitleAdmin(admin.ModelAdmin):
     prepopulated_fields = {"url": ("title",)}
 
 
-admin.site.register(RatingStar)
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ("title",)
+    list_filter = ("title",)
+    search_fields = ("title",)
+    prepopulated_fields = {"url": ("title",)}
 
+# @admin.register(Filing)
+# class FilingAdmin(admin.ModelAdmin):
+#     list_display = ("title",)
+#     list_filter = ("title",)
+#     search_fields = ("title",)
+#     prepopulated_fields = {"url": ("title", )}
+
+
+admin.site.register(RatingStar)

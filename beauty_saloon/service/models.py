@@ -141,3 +141,48 @@ class RatingStar(models.Model):
         verbose_name = 'Звезда рейтинга'
         verbose_name_plural = 'Звезды рейтинга'
         ordering = ["-value"]
+
+
+class Article(models.Model):
+    title = models.CharField(max_length=100, verbose_name='Заголовок', unique=True)
+    url = models.SlugField(max_length=160, unique=True,  verbose_name='URL')
+    image = models.ImageField(upload_to="article/%Y/%m/%d/", verbose_name='Фото')
+    is_published = models.BooleanField(default=False, verbose_name='Публикация')
+    description_1 = models.TextField(max_length=4000, blank=True, default='', verbose_name='Текст_1')
+    image_1 = models.ImageField(upload_to="article/%Y/%m/%d/", blank=True, null=True, verbose_name='Фото_1')
+    description_2 = models.TextField(max_length=4000, blank=True, default='', verbose_name='Текст_2')
+    image_2 = models.ImageField(upload_to="article/%Y/%m/%d/", blank=True, null=True, verbose_name='Фото_2')
+    description_3 = models.TextField(max_length=4000, blank=True, default='', verbose_name='Текст_3')
+    image_3 = models.ImageField(upload_to="article/%Y/%m/%d/", blank=True, null=True, verbose_name='Фото_3')
+
+    def get_absolute_url(self):
+        return reverse('article_detail', kwargs={'slug': self.url})
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Статья'
+        verbose_name_plural = 'Статьи'
+
+
+# class Filing(models.Model):
+#     title = models.CharField(max_length=100, verbose_name='Заголовок')
+#     url = models.SlugField(max_length=160, unique=True,  verbose_name='URL')
+#     description_1 = models.TextField(max_length=4000, blank=True, default='', verbose_name='Текст_1')
+#     image_1 = models.ImageField(upload_to="article/%Y/%m/%d/", blank=True, null=True, verbose_name='Фото_1')
+#     description_2 = models.TextField(max_length=4000, blank=True, default='', verbose_name='Текст_2')
+#     image_2 = models.ImageField(upload_to="article/%Y/%m/%d/", blank=True, null=True, verbose_name='Фото_2')
+#     description_3 = models.TextField(max_length=4000, blank=True, default='', verbose_name='Текст_3')
+#     image_3 = models.ImageField(upload_to="article/%Y/%m/%d/", blank=True, null=True, verbose_name='Фото_3')
+#     article = models.ForeignKey('Article', verbose_name='Статья', on_delete=models.CASCADE)
+#
+#     def get_absolute_url(self):
+#         return reverse('article_detail', kwargs={'slug': self.url})
+#
+#     def __str__(self):
+#         return self.title
+#
+#     class Meta:
+#         verbose_name = 'Наполнение для статьи'
+#         verbose_name_plural = 'Наполнение для статей'

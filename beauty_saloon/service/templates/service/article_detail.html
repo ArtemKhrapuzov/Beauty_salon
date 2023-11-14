@@ -1,0 +1,48 @@
+{% extends 'service/base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row g-0" style="float: left; width: 65%; overflow: hidden;">
+        <h1>{{article.title}}</h1>
+
+        {% if description_1 != 'None' %}
+        <p>{{ article.description_1}}</p>
+        {% endif %}
+
+        {% if article.image_1 %}
+        <img class="card-img-top" style="width: 600px;" src="{{ article.image_1.url }}" align="left" alt="Card image cap">
+        {% endif %}
+
+
+        {% if description_2 != 'None' %}
+        <p>{{ article.description_2}}</p>
+        {% endif %}
+
+        {% if article.image_2 %}
+        <img class="card-img-top" style="width: 600px;" src="{{ article.image_2.url }}" align="left" alt="Card image cap">
+        {% endif %}
+
+        {% if description_3 != 'None' %}
+        <p>{{ article.description_3 }}</p>
+        {% endif %}
+
+        {% if article.image_3 %}
+        <img class="card-img-top" style="width: 600px;" src="{{ article.image_3.url }}" align="left" alt="Card image cap">
+        {% endif %}
+
+    </div>
+
+    <div class="right" style="overflow: hidden;">
+
+
+    </div>
+</div>
+
+</div>
+</div>
+
+{% endblock %}
