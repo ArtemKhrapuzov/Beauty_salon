@@ -12,6 +12,7 @@ urlpatterns = [
     path('filter/<slug:cat_url>/', Filter.as_view(), name='filter'),
     path('catalog/<str:slug>/', ProductDetail.as_view(), name='product_detail'),
     path('review/<int:pk>/', AddReview.as_view(), name='add_review'),
+    path('review_article/<int:pk>/', AddReviewArticle.as_view(), name='add_review_article'),
     path('<slug:cat_slug>/', ProductOtherList.as_view(), name='product_list_cat'),
     path('<slug:cat_slug>/<slug:subtitle_slug>/', ProductList.as_view(), name='product_list_sub'),
     path('<slug:cat_slug>/<slug:subtitle_slug>/<slug:subsub_slug>/', ProductList.as_view(), name='product_list_subsub'),

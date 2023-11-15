@@ -6,7 +6,8 @@
 {% block content %}
 
 <div class="container-fluid">
-    <div class="row g-0" style="float: left; width: 65%; overflow: hidden;">
+    <div class="row g-0" style="float: left; width: 65%; overflow: hidden;
+    border-right: 1px solid #aaa; padding-right: 4px; border-bottom: 1px solid #aaa; padding-bottom: 40px;">
         <h1>{{article.title}}</h1>
 
         {% if description_1 != 'None' %}
@@ -14,7 +15,8 @@
         {% endif %}
 
         {% if article.image_1 %}
-        <img class="card-img-top" style="width: 600px;" src="{{ article.image_1.url }}" align="left" alt="Card image cap">
+        <img class="card-img-top" style="width: 600px;" src="{{ article.image_1.url }}"
+             alt="Card image cap">
         {% endif %}
 
 
@@ -23,7 +25,8 @@
         {% endif %}
 
         {% if article.image_2 %}
-        <img class="card-img-top" style="width: 600px;" src="{{ article.image_2.url }}" align="left" alt="Card image cap">
+        <img class="card-img-top" style="width: 600px;" src="{{ article.image_2.url }}"
+             alt="Card image cap">
         {% endif %}
 
         {% if description_3 != 'None' %}
@@ -31,18 +34,196 @@
         {% endif %}
 
         {% if article.image_3 %}
-        <img class="card-img-top" style="width: 600px;" src="{{ article.image_3.url }}" align="left" alt="Card image cap">
+        <img class="card-img-top" style="width: 600px;" src="{{ article.image_3.url }}"
+             alt="Card image cap">
         {% endif %}
+
 
     </div>
 
     <div class="right" style="overflow: hidden;">
 
+        {% for prod in products_new %}
+        <div class="card mb-3" style="max-width: 450px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ prod.trademark }}</h5>
+                        <h5 class="card-title">{{ prod.name }}</h5>
+                        <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
+                            {{ prod.cat }} - {{ prod.subsub.title }}</p>
+                        <div class="form__itemm " style="">
+                            <div class="form__labell"></div>
+                            <div class="ratingg" style="">
+                                <div class="rating__bodyy_list">
+                                    <div class="rating__activee_list"></div>
+                                    <div class="rating__itemss">
+                                        <input type="radio" class="rating__itemm" value="1" name="ratingg">
+                                        <input type="radio" class="rating__itemm" value="2" name="ratingg">
+                                        <input type="radio" class="rating__itemm" value="3" name="ratingg">
+                                        <input type="radio" class="rating__itemm" value="4" name="ratingg">
+                                        <input type="radio" class="rating__itemm" value="5" name="ratingg">
+                                    </div>
+                                </div>
+                                {% if prod.average_rating != 'None' %}
+                                <div class="rating__valuee" hidden style="font-size: 60%;">{{ prod.average_rating }}
+                                </div>
+                                {% else %}
+                                <div class="rating__valuee" hidden style="font-size: 60%;">0</div>
+                                {% endif %}
+                            </div>
+                            <div class="review_image_count">
+                                <img src="{% static 'service/images/review.png' %}"
+                                     style="width: 25px; height: 17px;"
+                                     alt="">
+                                {{ prod.reviews_set.count }}
+                            </div>
+                            <div class="position-absolute bottom-0 end-0" style="">
+                                <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
+                                    О товаре
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
 
     </div>
 </div>
 
+<div class="product-reviews">
+    <h3>Оставить отзыв {{ article.reviews_set.count }} </h3>
+    {% if request.user.is_authenticated %}
+    <form action="{% url 'add_review_article' article.id %}" method="post" class="mt-4" id="formReview">
+
+        {% csrf_token %}
+        <input type="hidden" name="parent" id="contactparent" value="">
+        <div class="form-group editContent">
+            <label for="contactcomment" class="editContent">
+                Ваш комментарий *
+            </label>
+            <textarea class="form-control border" rows="5" name="text"
+                      id="contactcomment" required=""></textarea>
+        </div>
+
+        <div class="d-sm-flex">
+            <div class="col-sm-6 form-group p-0 editContent">
+                <input type="hidden" class="form-control border" name="name"
+                       id="contactusername" required="" value="{{ request.user.username }}">
+            </div>
+            <div class="col-sm-6 form-group ml-sm-3 editContent">
+                <input type="hidden" class="form-control border" name="email"
+                       id="contactemail" required="" value="{{ request.user.email }}">
+            </div>
+        </div>
+
+        <button type="submit"
+                class="mt-3 btn btn-success btn-block py-3">
+            Отправить
+        </button>
+    </form>
+    {% else %}
+
+    <form action="{% url 'add_review_article' article.id %}" method="post" class="mt-4 my-5" id="formReview">
+
+        {% csrf_token %}
+        <input type="hidden" name="parent" id="contactparent" value="">
+        <div class="form-group editContent">
+            <label for="contactcomment" class="editContent">
+                Ваш комментарий *
+            </label>
+            <textarea class="form-control border" rows="5" name="text"
+                      id="contactcomment" required=""></textarea>
+        </div>
+        <small for="contactcomment" style="color: #a6a6a6;   font-size: 0.7em; ">
+            Для отправки отзыва, зарегистрируйтесь.
+        </small>
+
+        <a href="{% url 'register' %}" class="btn" style="color:white; font-size:17px; overflow: hidden;
+                height: 40px; background:#3b0b0b; border:none; padding-bottom:5px;">Регистрицая</a>
+
+        {% endif %}
+
+        <div style="padding-top:30px;">
+            {% for review in articl.get_review %}
+            <div class="media py-0">
+                <img src="{% static 'service/images/инкогнито.jpg' %}" align="left"
+                     style="width: 70px; height: 60px;"
+                     class="mr-3 img-fluid" alt="image">
+                <div class="media-body mt-4" style="margin: 0 0 0 80px!important;">
+                    <h5 class="mt-0 editContent">
+                        {{ review.name }}
+                    </h5>
+                    <p class="mt-2 editContent">
+                        {{ review.text }}
+                    </p>
+                    <a href="#formReview"
+                       onclick="addReview('{{ review.name }}', '{{ review.id }}')">Ответить</a>
+                    {% for rew in review.reviews_set.all %}
+                    <div class="media mt-5 editContent">
+                        <a class="pr-3" href="#">
+                            <img src="{% static 'service/images/инкогнито.jpg' %}" align="left"
+                                 style="width: 70px; height: 60px;" class="img-fluid " alt="image">
+                        </a>
+                        <div class="media-body" style="margin: 0 0 0 80px!important;">
+                            <h5 class="mt-0 editContent">{{ rew.name }}</h5>
+                            <p class="mt-2 editContent">{{ rew.text }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+
 </div>
+
 </div>
+
+</div>
+
+
+<script>
+    "use strict"
+const ratings = document.querySelectorAll('.ratingg');
+if (ratings.length > 0) {
+    initRatings();
+}
+
+// base fun
+function initRatings() {
+    let ratingActive, ratingValue;
+    for (let index = 0; index < ratings.length; index++) {
+        const rating = ratings[index];
+        initRating(rating);
+    }
+
+    function initRating(rating) {
+        initRatingVars(rating);
+
+        setRatingActiveWidth();
+    }
+    function initRatingVars(rating) {
+        ratingActive = rating.querySelector('.rating__activee_list');
+        ratingValue = rating.querySelector('.rating__valuee');
+    }
+
+    function setRatingActiveWidth(index = ratingValue.innerHTML) {
+        const ratingActiveWidth = index / 0.05;
+        ratingActive.style.width = `${ratingActiveWidth}%`;
+    }
+}
+
+
+
+
+
+</script>
 
 {% endblock %}

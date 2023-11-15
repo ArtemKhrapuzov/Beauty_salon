@@ -52,17 +52,14 @@ class SubtitleAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ("title",)
+    list_display = ("id", "title",)
     list_filter = ("title",)
     search_fields = ("title",)
     prepopulated_fields = {"url": ("title",)}
 
-# @admin.register(Filing)
-# class FilingAdmin(admin.ModelAdmin):
-#     list_display = ("title",)
-#     list_filter = ("title",)
-#     search_fields = ("title",)
-#     prepopulated_fields = {"url": ("title", )}
-
+@admin.register(ArticleReview)
+class ArticleReviewAdmin(admin.ModelAdmin):
+    list_display = ("name", "email", "parent", "article", "id")
+    readonly_fields = ("name", "email")
 
 admin.site.register(RatingStar)

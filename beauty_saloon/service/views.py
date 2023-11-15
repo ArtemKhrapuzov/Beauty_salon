@@ -5,7 +5,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView
 from django.contrib.postgres.search import SearchVector
 
-from .forms import ReviewForm, RatingForm
+from .forms import ReviewForm, RatingForm, ArticleReviewForm
 from .models import *
 from .utils import QuerysetMixin
 
@@ -48,6 +48,11 @@ class ArticleDetail(DetailView):
         random_products = queryset.order_by('?')[:3]
         context['random_products'] = random_products
 
+        queryset_new = Product.objects.order_by('-id')[:18]
+        random_products_new = random.sample(list(queryset_new), 6)
+        context['products_new'] = random_products_new
+
+        context["star_form"] = RatingForm
         return context
 
 
@@ -168,7 +173,7 @@ class HitProduct(ListView):
 
 
 class AddReview(View):
-    """Отзывы"""
+    """Отзывы продуктов"""
 
     def post(self, request, pk):
         form = ReviewForm(request.POST)
@@ -180,6 +185,21 @@ class AddReview(View):
             form.product = product
             form.save()
         return redirect(product.get_absolute_url())
+
+
+class AddReviewArticle(View):
+    """Отзывы статей"""
+
+    def post(self, request, pk):
+        form = ArticleReviewForm(request.POST)
+        article = Article.objects.get(id=pk)
+        if form.is_valid():
+            form = form.save(commit=False)
+            if request.POST.get("parent", None):
+                form.parent_id = int(request.POST.get("parent"))
+            form.article = article
+            form.save()
+        return redirect(article.get_absolute_url())
 
 
 class AddStarRating(View):

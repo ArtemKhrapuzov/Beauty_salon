@@ -14,17 +14,6 @@ table {
 }
 
 
-#left {
-  float: left;
-  width: 65%;
-  overflow: hidden;
-}
-
-#right {
-  overflow: hidden;
-}
-
-
 .cur {
   width: 30%;
 }

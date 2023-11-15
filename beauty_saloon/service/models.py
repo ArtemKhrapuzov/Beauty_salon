@@ -158,6 +158,9 @@ class Article(models.Model):
     def get_absolute_url(self):
         return reverse('article_detail', kwargs={'slug': self.url})
 
+    def get_review(self):
+        return self.reviews_set.filter(parent__isnull=True)
+
     def __str__(self):
         return self.title
 
@@ -166,23 +169,17 @@ class Article(models.Model):
         verbose_name_plural = 'Статьи'
 
 
-# class Filing(models.Model):
-#     title = models.CharField(max_length=100, verbose_name='Заголовок')
-#     url = models.SlugField(max_length=160, unique=True,  verbose_name='URL')
-#     description_1 = models.TextField(max_length=4000, blank=True, default='', verbose_name='Текст_1')
-#     image_1 = models.ImageField(upload_to="article/%Y/%m/%d/", blank=True, null=True, verbose_name='Фото_1')
-#     description_2 = models.TextField(max_length=4000, blank=True, default='', verbose_name='Текст_2')
-#     image_2 = models.ImageField(upload_to="article/%Y/%m/%d/", blank=True, null=True, verbose_name='Фото_2')
-#     description_3 = models.TextField(max_length=4000, blank=True, default='', verbose_name='Текст_3')
-#     image_3 = models.ImageField(upload_to="article/%Y/%m/%d/", blank=True, null=True, verbose_name='Фото_3')
-#     article = models.ForeignKey('Article', verbose_name='Статья', on_delete=models.CASCADE)
-#
-#     def get_absolute_url(self):
-#         return reverse('article_detail', kwargs={'slug': self.url})
-#
-#     def __str__(self):
-#         return self.title
-#
-#     class Meta:
-#         verbose_name = 'Наполнение для статьи'
-#         verbose_name_plural = 'Наполнение для статей'
+class ArticleReview(models.Model):
+    """Отзывы статей"""
+    email = models.EmailField(verbose_name='Mail')
+    name = models.CharField("Имя", max_length=100)
+    text = models.TextField("Сообщение", max_length=5000)
+    parent = models.ForeignKey("self", verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True)
+    article = models.ForeignKey(Article, verbose_name="Продукт", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.name} - {self.article}'
+
+    class Meta:
+        verbose_name = 'Отзыв статьи'
+        verbose_name_plural = 'Отзывы статей'
