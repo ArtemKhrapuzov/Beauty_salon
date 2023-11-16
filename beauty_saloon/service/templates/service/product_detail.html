@@ -47,7 +47,7 @@
 
 
         <div class="product-reviews">
-            <h3>Оставить отзыв {{ product.reviews_set.count }} </h3>
+            <h3>Оставить отзыв ({{ product.reviews_set.count }}) </h3>
             {% if request.user.is_authenticated %}
             <form action="{% url 'add_review' product.id %}" method="post" class="mt-4" id="formReview">
 

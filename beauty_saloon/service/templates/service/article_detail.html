@@ -97,7 +97,8 @@
 </div>
 
 <div class="product-reviews">
-    <h3>Оставить отзыв {{ article.reviews_set.count }} </h3>
+    <h3 style="font-size: 0.7em;letter-spacing: 1.2px;color: #a6a6a6;">
+        Оставить отзыв ({{ article.articlereview_set.count }}) </h3>
     {% if request.user.is_authenticated %}
     <form action="{% url 'add_review_article' article.id %}" method="post" class="mt-4" id="formReview">
 
@@ -150,7 +151,7 @@
         {% endif %}
 
         <div style="padding-top:30px;">
-            {% for review in articl.get_review %}
+            {% for review in article.articlereview_set.all %}
             <div class="media py-0">
                 <img src="{% static 'service/images/инкогнито.jpg' %}" align="left"
                      style="width: 70px; height: 60px;"
@@ -163,8 +164,8 @@
                         {{ review.text }}
                     </p>
                     <a href="#formReview"
-                       onclick="addReview('{{ review.name }}', '{{ review.id }}')">Ответить</a>
-                    {% for rew in review.reviews_set.all %}
+                       onclick="AddReviewArticle('{{ review.name }}', '{{ review.id }}')">Ответить</a>
+                    {% for rew in review.articlereview_set.all %}
                     <div class="media mt-5 editContent">
                         <a class="pr-3" href="#">
                             <img src="{% static 'service/images/инкогнито.jpg' %}" align="left"
@@ -187,6 +188,14 @@
 </div>
 
 </div>
+
+
+<script>
+        function AddReviewArticle(name, id) {
+            document.getElementById("contactparent").value = id;
+            document.getElementById("contactcomment").innerText = `${name}, `
+        }
+</script>
 
 
 <script>
@@ -219,10 +228,6 @@ function initRatings() {
         ratingActive.style.width = `${ratingActiveWidth}%`;
     }
 }
-
-
-
-
 
 </script>
 
