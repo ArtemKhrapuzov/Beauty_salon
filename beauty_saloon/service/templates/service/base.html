@@ -33,9 +33,36 @@
                         <div class="logo"></div>
                     </a></li>
 
+
                     {% if request.user.is_authenticated %}
-                    <li><a href="#">Бренды</a></li>
+                    <li><button class="btn btn-success dropdown-toggle"
+                            type="button"
+                            id="multiSelectDropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            style=" overflow: hidden; background: #3b0b0b;
+                             border:none;">
+                        Бренды
+                    </button></li>
+                    <ul class="dropdown-menu "
+                        aria-labelledby="multiSelectDropdown"
+                        style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+
+                        {% for trademark in view.get_trademarks %}
+                        <li style="margin-left:10px;">
+                            <label>
+                                <input type="checkbox"
+                                       name="trademark"
+                                       value="{{ trademark }}">
+                                {{ trademark }}
+                            </label>
+                        </li>
+                        {% endfor %}
+                    </ul>
                     {% endif %}
+
+
+
 
 
                     {% if request.user.is_authenticated %}
@@ -73,7 +100,8 @@
                         border:none;" aria-expanded="false">{{ cat.title }}</a>
                     {% else %}
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                            style="color:black; font-size:17px; overflow: hidden; height: 40px; background:#cafcf9; border:none;"
+                            style="color:black; font-size:17px; overflow: hidden; height: 40px; background:#cafcf9;
+                             border:none;"
                             data-bs-toggle="dropdown"
                             aria-expanded="false">{{ cat.title }}
                     </button>

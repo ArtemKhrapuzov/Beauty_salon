@@ -26,8 +26,9 @@ class Index(ListView):
         context['title'] = 'Интернет портал косметики'
 
         queryset_new = Product.objects.order_by('-id')[:12]
-        random_products_new = random.sample(list(queryset_new), 3)
-        context['products_new'] = random_products_new
+        if len(list(queryset_new)) >= 3:
+            random_products_new = random.sample(list(queryset_new), 3)
+            context['products_new'] = random_products_new
 
         queryset_article = Article.objects.filter(is_published=True).order_by('-id')[:3]
         context['articles'] = queryset_article

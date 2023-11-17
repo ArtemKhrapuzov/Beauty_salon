@@ -62,4 +62,10 @@ class ArticleReviewAdmin(admin.ModelAdmin):
     list_display = ("name", "email", "parent", "article", "id")
     readonly_fields = ("name", "email")
 
+@admin.register(Trademark)
+class TrademarkAdmin(admin.ModelAdmin):
+    list_display = ("title",)
+    prepopulated_fields = {"url": ("title",)}
+
+
 admin.site.register(RatingStar)

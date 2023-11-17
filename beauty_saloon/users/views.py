@@ -7,25 +7,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.tokens import default_token_generator as \
     token_generator
 
-from users.forms import RegisterUserForm, LoginUserForm
+from users.forms import RegisterUserForm
 from .tasks import send_email
 
 User = get_user_model()
 
 
-# class MyLoginView(LoginView):
-#     form_class = LoginUserForm
-#     #template_name = 'service/login.html'
-#
-#     def get_success_url(self):
-#         return reverse_lazy('home')
-
-
 class EmailVerify(View):
     def get(self, request, uidb64, token):
-
         user = self.get_user(uidb64)
-
         if user is not None and token_generator.check_token(user, token):
             user.email_verify = True
             user.save()
@@ -36,7 +26,6 @@ class EmailVerify(View):
     @staticmethod
     def get_user(uidb64):
         try:
-            # urlsafe_base64_decode() decodes to bytestring
             uid = urlsafe_base64_decode(uidb64).decode()
             user = User.objects.get(pk=uid)
         except (TypeError, ValueError, OverflowError,

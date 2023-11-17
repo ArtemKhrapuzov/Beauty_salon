@@ -14,11 +14,25 @@ FOR_WHAT_TOOLS = (
 )
 
 
+class Trademark(models.Model):
+    """Бренды"""
+    title = models.CharField(max_length=70, verbose_name="Название бренда")
+    url = models.SlugField(max_length=160, unique=True, verbose_name='URL')
+    description = models.TextField(verbose_name="Описание бренда")
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        verbose_name = 'Бренд'
+        verbose_name_plural = 'Бренды'
+
+
 class Product(models.Model):
     """Продукты"""
     name = models.CharField(max_length=255, verbose_name='Название')
     url = models.SlugField(max_length=160, unique=True, verbose_name='URL')
-    trademark = models.CharField(max_length=255, verbose_name='Название торговой марки')
+    trademark = models.ForeignKey(Trademark, verbose_name='Бренд', on_delete=models.CASCADE)
     compound = models.TextField(max_length=1000, verbose_name='Состав', blank=True, default='')
     volume = models.IntegerField(verbose_name='Объем (мл,гр)', blank=True, null=True)
     description = models.TextField(max_length=4000, blank=True, default='', verbose_name='Описание')
@@ -145,7 +159,7 @@ class RatingStar(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=100, verbose_name='Заголовок', unique=True)
-    url = models.SlugField(max_length=160, unique=True,  verbose_name='URL')
+    url = models.SlugField(max_length=160, unique=True, verbose_name='URL')
     image = models.ImageField(upload_to="article/%Y/%m/%d/", verbose_name='Фото')
     is_published = models.BooleanField(default=False, verbose_name='Публикация')
     description_1 = models.TextField(max_length=4000, blank=True, default='', verbose_name='Текст_1')
