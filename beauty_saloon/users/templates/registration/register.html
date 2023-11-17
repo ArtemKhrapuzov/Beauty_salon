@@ -7,30 +7,35 @@
 
 {% block content %}
 <div class="overlay">
-<form class="formm"  action="{% url 'register' %}" method="post">
+    <form class="formm" action="{% url 'register' %}" method="post">
         {% csrf_token %}
-    <div class="form-error">{{ form.non_field_errors }}</div>
-    {% csrf_token %}
-   <div class="con">
-   <header class="head-form">
-      <h2>Регистрация</h2>
-      <p>Введите данные или <a href="{% url 'login' %}" class="log-in">войдите</a> в свой аккаунт</p>
-   </header>
-   <br>
-   <div class="field-set">
-    {% for f in form %}
-    <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
-    <div class="form-error">{{ f.errors }}</div>
-    {% endfor %}
+        <div class="form-error">{{ form.non_field_errors }}</div>
+        {% csrf_token %}
+        <div class="con">
+            <header class="head-form">
+                <h2>Регистрация</h2>
+                <p>Введите данные или <a href="{% url 'login' %}" class="log-in">войдите</a> в свой аккаунт</p>
+            </header>
+            <br>
+            <div class="field-set">
 
-        <button type="submit" class="log-in">Зарегестрироваться</button>
+                {% for f in form %}
+                <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
+                <div class="form-error">{{ f.errors }}</div>
+                {% endfor %}
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                    <label class="form-check-label" for="exampleCheck1">
+                        Регистрируясь, вы соглашаетесь с <a href="{% url 'agree' %}">пользовательским соглашением</a></label>
+                </div>
 
-   </div>
+                <button type="submit" class="log-in">Зарегистрироваться</button>
 
-  </div>
-</form>
+            </div>
+
+        </div>
+    </form>
 </div>
-
 
 
 

@@ -9,7 +9,6 @@ User = get_user_model()
 
 @app.task()
 def send_email(user_id):
-    #params = request.GET.urlencode()
     send_email_for_verify(User.objects.get(id=user_id))
 
 
