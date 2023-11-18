@@ -34,8 +34,9 @@
                     </a></li>
 
 
+
                     {% if request.user.is_authenticated %}
-                    <li><button class="btn btn-success dropdown-toggle"
+                    <button class="btn btn-success dropdown-toggle"
                             type="button"
                             id="multiSelectDropdown"
                             data-bs-toggle="dropdown"
@@ -43,19 +44,14 @@
                             style=" overflow: hidden; background: #3b0b0b;
                              border:none;">
                         Бренды
-                    </button></li>
+                    </button>
                     <ul class="dropdown-menu "
                         aria-labelledby="multiSelectDropdown"
                         style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
-
-                        {% for trademark in view.get_trademarks %}
+                        {% get_trademark as trademarks %}
+                        {% for trademark in trademarks %}
                         <li style="margin-left:10px;">
-                            <label>
-                                <input type="checkbox"
-                                       name="trademark"
-                                       value="{{ trademark }}">
-                                {{ trademark }}
-                            </label>
+                            <a href="{% url 'trademark_detail' slug=trademark.url %}" style=" color: black;">{{ trademark }}</a>
                         </li>
                         {% endfor %}
                     </ul>

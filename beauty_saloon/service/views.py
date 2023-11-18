@@ -11,7 +11,8 @@ from .utils import QuerysetMixin
 
 
 class Index(ListView):
-    """Отображение товаров со средним рейтингом выше 4.0 и новинок (рандомно 3 из последних 12)"""
+    """Отображение товаров со средним рейтингом выше 4.0, новинок (рандомно 3 из последних 12),
+    статей (последние 3)"""
     model = Product
     template_name = 'service/index.html'
     context_object_name = 'products'
@@ -36,6 +37,7 @@ class Index(ListView):
 
 
 class ArticleDetail(DetailView):
+    """Детальный обзор статьи"""
     model = Article
     context_object_name = 'article'
     slug_field = 'url'
@@ -57,8 +59,17 @@ class ArticleDetail(DetailView):
         return context
 
 
+class TrademarkDetail(DetailView):
+    """Отображение всех брендов"""
+    model = Trademark
+    context_object_name = 'trademark'
+    slug_field = 'url'
+    slug_url_kwarg = 'slug'
+
+
+
 class ProductList(QuerysetMixin, ListView):
-    """Product list"""
+    """Отображение категорий/подкатегорий/подподкатегорий и товаров в них"""
 
     def get_queryset(self):
         subsub_slug = self.kwargs.get('subsub_slug')
@@ -86,7 +97,7 @@ class ProductList(QuerysetMixin, ListView):
 
 
 class ProductOtherList(QuerysetMixin, ListView):
-    """ context and queryset for Прочее"""
+    """Прочее"""
 
     def get_queryset(self):
         cat_slug = self.kwargs.get('cat_slug')
@@ -234,7 +245,7 @@ class Search(ListView):
     paginate_by = 60
 
     def get_queryset(self):
-        search_vector = SearchVector('name', 'trademark', 'color')
+        search_vector = SearchVector('name', 'trademark__title', 'color')
         if ('q' in self.request.GET) and self.request.GET['q'].strip():
             query_string = self.request.GET['q']
             return Product.objects.annotate(search=search_vector).filter(search=query_string)

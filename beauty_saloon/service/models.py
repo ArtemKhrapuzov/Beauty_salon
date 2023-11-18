@@ -20,6 +20,9 @@ class Trademark(models.Model):
     url = models.SlugField(max_length=160, unique=True, verbose_name='URL')
     description = models.TextField(verbose_name="Описание бренда")
 
+    def get_absolute_url(self):
+        return reverse('trademark_detail', kwargs={'slug': self.url})
+
     def __str__(self):
         return f'{self.title}'
 

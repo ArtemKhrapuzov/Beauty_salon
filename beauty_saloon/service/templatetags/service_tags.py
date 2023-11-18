@@ -18,3 +18,7 @@ def get_subtitle(category_id):
 @register.simple_tag
 def get_subsubtitle(subtitle_id):
     return Subsubtitle.objects.filter(sub=subtitle_id)
+
+@register.simple_tag
+def get_trademark():
+    return Trademark.objects.all()
