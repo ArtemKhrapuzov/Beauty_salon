@@ -115,7 +115,7 @@ class Filter(QuerysetMixin, ListView):
     def get_queryset(self):
         """Сортировка по категории и полю"""
         queryset = Product.objects.filter(cat__url=self.kwargs['cat_url'])
-        fields = ['trademark', 'color', 'volume', 'for_what', 'for_what_tools']
+        fields = ['trademark__title', 'color', 'volume', 'for_what', 'for_what_tools']
         for field in fields:
             if field in self.request.GET:
                 queryset = queryset.filter(**{f'{field}__in': self.request.GET.getlist(field)})

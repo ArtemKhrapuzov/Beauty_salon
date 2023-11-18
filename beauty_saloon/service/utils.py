@@ -10,8 +10,8 @@ class QuerysetMixin:
     def get_trademarks(self):
         if 'cat_slug' in self.kwargs:
             cat_slug = self.kwargs['cat_slug']
-            return Product.objects.filter(cat__url=cat_slug).order_by('trademark').values_list('trademark',
-                                                                                               flat=True).distinct()
+            return Product.objects.filter(cat__url=cat_slug).order_by('trademark__title')\
+                .values_list('trademark__title', flat=True).distinct()
         else:
             return []
 

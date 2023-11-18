@@ -57,6 +57,15 @@ class Product(models.Model):
     subsub = models.ForeignKey('Subsubtitle', verbose_name='Подподкатегория', on_delete=models.CASCADE, blank=True,
                                default='')
 
+    def save(self, *args, **kwargs):
+        self.color = self.color.lower()
+        self.density = self.density.lower()
+        self.effect = self.effect.lower()
+        self.consistency = self.consistency.lower()
+        self.rigidity = self.rigidity.lower()
+        self.shade = self.shade.lower()
+        super().save(*args, **kwargs)
+
     def average_rating(self):
         result = Rating.objects.filter(product=self).aggregate(Avg('star'))['star__avg']
         return str(round(result, 1)).replace(',', '.')
