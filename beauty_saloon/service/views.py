@@ -67,6 +67,15 @@ class TrademarkDetail(DetailView):
     slug_url_kwarg = 'slug'
 
 
+    def get_context_data(self, **kwargs):
+        """Передача queryset с продуктами данного бренда"""
+        context = super().get_context_data(**kwargs)
+        products = Product.objects.filter(trademark__url=self.kwargs.get('slug'))
+        context['products'] = products
+        context['title'] = f'{self.object.title}'
+        print(context)
+        return context
+
 
 class ProductList(QuerysetMixin, ListView):
     """Отображение категорий/подкатегорий/подподкатегорий и товаров в них"""
