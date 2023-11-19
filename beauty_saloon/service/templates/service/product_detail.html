@@ -9,7 +9,21 @@
 {% endblock head %}
 
 {% block content %}
+{% if product.subtitle.title %}
+<h6 style="margin-left:10px"><a href="/" style="color: black;">Главная</a> - {{ product.cat.title }}
+    - <a href="{% url 'product_list_sub' cat_slug=product.cat.url subtitle_slug=product.subtitle.url  %}"
+         style="color: black;">
+        {{ product.subtitle.title }}
+    </a>
+</h6>
 
+{% else %}
+<h6 style="margin-left:10px"><a href="/" style=" color: black;">Главная</a>
+</h6>
+
+<h1 style="margin-left:10px">{{ product.cat.title }}</h1>
+
+{% endif%}
 
 <section class="product">
     <div class="product__photo">
@@ -179,8 +193,6 @@
             document.getElementById("contactcomment").innerText = `${name}, `
         }
 
-
-
             </script>
 
         </div>
@@ -188,38 +200,57 @@
             <h3>Основные характеристики</h3>
             <table>
                 <tbody>
+                {% if product.color %}
                 <tr>
                     <td class="name"><span>Цвет</span></td>
                     <td class="cur">{{ product.color }}</td>
                 </tr>
+                {% endif %}
+                {% if product.volume %}
                 <tr>
                     <td class="name"><span>Объем</span></td>
                     <td class="cur">{{ product.volume }} мл</td>
                 </tr>
+                {% endif %}
+                {% if product.country %}
                 <tr>
                     <td class="name"><span>Производство</span></td>
                     <td class="cur">{{ product.country }}</td>
                 </tr>
+                {% endif %}
+                {% if product.where_buy %}
                 <tr>
                     <td class="name"><span>Где купить</span></td>
-                    <td class="cur"><a href="#">{{ product.where_buy }}</a></td>
+                    <td class="cur"><a href="{{ product.link }}" target=»_blank»>{{ product.where_buy }}</a></td>
                 </tr>
+                {% endif %}
                 </tbody>
             </table>
         </div>
         <div class="product-details-table">
             <div class="button-detail" style="background: #f0f0f0">
+                {% if product.description %}
                 <button class="active" onclick="toggleTab('description')">Описание</button>
+                {% endif %}
+                {% if product.compound %}
                 <button onclick="toggleTab('composition')">Состав</button>
+                {% endif %}
+                <button onclick="toggleTab('trademark')">Бренд</button>
             </div>
+
 
             <div id="description" class="tab active">
                 <p>{{ product.description }}</p>
             </div>
             <div id="composition" class="tab">
                 <p>{{ product.compound }}</p>
-
             </div>
+            <div id="trademark" class="tab">
+                <p>{{ product.trademark.description|linebreaks|truncatewords:50 }}
+                    <a href="{% url 'trademark_detail' slug=product.trademark.url %}">читать далее</a></p>
+            </div>
+
+
             <script>
 function toggleTab(tabName) {
   var tabs = document.getElementsByClassName("tab");
@@ -232,43 +263,55 @@ function toggleTab(tabName) {
   event.currentTarget.classList.add("active");
 }
 
+
             </script>
 
         </div>
         <div class="product-specs">
+            {% if product.density or product.effect or product.consistency or product.rigidity or product.shade or product.collection %}
             <h3>Дополнительные характеристики</h3>
             <table>
                 <tbody>
+                {% if product.density %}
                 <tr>
                     <td class="name"><span>Плотность</span></td>
                     <td class="cur">{{ product.density }}</td>
                 </tr>
+                {% endif %}
+                {% if product.effect %}
                 <tr>
                     <td class="name"><span>Эффект</span></td>
                     <td class="cur">{{ product.effect }}</td>
                 </tr>
+                {% endif %}
+                {% if product.consistency %}
                 <tr>
                     <td class="name"><span>Консистенция</span></td>
                     <td class="cur">{{ product.consistency }}</td>
                 </tr>
+                {% endif %}
+                {% if product.rigidity %}
                 <tr>
                     <td class="name"><span>Жесткость</span></td>
                     <td class="cur">{{ product.rigidity }}</td>
                 </tr>
+                {% endif %}
+                {% if product.shade %}
                 <tr>
                     <td class="name"><span>Оттенок</span></td>
                     <td class="cur">{{ product.shade }}</td>
                 </tr>
+                {% endif %}
+                {% if product.collection %}
                 <tr>
                     <td class="name"><span>Коллекция</span></td>
                     <td class="cur">{{ product.collection }}</td>
                 </tr>
-
-
+                {% endif %}
                 </tbody>
             </table>
+            {% endif %}
         </div>
-
     </div>
 </section>
 
@@ -286,6 +329,7 @@ rating.addEventListener("change", function (e) {
         .then(response => alert("Рейтинг установлен"))
         .catch(error => alert("Ошибка"))
 });
+
 </script>
 
 <script>
@@ -319,6 +363,7 @@ function initRatings() {
         ratingActive.style.width = `${ratingActiveWidth}%`;
     }
 }
+
 </script>
 
 {% endblock %}

@@ -209,3 +209,4 @@ class ArticleReview(models.Model):
     class Meta:
         verbose_name = 'Отзыв статьи'
         verbose_name_plural = 'Отзывы статей'
+        ordering = ['id']

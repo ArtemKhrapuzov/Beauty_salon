@@ -16,12 +16,16 @@
             <div class="card mb-3" style="max-width: 450px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="...">
+                        <a href="{{ prod.get_absolute_url }}">
+                            <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="...">
+                        </a>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">{{ prod.trademark }}</h5>
-                            <h5 class="card-title">{{ prod.name }}</h5>
+                            <a href="{{ prod.get_absolute_url }}" style="color:black;">
+                                <h5 class="card-title">{{ prod.trademark }}</h5>
+                                <h5 class="card-title">{{ prod.name }}</h5>
+                            </a>
                             <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                                 {{ prod.cat }} - {{ prod.subsub.title }}</p>
                             <div class="form__itemm" style="">
@@ -78,12 +82,16 @@
             <div class="card mb-3" style="max-width: 450px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="...">
+                        <a href="{{ prod.get_absolute_url }}">
+                            <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="...">
+                        </a>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">{{ prod.trademark }}</h5>
-                            <h5 class="card-title">{{ prod.name }}</h5>
+                            <a href="{{ prod.get_absolute_url }}" style="color:black;">
+                                <h5 class="card-title">{{ prod.trademark }}</h5>
+                                <h5 class="card-title">{{ prod.name }}</h5>
+                            </a>
                             <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
                                 {{ prod.cat }} - {{ prod.subsub.title }}</p>
                             <div class="form__itemm " style="">
@@ -135,16 +143,24 @@
 {% endif %}
 
 <div>
-    <h1><a href="#">Статьи</a></h1>
+    <center>
+        <h1><a href="{% url 'article_list' %}">Статьи</a></h1>
+    </center>
+
     <div class="container-fluid">
         <div class="row g-0">
             {% for article in articles %}
             <div class="card" style="max-width: 450px;">
-                <a href="{{ article.get_absolute_url }}"><img class="card-img-top" style="height:350px;" src="{{ article.image.url }}" alt="Card image cap"></a>
+                <a href="{{ article.get_absolute_url }}"><img class="card-img-top" style="height:350px;"
+                                                              src="{{ article.image.url }}" alt="Card image cap"></a>
                 <div class="card-body">
-                    <b ><a href="{{ article.get_absolute_url }}" style="color:black; text-decoration: none;">{{ article.title }}</a></b>
+                    <b><a href="{{ article.get_absolute_url }}" style="color:black; text-decoration: none;">
+                        {{ article.title }}
+                    </a></b>
                     {% autoescape on %}
-                    <p class="card-text" style="font-size: 1rem;">{{ article.description_1|linebreaks|truncatewords:15 }}</p>
+                    <p class="card-text" style="font-size: 1rem;">
+                        {{ article.description_1|linebreaks|truncatewords:15 }}
+                    </p>
                     {% endautoescape %}
                 </div>
             </div>
@@ -183,6 +199,8 @@ function initRatings() {
         ratingActive.style.width = `${ratingActiveWidth}%`;
     }
 }
+
+
 
 
 </script>

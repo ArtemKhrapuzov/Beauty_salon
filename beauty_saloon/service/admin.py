@@ -68,4 +68,4 @@ class TrademarkAdmin(admin.ModelAdmin):
     prepopulated_fields = {"url": ("title",)}
 
 
-admin.site.register(RatingStar)
+# admin.site.register(RatingStar)

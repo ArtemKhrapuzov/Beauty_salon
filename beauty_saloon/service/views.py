@@ -36,6 +36,27 @@ class Index(ListView):
         return context
 
 
+class ArticleList(ListView):
+    model = Article
+    context_object_name = 'articles'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Статьи'
+
+        queryset_new = Product.objects.order_by('-id')[:12]
+        if len(list(queryset_new)) >= 5:
+            random_products_new = random.sample(list(queryset_new), 5)
+            context['products_new'] = random_products_new
+        print(context)
+        return context
+
+
 class ArticleDetail(DetailView):
     """Детальный обзор статьи"""
     model = Article
@@ -47,13 +68,10 @@ class ArticleDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = f'{self.object.title}'
 
-        queryset = Product.objects.annotate(avg_rating=Avg('rating__star__value')).filter(avg_rating__gte=4)
-        random_products = queryset.order_by('?')[:3]
-        context['random_products'] = random_products
-
         queryset_new = Product.objects.order_by('-id')[:18]
-        random_products_new = random.sample(list(queryset_new), 6)
-        context['products_new'] = random_products_new
+        if len(list(queryset_new)) >= 3:
+            random_products_new = random.sample(list(queryset_new), 6)
+            context['products_new'] = random_products_new
 
         context["star_form"] = RatingForm
         return context
@@ -165,7 +183,8 @@ class NewProduct(ListView):
     model = Product
     template_name = 'service/new.html'
     context_object_name = 'products'
-    paginate_by = 60
+    paginate_by = 9
+
 
     def get_queryset(self):
         return Product.objects.all().order_by('-id')[:200]
@@ -181,7 +200,7 @@ class HitProduct(ListView):
     model = Product
     template_name = 'service/hit.html'
     context_object_name = 'products'
-    paginate_by = 60
+    paginate_by = 9
 
     def get_queryset(self):
         queryset = Product.objects.annotate(avg_rating=Avg('rating__star__value')).filter(avg_rating__gte=4)
@@ -251,7 +270,7 @@ class Search(ListView):
     """Поиск продуктов"""
     template_name = 'service/filter_result.html'
     context_object_name = 'products'
-    paginate_by = 60
+    paginate_by = 9
 
     def get_queryset(self):
         search_vector = SearchVector('name', 'trademark__title', 'color')
@@ -263,4 +282,6 @@ class Search(ListView):
         context = super().get_context_data(*args, **kwargs)
         context["q"] = f'q={self.request.GET.get("q")}&'
         return context
+
+
 

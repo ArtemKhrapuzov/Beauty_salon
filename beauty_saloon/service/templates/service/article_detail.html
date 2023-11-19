@@ -37,14 +37,15 @@
         <img class="card-img-top" style="width: 600px;" src="{{ article.image_3.url }}"
              alt="Card image cap">
         {% endif %}
-
-
+        <div style="padding-top:2rem;">
+            <a href="{% url 'article_list' %}">Все статьи</a>
+        </div>
     </div>
 
     <div class="right" style="overflow: hidden;">
 
         {% for prod in products_new %}
-        <div class="card mb-3" style="max-width: 450px;">
+        <div class="card mb-3" style="max-width: 100%;">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="...">
@@ -94,6 +95,7 @@
         {% endfor %}
 
     </div>
+
 </div>
 
 <div class="product-reviews">
