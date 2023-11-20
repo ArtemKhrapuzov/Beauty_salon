@@ -53,7 +53,6 @@ class ArticleList(ListView):
         if len(list(queryset_new)) >= 5:
             random_products_new = random.sample(list(queryset_new), 5)
             context['products_new'] = random_products_new
-        print(context)
         return context
 
 
@@ -91,7 +90,7 @@ class TrademarkDetail(DetailView):
         products = Product.objects.filter(trademark__url=self.kwargs.get('slug'))
         context['products'] = products
         context['title'] = f'{self.object.title}'
-        print(context)
+
         return context
 
 
