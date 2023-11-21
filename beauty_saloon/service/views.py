@@ -1,4 +1,5 @@
 import random
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
@@ -90,7 +91,6 @@ class TrademarkDetail(DetailView):
         products = Product.objects.filter(trademark__url=self.kwargs.get('slug'))
         context['products'] = products
         context['title'] = f'{self.object.title}'
-
         return context
 
 

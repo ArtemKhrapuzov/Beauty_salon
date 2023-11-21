@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Avg
+from django.db.models import Avg, Sum
 from django.urls import reverse
 
 FOR_WHAT = (
@@ -133,6 +133,8 @@ class Reviews(models.Model):
     text = models.TextField("Сообщение", max_length=5000)
     parent = models.ForeignKey("self", verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True)
     product = models.ForeignKey(Product, verbose_name="Продукт", on_delete=models.CASCADE)
+
+
 
     def __str__(self):
         return f'{self.name} - {self.product}'
