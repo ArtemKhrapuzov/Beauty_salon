@@ -51,7 +51,8 @@
                         {% get_trademark as trademarks %}
                         {% for trademark in trademarks %}
                         <li style="margin-left:10px;">
-                            <a href="{% url 'trademark_detail' slug=trademark.url %}" style=" color: black;">{{ trademark }}</a>
+                            <a href="{% url 'trademark_detail' slug=trademark.url %}" style=" color: black;">
+                                {{ trademark.title }}</a>
                         </li>
                         {% endfor %}
                     </ul>

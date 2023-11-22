@@ -19,7 +19,8 @@ class Index(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        queryset = Product.objects.annotate(avg_rating=Avg('rating__star__value')).filter(avg_rating__gte=4)
+        queryset = Product.objects.select_related('trademark').annotate(avg_rating=Avg('rating__star__value')).filter(avg_rating__gte=4).only(
+            'id', 'name', 'url', 'trademark', 'cat', 'image')
         random_products = queryset.order_by('?')[:3]
         return random_products
 
@@ -27,13 +28,20 @@ class Index(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Интернет портал косметики'
 
-        queryset_new = Product.objects.order_by('-id')[:12]
+
+        queryset_new = Product.objects.select_related('trademark').order_by('-id')[:12].only(
+            'id', 'name', 'url', 'trademark', 'cat', 'image')
         if len(list(queryset_new)) >= 3:
             random_products_new = random.sample(list(queryset_new), 3)
             context['products_new'] = random_products_new
+        #print(queryset_new.values_list())
 
-        queryset_article = Article.objects.filter(is_published=True).order_by('-id')[:3]
+
+        queryset_article =  Article.objects.filter(is_published=True).order_by('-id')[:3].only(
+            'title', 'description_1', 'image', 'url', 'id')
         context['articles'] = queryset_article
+        #print(queryset_article.values_list())
+
         return context
 
 
