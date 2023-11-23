@@ -41,8 +41,9 @@
                                             <input type="radio" class="rating__itemm" value="5" name="ratingg">
                                         </div>
                                     </div>
-                                    {% if prod.average_rating != 'None' %}
-                                    <div class="rating__valuee" hidden style="font-size: 60%;">{{ prod.average_rating }}
+                                    {% if prod.avg_rating != 'None' %}
+                                    <div class="rating__valuee" hidden="" style="font-size: 60%;">{{prod.avg_rating|floatformat:"-1"}}
+
                                     </div>
                                     {% else %}
                                     <div class="rating__valuee" hidden style="font-size: 60%;">0</div>
@@ -52,7 +53,13 @@
                                     <img src="{% static 'service/images/review.png' %}"
                                          style="width: 25px; height: 17px;"
                                          alt="">
-                                    {{ prod.reviews_set.count }}
+                                {% if prod.num_reviews is not None %}
+                                    {{ prod.num_reviews }}
+                                {% else %}
+                                    0
+                                {% endif %}
+
+
                                 </div>
                                 <div class="position-absolute bottom-0 end-0" style="">
                                     <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
@@ -107,8 +114,9 @@
                                             <input type="radio" class="rating__itemm" value="5" name="ratingg">
                                         </div>
                                     </div>
-                                    {% if prod.average_rating != 'None' %}
-                                    <div class="rating__valuee" hidden style="font-size: 60%;">{{ prod.average_rating }}
+                                    {% if prod.avg_rating != 'None' %}
+                                    <div class="rating__valuee" hidden="" style="font-size: 60%;">{{prod.avg_rating|floatformat:"-1"}}
+
                                     </div>
                                     {% else %}
                                     <div class="rating__valuee" hidden style="font-size: 60%;">0</div>
@@ -118,7 +126,11 @@
                                     <img src="{% static 'service/images/review.png' %}"
                                          style="width: 25px; height: 17px;"
                                          alt="">
-                                    {{ prod.reviews_set.count }}
+                                {% if prod.num_reviews is not None %}
+                                    {{ prod.num_reviews }}
+                                {% else %}
+                                    0
+                                {% endif %}
                                 </div>
                                 <div class="position-absolute bottom-0 end-0" style="">
                                     <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">

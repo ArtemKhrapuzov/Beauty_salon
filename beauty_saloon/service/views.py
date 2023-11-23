@@ -1,5 +1,6 @@
 import random
 
+from django.db.models import Count, Subquery, OuterRef
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
@@ -12,35 +13,42 @@ from .utils import QuerysetMixin
 
 
 class Index(ListView):
-    """Отображение товаров со средним рейтингом выше 4.0, новинок (рандомно 3 из последних 12),
-    статей (последние 3)"""
+    """ВАЖНО! Корректно работает, только после введеных трех и более продуктов в БД.
+    Не ввел if с целью оптимизации запроса. Отображение товаров со средним рейтингом выше 4.0,
+    новинок (рандомно 3 из последних 12), статей (последние 3)"""
     model = Product
     template_name = 'service/index.html'
     context_object_name = 'products'
 
     def get_queryset(self):
-        queryset = Product.objects.select_related('trademark').annotate(avg_rating=Avg('rating__star__value')).filter(avg_rating__gte=4).only(
-            'id', 'name', 'url', 'trademark', 'cat', 'image')
-        random_products = queryset.order_by('?')[:3]
-        return random_products
+        """Запрос в бд на продукты с средним рейтингом 4+,
+        оптимизированный запрос с выводом колличества комментариев"""
+        queryset = Product.objects.select_related('trademark').select_related('cat') \
+                       .annotate(avg_rating=Avg('rating__star__value')) \
+                       .annotate(num_reviews=Subquery(
+            Reviews.objects.filter(product_id=OuterRef('id'))
+            .values('product_id')
+            .annotate(count=Count('id'))
+            .values('count')[:1]
+        )) \
+                       .filter(avg_rating__gte=4) \
+                       .only('id', 'name', 'url', 'trademark', 'cat', 'image') \
+                       .order_by('?')[:3]
+        return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
+        """Вывод новинок и статей"""
         context = super().get_context_data(**kwargs)
         context['title'] = 'Интернет портал косметики'
+        queryset_new = Product.objects.select_related('trademark').select_related('cat').order_by('-id')[:12].only(
+            'id', 'name', 'url', 'trademark', 'cat', 'image').annotate(
+            avg_rating=Avg('rating__star__value'))
 
+        context['products_new'] = queryset_new[:3]
 
-        queryset_new = Product.objects.select_related('trademark').order_by('-id')[:12].only(
-            'id', 'name', 'url', 'trademark', 'cat', 'image')
-        if len(list(queryset_new)) >= 3:
-            random_products_new = random.sample(list(queryset_new), 3)
-            context['products_new'] = random_products_new
-        #print(queryset_new.values_list())
-
-
-        queryset_article =  Article.objects.filter(is_published=True).order_by('-id')[:3].only(
+        queryset_article = Article.objects.filter(is_published=True).order_by('-id')[:3].only(
             'title', 'description_1', 'image', 'url', 'id')
         context['articles'] = queryset_article
-        #print(queryset_article.values_list())
 
         return context
 
@@ -71,7 +79,6 @@ class ArticleDetail(DetailView):
     context_object_name = 'article'
     slug_field = 'url'
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = f'{self.object.title}'
@@ -91,7 +98,6 @@ class TrademarkDetail(DetailView):
     context_object_name = 'trademark'
     slug_field = 'url'
     slug_url_kwarg = 'slug'
-
 
     def get_context_data(self, **kwargs):
         """Передача queryset с продуктами данного бренда"""
@@ -192,7 +198,6 @@ class NewProduct(ListView):
     context_object_name = 'products'
     paginate_by = 9
 
-
     def get_queryset(self):
         return Product.objects.all().order_by('-id')[:200]
 
@@ -289,6 +294,3 @@ class Search(ListView):
         context = super().get_context_data(*args, **kwargs)
         context["q"] = f'q={self.request.GET.get("q")}&'
         return context
-
-
-
