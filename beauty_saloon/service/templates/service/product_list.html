@@ -704,8 +704,6 @@
 {% endif %}
 
 
-
-
 <div class="container-fluid" style="margin-top:30px;">
     <div class="row g-0">
         {% for prod in products %}
@@ -742,7 +740,11 @@
                         <div class="review_image_count">
                             <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;"
                                  alt="">
-                            {{ prod.reviews_set.count }}
+                            {% if prod.num_reviews is not None %}
+                            {{ prod.num_reviews }}
+                            {% else %}
+                            0
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -778,8 +780,8 @@
                                     <input type="radio" class="rating__itemm" value="5" name="ratingg">
                                 </div>
                             </div>
-                            {% if prod.average_rating != 'None' %}
-                            <div class="rating__valuee" hidden style="font-size: 60%;">{{ prod.average_rating }}</div>
+                           {% if prod.avg_rating != 'None' %}
+                            <div class="rating__valuee" hidden style="font-size: 60%;">{{prod.avg_rating|floatformat:"-1"}}</div>
                             {% else %}
                             <div class="rating__valuee" hidden style="font-size: 60%;">0</div>
                             {% endif %}
@@ -787,7 +789,11 @@
                         <div class="review_image_count">
                             <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;"
                                  alt="">
-                            {{ prod.reviews_set.count }}
+                            {% if prod.num_reviews is not None %}
+                            {{ prod.num_reviews }}
+                            {% else %}
+                            0
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -824,8 +830,8 @@
                                     <input type="radio" class="rating__itemm" value="5" name="ratingg">
                                 </div>
                             </div>
-                            {% if prod.average_rating != 'None' %}
-                            <div class="rating__valuee" hidden style="font-size: 60%;">{{ prod.average_rating }}</div>
+                            {% if prod.avg_rating != 'None' %}
+                            <div class="rating__valuee" hidden style="font-size: 60%;">{{prod.avg_rating|floatformat:"-1"}}</div>
                             {% else %}
                             <div class="rating__valuee" hidden style="font-size: 60%;">0</div>
                             {% endif %}
@@ -833,7 +839,11 @@
                         <div class="review_image_count">
                             <img src="{% static 'service/images/review.png' %}" style="width: 25px; height: 17px;"
                                  alt="">
-                            {{ prod.reviews_set.count }}
+                            {% if prod.num_reviews is not None %}
+                            {{ prod.num_reviews }}
+                            {% else %}
+                            0
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -881,6 +891,7 @@ function initRatings() {
         ratingActive.style.width = `${ratingActiveWidth}%`;
     }
 }
+
 
 
 </script>
