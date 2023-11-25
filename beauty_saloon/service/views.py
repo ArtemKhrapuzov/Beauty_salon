@@ -101,7 +101,14 @@ class TrademarkDetail(DetailView):
     def get_context_data(self, **kwargs):
         """Передача queryset с продуктами данного бренда"""
         context = super().get_context_data(**kwargs)
-        products = Product.objects.filter(trademark__url=self.kwargs.get('slug'))
+        products = Product.objects.select_related('trademark').select_related('cat').select_related('subsub').only(
+            'id', 'name', 'url', 'trademark__title', 'color', 'cat__title', 'image', 'subsub__title')\
+            .filter(trademark__url=self.kwargs.get('slug')).annotate(
+            avg_rating=Avg('rating__star__value')).annotate(num_reviews=Subquery(
+            Reviews.objects.filter(product_id=OuterRef('id'))
+            .values('product_id')
+            .annotate(count=Count('id'))
+            .values('count')[:1]))
         context['products'] = products
         context['title'] = f'{self.object.title}'
         return context
@@ -113,11 +120,11 @@ class ProductList(QuerysetMixin, ListView):
     def get_queryset(self):
         subsub_slug = self.kwargs.get('subsub_slug')
         if subsub_slug:
-            subsubtitle = get_object_or_404(Subsubtitle, url=subsub_slug)
+            subsubtitle = get_object_or_404(Subsubtitle.objects.only('url'), url=subsub_slug)
         else:
             subsubtitle = None
         subtitle_slug = self.kwargs['subtitle_slug']
-        subtitle = get_object_or_404(Subtitle, url=subtitle_slug)
+        subtitle = get_object_or_404(Subtitle.objects.only('url'), url=subtitle_slug)
         queryset = super().get_queryset()
         if subsubtitle:
             queryset = queryset.filter(subsub=subsubtitle)
@@ -150,20 +157,21 @@ class ProductOtherList(QuerysetMixin, ListView):
     def get_queryset(self):
         cat_slug = self.kwargs.get('cat_slug')
         if cat_slug:
-            cattitle = get_object_or_404(Category, url=cat_slug)
+            cattitle = get_object_or_404(Category.objects.only('url'), url=cat_slug)
         else:
             cattitle = None
         queryset = super().get_queryset()
         if cattitle:
             queryset = queryset.filter(cat=cattitle)
-        return queryset.annotate(avg_rating=Avg('rating__star__value'))
+        return queryset.select_related('trademark').select_related('cat').annotate(avg_rating=Avg('rating__star__value')).only(
+            'id', 'name', 'url', 'color', 'trademark', 'cat__title', 'subsub__title', 'image')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         category = Category.objects.get(url=self.kwargs['cat_slug'])
         category_title = category.title
         context['category_title'] = category_title
-        context['title'] = f'{category_title}'
+        context['title'] = 'Прочее'
         return context
 
 
