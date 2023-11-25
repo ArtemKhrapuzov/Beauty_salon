@@ -215,24 +215,43 @@ class NewProduct(ListView):
     paginate_by = 9
 
     def get_queryset(self):
-        return Product.objects.all().order_by('-id')[:200]
+        return Product.objects.select_related('trademark').select_related('cat').select_related('subsub')\
+            .annotate(avg_rating=Avg('rating__star__value'))\
+            .annotate(num_reviews=Subquery(Reviews.objects.filter(product_id=OuterRef('id'))
+                                       .values('product_id')
+                                       .annotate(count=Count('id'))
+                                       .values('count')[:1])).only(
+        'id', 'name', 'url', 'color', 'trademark__title', 'cat__title', 'subsub__title', 'image').order_by('-id')[:200]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Новинки'
+
         return context
 
 
 class HitProduct(ListView):
-    """Хиты. Вывод товаров с рейтингом 4 и выше"""
+    """Хиты. Вывод товаров с рейтингом 4 и выше на отдельном url"""
     model = Product
     template_name = 'service/hit.html'
     context_object_name = 'products'
     paginate_by = 9
 
     def get_queryset(self):
-        queryset = Product.objects.annotate(avg_rating=Avg('rating__star__value')).filter(avg_rating__gte=4)
+        queryset = Product.objects.select_related('trademark').select_related('cat').select_related('subsub')\
+            .annotate(avg_rating=Avg('rating__star__value')).filter(avg_rating__gte=4)\
+            .annotate(num_reviews=Subquery(Reviews.objects.filter(product_id=OuterRef('id'))
+                                       .values('product_id')
+                                       .annotate(count=Count('id'))
+                                       .values('count')[:1])).only(
+        'id', 'name', 'url', 'color', 'trademark__title', 'cat__title', 'subsub__title', 'image')
         return queryset
+
+
+
+
+
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
