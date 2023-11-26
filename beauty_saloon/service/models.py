@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Avg, Sum
+from django.db.models import Avg
 from django.urls import reverse
 
 FOR_WHAT = (
@@ -89,6 +89,7 @@ class Product(models.Model):
 
 
 class Category(models.Model):
+    """Категории"""
     title = models.CharField(max_length=50, verbose_name='Название категории')
     url = models.SlugField(max_length=160, verbose_name='URL')
 
@@ -101,6 +102,7 @@ class Category(models.Model):
 
 
 class Subtitle(models.Model):
+    """Подкатегории"""
     title = models.CharField(max_length=50, verbose_name='Название подкатегории')
     url = models.SlugField(max_length=160, verbose_name='URL')
     cat = models.ForeignKey('Category', verbose_name='Категория', on_delete=models.CASCADE)
@@ -114,6 +116,7 @@ class Subtitle(models.Model):
 
 
 class Subsubtitle(models.Model):
+    """Подподкатегории"""
     title = models.CharField(max_length=50, verbose_name='Подподкатегория')
     url = models.SlugField(max_length=160, verbose_name='URL')
     sub = models.ForeignKey('Subtitle', verbose_name='Подкатегория', on_delete=models.CASCADE)
@@ -127,7 +130,7 @@ class Subsubtitle(models.Model):
 
 
 class Reviews(models.Model):
-    """Отзывы"""
+    """Отзывы продуктов"""
     email = models.EmailField(verbose_name='Mail')
     name = models.CharField("Имя", max_length=100)
     text = models.TextField("Сообщение", max_length=5000)
@@ -170,6 +173,7 @@ class RatingStar(models.Model):
 
 
 class Article(models.Model):
+    """Статьи"""
     title = models.CharField(max_length=100, verbose_name='Заголовок', unique=True)
     url = models.SlugField(max_length=160, unique=True, verbose_name='URL')
     image = models.ImageField(upload_to="article/%Y/%m/%d/", verbose_name='Фото')
@@ -186,8 +190,6 @@ class Article(models.Model):
 
     def get_review(self):
         return self.articlereview_set.filter(parent__isnull=True)
-
-
 
     def __str__(self):
         return self.title
@@ -212,4 +214,3 @@ class ArticleReview(models.Model):
     class Meta:
         verbose_name = 'Отзыв статьи'
         verbose_name_plural = 'Отзывы статей'
-

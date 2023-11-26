@@ -2,18 +2,13 @@ from django import template
 
 from service.models import *
 from django.core.cache import cache
-from django.template.defaultfilters import floatformat
-
 
 register = template.Library()
 
 
-# @register.simple_tag()
-# def get_category():
-#     return Category.objects.all()
-
 @register.simple_tag
 def get_category():
+    """Кэширование категорий в меню на 360сек"""
     cache_key = 'category_id'
     category = cache.get(cache_key)
 
@@ -21,6 +16,7 @@ def get_category():
         category = Category.objects.all()
         cache.set(cache_key, category, timeout=360)
     return category
+
 
 @register.simple_tag
 def get_subtitle(category_id):
@@ -33,6 +29,7 @@ def get_subtitle(category_id):
         cache.set(cache_key, subtitles, timeout=360)
 
     return subtitles
+
 
 @register.simple_tag
 def get_subsubtitle(subtitle_id):
@@ -47,13 +44,9 @@ def get_subsubtitle(subtitle_id):
     return subtitles
 
 
-
-# @register.simple_tag
-# def get_trademark():
-#     return Trademark.objects.all().values('id', 'title', 'url')
-
 @register.simple_tag
 def get_trademark():
+    """Кэширование брендов в меню на 360сек"""
     cache_key = 'trademark_id'
     trademark = cache.get(cache_key)
 

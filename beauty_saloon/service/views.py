@@ -1,5 +1,4 @@
 import random
-
 from django.db.models import Count, Subquery, OuterRef
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -60,8 +59,8 @@ class ArticleList(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = Article.objects.all().only('url', 'title', 'description_1', 'image')\
-        .annotate(num_reviews_art=Subquery(
+        queryset = Article.objects.all().only('url', 'title', 'description_1', 'image') \
+            .annotate(num_reviews_art=Subquery(
             ArticleReview.objects.filter(article_id=OuterRef('id'))
             .values('article_id')
             .annotate(count=Count('id'))
@@ -208,7 +207,8 @@ class Filter(QuerysetMixin, ListView):
 
     def get_queryset(self):
         """Сортировка по категории и полю"""
-        queryset = Product.objects.filter(cat__url=self.kwargs['cat_url']).annotate(avg_rating=Avg('rating__star__value'))
+        queryset = Product.objects.filter(cat__url=self.kwargs['cat_url']).annotate(
+            avg_rating=Avg('rating__star__value'))
         fields = ['trademark__title', 'color', 'volume', 'for_what', 'for_what_tools']
         for field in fields:
             if field in self.request.GET:
@@ -229,7 +229,6 @@ class ProductDetail(DetailView):
 
     def get_queryset(self):
         return super().get_queryset().select_related('subtitle').select_related('cat').select_related('trademark')
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -365,10 +364,4 @@ class Search(ListView):
         context["q"] = f'q={self.request.GET.get("q")}&'
         return context
 
-# .select_related('trademark').select_related('cat').select_related('subsub')\
-#             .annotate(avg_rating=Avg('rating__star__value'))\
-#             .annotate(num_reviews=Subquery(Reviews.objects.filter(product_id=OuterRef('id'))
-#                                        .values('product_id')
-#                                        .annotate(count=Count('id'))
-#                                        .values('count')[:1])).only(
-#         'id', 'name', 'url', 'color', 'trademark__title', 'cat__title', 'subsub__title', 'image')
+
