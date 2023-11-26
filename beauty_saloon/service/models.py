@@ -134,8 +134,6 @@ class Reviews(models.Model):
     parent = models.ForeignKey("self", verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True)
     product = models.ForeignKey(Product, verbose_name="Продукт", on_delete=models.CASCADE)
 
-
-
     def __str__(self):
         return f'{self.name} - {self.product}'
 
@@ -187,7 +185,9 @@ class Article(models.Model):
         return reverse('article_detail', kwargs={'slug': self.url})
 
     def get_review(self):
-        return self.reviews_set.filter(parent__isnull=True)
+        return self.articlereview_set.filter(parent__isnull=True)
+
+
 
     def __str__(self):
         return self.title

@@ -53,27 +53,43 @@ class Index(ListView):
 
 
 class ArticleList(ListView):
+    """ВАЖНО работает корректно при добавлении 6 и более продуктов в БД.
+        Все статьи"""
     model = Article
     context_object_name = 'articles'
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = Article.objects.all()
+        queryset = Article.objects.all().only('url', 'title', 'description_1', 'image')\
+        .annotate(num_reviews_art=Subquery(
+            ArticleReview.objects.filter(article_id=OuterRef('id'))
+            .values('article_id')
+            .annotate(count=Count('id'))
+            .values('count')[:1]))
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Статьи'
 
-        queryset_new = Product.objects.order_by('-id')[:12]
-        if len(list(queryset_new)) >= 5:
-            random_products_new = random.sample(list(queryset_new), 5)
-            context['products_new'] = random_products_new
+        queryset_new = Product.objects.select_related('trademark').select_related('cat') \
+                           .select_related('subsub').only(
+            'id', 'name', 'url', 'trademark__title', 'color', 'cat__title', 'image', 'subsub__title') \
+                           .order_by('-id')[:12].annotate(
+            avg_rating=Avg('rating__star__value')).annotate(num_reviews=Subquery(
+            Reviews.objects.filter(product_id=OuterRef('id'))
+            .values('product_id')
+            .annotate(count=Count('id'))
+            .values('count')[:1]
+        ))
+        random_products_new = random.sample(list(queryset_new), 5)
+        context['products_new'] = random_products_new
         return context
 
 
 class ArticleDetail(DetailView):
-    """Детальный обзор статьи"""
+    """ВАЖНО работает корректно при добавлении 6 и более продуктов в БД.
+        Детальный обзор статьи"""
     model = Article
     context_object_name = 'article'
     slug_field = 'url'
@@ -82,12 +98,24 @@ class ArticleDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = f'{self.object.title}'
 
-        queryset_new = Product.objects.order_by('-id')[:18]
-        if len(list(queryset_new)) >= 3:
-            random_products_new = random.sample(list(queryset_new), 6)
-            context['products_new'] = random_products_new
+        queryset_new = Product.objects.select_related('trademark').select_related('cat') \
+                           .select_related('subsub').only(
+            'id', 'name', 'url', 'trademark__title', 'color', 'cat__title', 'image', 'subsub__title') \
+                           .order_by('-id')[:18].annotate(
+            avg_rating=Avg('rating__star__value')).annotate(num_reviews=Subquery(
+            Reviews.objects.filter(product_id=OuterRef('id'))
+            .values('product_id')
+            .annotate(count=Count('id'))
+            .values('count')[:1]
+        ))
+        random_products_new = random.sample(list(queryset_new), 6)
+        context['products_new'] = random_products_new
 
         context["star_form"] = RatingForm
+
+        article_reviews = self.object.get_review().prefetch_related('articlereview_set')
+        context['article_reviews'] = article_reviews
+
         return context
 
 
@@ -102,7 +130,7 @@ class TrademarkDetail(DetailView):
         """Передача queryset с продуктами данного бренда"""
         context = super().get_context_data(**kwargs)
         products = Product.objects.select_related('trademark').select_related('cat').select_related('subsub').only(
-            'id', 'name', 'url', 'trademark__title', 'color', 'cat__title', 'image', 'subsub__title')\
+            'id', 'name', 'url', 'trademark__title', 'color', 'cat__title', 'image', 'subsub__title') \
             .filter(trademark__url=self.kwargs.get('slug')).annotate(
             avg_rating=Avg('rating__star__value')).annotate(num_reviews=Subquery(
             Reviews.objects.filter(product_id=OuterRef('id'))
@@ -128,15 +156,14 @@ class ProductList(QuerysetMixin, ListView):
         queryset = super().get_queryset()
         if subsubtitle:
             queryset = queryset.filter(subsub=subsubtitle)
-        return queryset.select_related('trademark').select_related('cat').select_related('subsub').filter(subtitle=subtitle)\
+        return queryset.select_related('trademark').select_related('cat').select_related('subsub').filter(
+            subtitle=subtitle) \
             .annotate(num_reviews=Subquery(Reviews.objects.filter(product_id=OuterRef('id'))
-            .values('product_id')
-            .annotate(count=Count('id'))
-            .values('count')[:1])).only(
-            'id', 'name', 'url', 'color', 'trademark__title', 'cat__title', 'subsub__title', 'image')\
+                                           .values('product_id')
+                                           .annotate(count=Count('id'))
+                                           .values('count')[:1])).only(
+            'id', 'name', 'url', 'color', 'trademark__title', 'cat__title', 'subsub__title', 'image') \
             .annotate(avg_rating=Avg('rating__star__value'))
-
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -148,7 +175,6 @@ class ProductList(QuerysetMixin, ListView):
         context['subtitle_title'] = subtitle_title
         context['title'] = f'{category_title}, {subtitle_title}'
         return context
-
 
 
 class ProductOtherList(QuerysetMixin, ListView):
@@ -163,7 +189,8 @@ class ProductOtherList(QuerysetMixin, ListView):
         queryset = super().get_queryset()
         if cattitle:
             queryset = queryset.filter(cat=cattitle)
-        return queryset.select_related('trademark').select_related('cat').annotate(avg_rating=Avg('rating__star__value')).only(
+        return queryset.select_related('trademark').select_related('cat').annotate(
+            avg_rating=Avg('rating__star__value')).only(
             'id', 'name', 'url', 'color', 'trademark', 'cat__title', 'subsub__title', 'image')
 
     def get_context_data(self, **kwargs):
@@ -181,7 +208,7 @@ class Filter(QuerysetMixin, ListView):
 
     def get_queryset(self):
         """Сортировка по категории и полю"""
-        queryset = Product.objects.filter(cat__url=self.kwargs['cat_url'])
+        queryset = Product.objects.filter(cat__url=self.kwargs['cat_url']).annotate(avg_rating=Avg('rating__star__value'))
         fields = ['trademark__title', 'color', 'volume', 'for_what', 'for_what_tools']
         for field in fields:
             if field in self.request.GET:
@@ -202,7 +229,7 @@ class ProductDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["star_form"] = RatingForm
+        context['star_form'] = RatingForm
         context['title'] = f'{self.object.name}, {self.object.trademark}'
         return context
 
@@ -215,13 +242,14 @@ class NewProduct(ListView):
     paginate_by = 9
 
     def get_queryset(self):
-        return Product.objects.select_related('trademark').select_related('cat').select_related('subsub')\
-            .annotate(avg_rating=Avg('rating__star__value'))\
-            .annotate(num_reviews=Subquery(Reviews.objects.filter(product_id=OuterRef('id'))
-                                       .values('product_id')
-                                       .annotate(count=Count('id'))
-                                       .values('count')[:1])).only(
-        'id', 'name', 'url', 'color', 'trademark__title', 'cat__title', 'subsub__title', 'image').order_by('-id')[:200]
+        return Product.objects.select_related('trademark').select_related('cat').select_related('subsub') \
+                   .annotate(avg_rating=Avg('rating__star__value')) \
+                   .annotate(num_reviews=Subquery(Reviews.objects.filter(product_id=OuterRef('id'))
+                                                  .values('product_id')
+                                                  .annotate(count=Count('id'))
+                                                  .values('count')[:1])).only(
+            'id', 'name', 'url', 'color', 'trademark__title', 'cat__title', 'subsub__title', 'image').order_by('-id')[
+               :200]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -235,23 +263,17 @@ class HitProduct(ListView):
     model = Product
     template_name = 'service/hit.html'
     context_object_name = 'products'
-    paginate_by = 9
+    paginate_by = 3
 
     def get_queryset(self):
-        queryset = Product.objects.select_related('trademark').select_related('cat').select_related('subsub')\
-            .annotate(avg_rating=Avg('rating__star__value')).filter(avg_rating__gte=4)\
+        queryset = Product.objects.select_related('trademark').select_related('cat').select_related('subsub') \
+            .annotate(avg_rating=Avg('rating__star__value')).filter(avg_rating__gte=4) \
             .annotate(num_reviews=Subquery(Reviews.objects.filter(product_id=OuterRef('id'))
-                                       .values('product_id')
-                                       .annotate(count=Count('id'))
-                                       .values('count')[:1])).only(
-        'id', 'name', 'url', 'color', 'trademark__title', 'cat__title', 'subsub__title', 'image')
+                                           .values('product_id')
+                                           .annotate(count=Count('id'))
+                                           .values('count')[:1])).only(
+            'id', 'name', 'url', 'color', 'trademark__title', 'cat__title', 'subsub__title', 'image')
         return queryset
-
-
-
-
-
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -323,9 +345,23 @@ class Search(ListView):
         search_vector = SearchVector('name', 'trademark__title', 'color')
         if ('q' in self.request.GET) and self.request.GET['q'].strip():
             query_string = self.request.GET['q']
-            return Product.objects.annotate(search=search_vector).filter(search=query_string)
+            return Product.objects.select_related('trademark').select_related('cat').select_related('subsub') \
+                .annotate(search=search_vector).filter(search=query_string) \
+                .annotate(avg_rating=Avg('rating__star__value')) \
+                .annotate(num_reviews=Subquery(Reviews.objects.filter(product_id=OuterRef('id')).values('product_id')
+                                               .annotate(count=Count('id'))
+                                               .values('count')[:1])).only(
+                'id', 'name', 'url', 'color', 'trademark__title', 'cat__title', 'subsub__title', 'image')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context["q"] = f'q={self.request.GET.get("q")}&'
         return context
+
+# .select_related('trademark').select_related('cat').select_related('subsub')\
+#             .annotate(avg_rating=Avg('rating__star__value'))\
+#             .annotate(num_reviews=Subquery(Reviews.objects.filter(product_id=OuterRef('id'))
+#                                        .values('product_id')
+#                                        .annotate(count=Count('id'))
+#                                        .values('count')[:1])).only(
+#         'id', 'name', 'url', 'color', 'trademark__title', 'cat__title', 'subsub__title', 'image')

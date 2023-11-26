@@ -34,7 +34,12 @@
                         <img src="{% static 'service/images/review.png' %}"
                              style="width: 1.5rem; height: 1.2rem;"
                              alt="">
-                        {{ article.articlereview_set.count }}
+                            {% if article.num_reviews_art is not None %}
+                            {{ article.num_reviews_art }}
+                            {% else %}
+                            0
+                            {% endif %}
+
                         <a href="{{ article.get_absolute_url }}" class="btn btn-primary">
                             Читать статью
                         </a>
@@ -74,18 +79,21 @@
                                         <input type="radio" class="rating__itemm" value="5" name="ratingg">
                                     </div>
                                 </div>
-                                {% if prod.average_rating != 'None' %}
-                                <div class="rating__valuee" hidden style="font-size: 60%;">{{ prod.average_rating }}
-                                </div>
-                                {% else %}
-                                <div class="rating__valuee" hidden style="font-size: 60%;">0</div>
-                                {% endif %}
+                              {% if prod.avg_rating != 'None' %}
+                            <div class="rating__valuee" hidden style="font-size: 60%;">{{prod.avg_rating|floatformat:"-1"}}</div>
+                            {% else %}
+                            <div class="rating__valuee" hidden style="font-size: 60%;">0</div>
+                            {% endif %}
                             </div>
                             <div class="review_image_count">
                                 <img src="{% static 'service/images/review.png' %}"
                                      style="width: 25px; height: 17px;"
                                      alt="">
-                                {{ prod.reviews_set.count }}
+                            {% if prod.num_reviews is not None %}
+                            {{ prod.num_reviews }}
+                            {% else %}
+                            0
+                            {% endif %}
                             </div>
                             <div class="position-absolute bottom-0 end-0" style="">
                                 <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
