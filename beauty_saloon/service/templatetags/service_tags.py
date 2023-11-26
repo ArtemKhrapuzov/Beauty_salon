@@ -2,6 +2,7 @@ from django import template
 
 from service.models import *
 from django.core.cache import cache
+from django.template.defaultfilters import floatformat
 
 
 register = template.Library()

@@ -227,10 +227,17 @@ class ProductDetail(DetailView):
     context_object_name = 'product'
     slug_field = 'url'
 
+    def get_queryset(self):
+        return super().get_queryset().select_related('subtitle').select_related('cat').select_related('trademark')
+
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['star_form'] = RatingForm
         context['title'] = f'{self.object.name}, {self.object.trademark}'
+
+        product_reviews = self.object.get_review().prefetch_related('reviews_set')
+        context['product_reviews'] = product_reviews
         return context
 
 
