@@ -9,14 +9,16 @@ html, body {
 }
 /*Табличная сетка для детального обзора товара*/
 
-table {
-  width: 70%;
-}
 
+/*Вроде не работает*/
+table {
+  width: 100%;
+}
 
 .cur {
   width: 30%;
 }
+/*Вроде не работает конец*/
 
 .name {
     overflow: hidden;
@@ -419,7 +421,9 @@ ul.list-articles li {
 
 }
 
-
+.containermain {
+    width: 80%;
+}
 
 .header-bottom {
 	background: black;
@@ -752,3 +756,4 @@ ul.lang-list li a:hover {color: #fdc073;}
 .pagination li  {
     font-size: 14px;;
 }
+
