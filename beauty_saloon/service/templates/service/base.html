@@ -25,14 +25,11 @@
     <tr>
         <td valign=top>
             {% block mainmenu %}
-
             <div class="header">
 
+
+
                 <ul id="mainmenu" class="mainmenu">
-
-
-
-
 
                     <a href="{% url 'home' %}">
                      <button class="btn btn-success "
@@ -85,9 +82,16 @@
                     </button>
                     </a>
 
-
-
-
+                    <div class="mainright">
+                    <li class="last" >
+                        <div class="d1">
+                            <form action="{% url 'search' %}" method="get" class="search">
+                                <input type="search" name="q" placeholder="Поиск..."
+                                       required="">
+                                <button type="submit"></button>
+                            </form>
+                        </div>
+                    </li>
                     {% if request.user.is_authenticated %}
 
                     <li class="last">{{ user.username }} | <a href="{% url 'logout' %}">Выйти</a></li>
@@ -97,21 +101,14 @@
                             href="{% url 'login' %}">Войти</a></li>
                     {% endif %}
 
-                    <li class="last" style="margin: 8px 0 0 0;">
-                        <div class="d1">
-                            <form action="{% url 'search' %}" method="get" class="search">
-                                <input type="search" style="background: #cafcf9" name="q" placeholder="Поиск..."
-                                       required="">
-                                <button type="submit"></button>
-                            </form>
-                        </div>
-                    </li>
+                    </div>
+
                 </ul>
 
                 <div class="clear">
 
                     <ul class="last-clear"><a href="{% url 'new_items' %}">Новинки</a></ul>
-                    <ul class="last-clear"><a href="{% url 'hit_items' %}">Хит</a></ul>
+                    <ul class="last-clear"><a href="{% url 'hit_items' %}">Хиты</a></ul>
                     {% get_category as category %}
 
                     {% for cat in category %}
@@ -160,24 +157,14 @@
 
                 </div>
             </div>
-
             {% endblock mainmenu %}
-
 
             <table class="table-content" border=0 cellpadding="0" cellspacing="0">
                 <tr>
-
-
-                    <!-- Sidebar слева -->
-
-                    <!-- Конец Sidebar'а -->
-
-
                     <td valign="top" class="content">
                         <!-- Хлебные крошки -->
                         {% block breadcrumbs %}
                         {% endblock %}
-
                         <!-- Блок контента -->
                         <div class="content-text">
                             {% block content %}
@@ -215,12 +202,10 @@
                             {% endif %}
                         </div>
                         <!-- Конец блока контента -->
-
                     </td>
                 </tr>
             </table>
         </td>
-
     </tr>
     <!-- Footer -->
     <tr>
