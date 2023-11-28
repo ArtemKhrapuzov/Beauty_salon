@@ -36,8 +36,7 @@
                             type="button"
                             id="multiSelectDropdown"
                             aria-expanded="false"
-                            style=" overflow: hidden; background: #3b0b0b;
-                             border:none;">
+                            style="background-color: transparent;">
                         Главная
                     </button>
                     </a>
@@ -46,8 +45,7 @@
                             id="multiSelectDropdown"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
-                            style=" overflow: hidden; background: #3b0b0b;
-                             border:none;">
+                            style="">
                         Бренды
                     </button>
                     <ul class="dropdown-menu "
@@ -66,8 +64,7 @@
                             type="button"
                             id="multiSelectDropdown"
                             aria-expanded="false"
-                            style=" overflow: hidden; background: #3b0b0b;
-                             border:none;">
+                            style="">
                         Статьи
                     </button>
                     </a>
@@ -76,8 +73,7 @@
                             type="button"
                             id="multiSelectDropdown"
                             aria-expanded="false"
-                            style=" overflow: hidden; background: #3b0b0b;
-                             border:none;">
+                            style="">
                         О сайте
                     </button>
                     </a>
@@ -88,7 +84,7 @@
                             <form action="{% url 'search' %}" method="get" class="search">
                                 <input type="search" name="q" placeholder="Поиск..."
                                        required="">
-                                <button type="submit"></button>
+                                <button type="submit" style="text-decoration: none;"></button>
                             </form>
                         </div>
                     </li>
@@ -114,22 +110,20 @@
                     {% for cat in category %}
                     {% if cat.title == 'Прочее' %}
                     <a href="{% url 'product_list_cat' cat_slug=cat.url %}" class="btn"
-                       style="color:black; font-size:17px; overflow: hidden; height: 40px; background:#cafcf9;
-                        border:none;" aria-expanded="false">{{ cat.title }}</a>
+                        aria-expanded="false">{{ cat.title }}</a>
                     {% else %}
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                            style="color:black; font-size:17px; overflow: hidden; height: 40px; background:#cafcf9;
-                             border:none;"
                             data-bs-toggle="dropdown"
                             aria-expanded="false">{{ cat.title }}
                     </button>
-                    <ul class="dropdown-menu" style=" max-height:450px; overflow:auto;">
+                    <ul class="dropdown-menu">
 
                         {% get_subtitle cat.id as subtitles %}
                         {% for subtitle in subtitles %}
 
-                        <ul style="display:inline;"><a class="dropdown-item" style="color:#4dd8f7; "
-                                                       href="{% url 'product_list_sub' cat_slug=cat.url subtitle_slug=subtitle.url  %}">
+                        <ul class="subtitle">
+                            <a class="dropdown-item"
+                               href="{% url 'product_list_sub' cat_slug=cat.url subtitle_slug=subtitle.url  %}">
                             {{subtitle.title}}:
                         </a>
                         </ul>
@@ -138,8 +132,7 @@
                         {% if subsubtitles %}
                         {% for subsubtitle in subsubtitles %}
 
-                        <ul><a class="dropdown-item"
-                               style="color: black; font-size: 13px;"
+                        <ul class="subsub"><a class="dropdown-item"
                                href="{% url 'product_list_subsub' cat_slug=cat.url subtitle_slug=subtitle.url subsub_slug=subsubtitle.url %}">
                             {{subsubtitle.title}}
                         </a>

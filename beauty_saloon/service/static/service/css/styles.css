@@ -309,6 +309,11 @@ table {
   font-family: FontAwesome;
   font-size: 16px;
   color: #F9F0DA;
+
+}
+
+.d1 button:hover {
+  text-decoration: none;
 }
 
 
@@ -374,6 +379,7 @@ div.article-panel p.last {
 }
 
 .last-clear {
+position: relative;
     float:right;
     margin:7px 20px 0 0;
     padding: 0;
@@ -382,7 +388,6 @@ div.article-panel p.last {
 
 .last-clear a {
 	color: black;
-	text-decoration: none;
 }
 
 a:hover {
@@ -408,14 +413,62 @@ ul.list-articles li {
 .table-page tr {height: 100%;}
 
 .clear {
+position: relative;
     clear: both;
-    background: #cafcf9;
-    height: 40px;
+    margin-top: 73px;
 }
 
+.clear a {
+    color:black;
+    font-size:17px;
+    overflow: hidden;
+    border:none;
+}
+
+.clear button {
+    color:black;
+    font-size:17px;
+    overflow: hidden;
+    background-color: transparent;
+    border:none;
+}
+
+.clear button:hover {
+    background-color: transparent;
+    text-decoration:underline;
+    color: black;
+}
+
+.dropdown-menu {
+    max-height:450px;
+    overflow:auto;
+
+}
+
+.subtitle {
+    display:inline;
+}
+
+.subsub a {
+    color: black;
+    font-size: 13px;
+}
 .header {
-	background: #3b0b0b;
-	height: 60px;
+    z-index:50;
+}
+.header:before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+	/* background: #3b0b0b;  url('../images/logotip.png') no-repeat 0 0 */
+	 /* height: 60px; */
+    background: url('../images/logotip.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    height: 182px;
 
 }
 
@@ -426,6 +479,7 @@ ul.list-articles li {
 .header-bottom {
 	background: black;
 	height: 30px;
+
 }
 
 .logo {
@@ -440,6 +494,7 @@ ul.list-articles li {
 }
 
 ul.mainmenu {
+    position: relative;
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -456,16 +511,40 @@ ul.mainmenu li {
 
 }
 
-ul.mainmenu li.last {float: right; color: white;}
-ul.mainmenu li.last a {color: white; font-size: 17px}
+ul.mainmenu li.last {float: right; color: black;}
+ul.mainmenu li.last a {color: black; font-size: 17px}
 
 ul.mainmenu li a {
 	color:  #82c8f0;
-	text-decoration: none;
+
+
 }
-ul.mainmenu li a:hover {
-	color: #FDA83D;
+
+
+ul.mainmenu a button {
+    color: black;
 }
+
+ul.mainmenu button {
+    overflow: hidden;
+    background-color: transparent;
+    border:none;
+    color: black;
+}
+
+/* top ----------- */
+ul.mainmenu button:hover {
+    background-color: transparent;
+    text-decoration: underline;
+    color: black;
+}
+
+ul.mainmenu a button:hover {
+    background-color: transparent;
+    text-decoration: underline;
+    color: black;
+}
+/* endtop ----------- */
 
 .panelitems {
 	text-align: center;
@@ -561,7 +640,7 @@ div.button {
 }
 
 .content {
-	padding: 40px 20px 20px 40px;
+	padding: 40px 0px 20px 0px;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -619,7 +698,7 @@ ul.content-table li a {
 ul.content-table li a:hover {color: #F0711C;}
 
 .content-text {
-	margin: 10px 0 0 30px;
+	margin: 10px 0 0 0px;
 	color: #000;
 	font-size: 20px;
 	font-family: Yandex Sans Display Light;
@@ -709,7 +788,12 @@ ul.lang-list li a:hover {color: #fdc073;}
 	font-family: Sans-serif, Arial, Tahoma;
 	font-style: italic;
 }
+/* переопределение bootstrap */
+.card {
+    width: 25%;
+}
 
+/* конец переопределение bootstrap*/
 #footer {
 	box-sizing: border-box;
 

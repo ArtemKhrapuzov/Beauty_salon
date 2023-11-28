@@ -269,7 +269,7 @@ class HitProduct(ListView):
     model = Product
     template_name = 'service/hit.html'
     context_object_name = 'products'
-    paginate_by = 3
+    paginate_by = 9
 
     def get_queryset(self):
         queryset = Product.objects.select_related('trademark').select_related('cat').select_related('subsub') \

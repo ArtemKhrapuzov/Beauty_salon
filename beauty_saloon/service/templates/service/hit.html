@@ -8,7 +8,7 @@
     <div class="row g-0">
         {% for prod in products %}
         {% if category_title == 'Уход за кожей' or category_title == 'Инструменты' %}
-        <div class="card " style="width: 21rem; height: 34rem;">
+        <div class="card " style="">
             <img class="card-img-top" src="{{ prod.image.url }}">
             <div class="card-body" style="display:flex; justify-content: space-between; align-items: flex-end;">
                 <div>
@@ -56,7 +56,7 @@
             </div>
         </div>
         {% elif category_title == 'Прочее' %}
-        <div class="card " style="width: 21rem; height: 34rem;">
+        <div class="card " style="">
 
             <img class="card-img-top" src="{{ prod.image.url }}">
             <div class="card-body" style="display:flex; justify-content: space-between; align-items: flex-end;">
@@ -106,7 +106,7 @@
         </div>
 
         {% else %}
-        <div class="card " style="width: 21rem; height: 34rem;">
+        <div class="card " style="">
 
             <img class="card-img-top" src="{{ prod.image.url }}">
             <div class="card-body" style="display:flex; justify-content: space-between; align-items: flex-end;">
