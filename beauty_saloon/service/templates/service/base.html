@@ -30,7 +30,9 @@
 
 
                 <ul id="mainmenu" class="mainmenu">
-
+                    <div class="header__burger">
+                        <span></span>
+                    </div>
                     <a href="{% url 'home' %}">
                      <button class="btn btn-success "
                             type="button"
@@ -40,7 +42,7 @@
                         Главная
                     </button>
                     </a>
-                    <button class="btn btn-success dropdown-toggle"
+                    <button class="btn dropdown-toggle"
                             type="button"
                             id="multiSelectDropdown"
                             data-bs-toggle="dropdown"
@@ -50,13 +52,13 @@
                     </button>
                     <ul class="dropdown-menu "
                         aria-labelledby="multiSelectDropdown"
-                        style=" max-height:350px; overflow:auto; width: 250px; background:#cafcf9;">
+                        style=" max-height:350px; overflow:auto; width: 250px; position: relative; ">
                         {% get_trademark as trademarks %}
                         {% for trademark in trademarks %}
-                        <li style="margin-left:10px;">
-                            <a href="{% url 'trademark_detail' slug=trademark.url %}" style=" color: black;">
+                        <ul style="margin-left:10px; ">
+                            <a href="{% url 'trademark_detail' slug=trademark.url %}" style=" color: black; ">
                                 {{ trademark.title }}</a>
-                        </li>
+                        </ul>
                         {% endfor %}
                     </ul>
                     <a href="{% url 'article_list' %}">
@@ -101,10 +103,15 @@
 
                 </ul>
 
+
+
+
+
                 <div class="clear">
 
                     <ul class="last-clear"><a href="{% url 'new_items' %}">Новинки</a></ul>
                     <ul class="last-clear"><a href="{% url 'hit_items' %}">Хиты</a></ul>
+
                     {% get_category as category %}
 
                     {% for cat in category %}
@@ -112,7 +119,7 @@
                     <a href="{% url 'product_list_cat' cat_slug=cat.url %}" class="btn"
                         aria-expanded="false">{{ cat.title }}</a>
                     {% else %}
-                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                    <button class="btn dropdown-toggle" type="button"
                             data-bs-toggle="dropdown"
                             aria-expanded="false">{{ cat.title }}
                     </button>
@@ -211,6 +218,19 @@
     </tr>
 
 </table>
+<script>
+const burger = document.querySelector('.header__burger')
+const classNameActive = 'active'
+const classNameLock = 'lock'
+const elements = [burger, document.querySelector('.clear')]
+
+function toggleClass(elements, classNameActive, classNameLock) {
+    elements.forEach(element => element.classList.toggle(classNameActive))
+    document.querySelector('body').classList.toggle(classNameLock)
+}
+
+burger.onclick = () => toggleClass(elements, classNameActive, classNameLock)
+</script>
 <!-- Конец footer'а и страницы -->
 <script src="{% static 'service/js/scripts.js' %}"></script>
 </body>

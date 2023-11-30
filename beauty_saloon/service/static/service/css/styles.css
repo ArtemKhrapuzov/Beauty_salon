@@ -379,11 +379,11 @@ div.article-panel p.last {
 }
 
 .last-clear {
-position: relative;
+    position: relative;
     float:right;
     margin:7px 20px 0 0;
     padding: 0;
-    font-size: 17px;
+    font-size: 1em;
 }
 
 .last-clear a {
@@ -409,25 +409,30 @@ ul.list-articles li {
 	height: 100%;
 	vertical-align: top;
 	margin: auto;
+	overflow: hidden
 }
 .table-page tr {height: 100%;}
 
 .clear {
-position: relative;
+    position: relative;
     clear: both;
-    margin-top: 73px;
+    max-width: 1400px;
+    vertical-align: top;
+	margin: auto;
+	position: relative;
+    z-index:2
 }
 
 .clear a {
     color:black;
-    font-size:17px;
+    font-size:0.9em;
     overflow: hidden;
     border:none;
 }
 
 .clear button {
     color:black;
-    font-size:17px;
+    font-size:0.9em;
     overflow: hidden;
     background-color: transparent;
     border:none;
@@ -439,11 +444,7 @@ position: relative;
     color: black;
 }
 
-.dropdown-menu {
-    max-height:450px;
-    overflow:auto;
 
-}
 
 .subtitle {
     display:inline;
@@ -453,24 +454,34 @@ position: relative;
     color: black;
     font-size: 13px;
 }
+
 .header {
+    position: fixed;
+    width:100%;
     z-index:50;
+    left: 0;
+    top:0;
 }
+
 .header:before{
     content: '';
     position: absolute;
     width: 100%;
     left: 0;
-	/* background: #3b0b0b;  url('../images/logotip.png') no-repeat 0 0 */
-	 /* height: 60px; */
-    background: url('../images/logotip.png') no-repeat center center fixed;
-    -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-    height: 182px;
-
+    top:0;
+    height: 100px;
+    background: #f4f3ee;
+    z-index:2;
 }
+.burger {
+    display: none;
+}
+.header__burger {
+    display: none;
+}
+
+
+
 
 .containermain {
     width: 80%;
@@ -482,11 +493,8 @@ position: relative;
 
 }
 
-.logo {
-	width: 70px;
-	height: 60px;
-}
 
+/* top ----------- */
 .mainright {
     display: flex;
 	align-items: center;
@@ -500,29 +508,34 @@ ul.mainmenu {
 	padding: 0;
 	height: 60px;
 	color: #82c8f0;
-	font-size: 17px;
-	overflow: hidden;
+	font-size: 1em;
 	display: flex;
 	align-items: center;
+    max-width: 1400px;
+    vertical-align: top;
+	margin: auto;
+	z-index: 3;
 }
 ul.mainmenu li {
 	float: left;
-	margin: 0px 40px 0 30px;
+	margin: 0px 20px 0 30px;
 
 }
 
 ul.mainmenu li.last {float: right; color: black;}
-ul.mainmenu li.last a {color: black; font-size: 17px}
+ul.mainmenu li.last a {color: black; font-size: 1em}
 
 ul.mainmenu li a {
 	color:  #82c8f0;
-
-
 }
 
+ul.mainmenu button {
+    font-size:1.2em;
+}
 
 ul.mainmenu a button {
     color: black;
+    font-size:1.2em;
 }
 
 ul.mainmenu button {
@@ -532,17 +545,26 @@ ul.mainmenu button {
     color: black;
 }
 
-/* top ----------- */
+
 ul.mainmenu button:hover {
     background-color: transparent;
     text-decoration: underline;
     color: black;
+
 }
 
 ul.mainmenu a button:hover {
     background-color: transparent;
     text-decoration: underline;
     color: black;
+}
+
+.dropdown-menu {
+    position: relative;
+
+    max-height:350px;
+    overflow:auto;
+    width: 250px;
 }
 /* endtop ----------- */
 
@@ -594,6 +616,7 @@ div.button {
 	width: 100%;
 	min-height: 100%;
 	height: 100%;
+	margin-top: 100px;
 }
 
 .left-chapters {
@@ -846,3 +869,89 @@ ul.lang-list li a:hover {color: #fdc073;}
     font-size: 14px;;
 }
 
+
+/* media */
+@media (max-width:1023px){
+    .table-page {
+        max-width: 768px;
+    }
+    .header:before{
+        height: 60px;
+    }
+
+    ul.mainmenu {
+        max-width: 768px;
+        font-size: 0.8em;
+        left: 0;
+        top:0;
+
+    }
+
+    .search {
+        position: relative;
+        width: 150px;
+    }
+    .table-content {
+        margin-top: 50px;
+    }
+
+    .header__burger {
+
+        margin: auto;
+        display: block;
+        position: relative;
+        width: 30px;
+        height: 20px;
+        position: relative;
+        z-index:3;
+    }
+
+    .header__burger span{
+        position: absolute;
+        background-color: black;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        top: 9px;
+    }
+
+    .header__burger:before,
+    .header__burger:after{
+        content: '';
+        background-color: black;
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        left: 0;
+    }
+    .header__burger:before{
+        top:1;
+    }
+    .header__burger:before{
+        bottom:0;
+    }
+    .header__burger.active:before{
+        transform:rotate(45deg);
+    }
+    .clear {
+
+
+        position:fixed;
+        max-width: 768px;
+        font-size: 0.7em;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+
+        z-index:0;
+        padding: 65px 10px 20px 10px;
+    }
+    .clear button  {
+        display: block;
+    }
+    .last-clear {
+        display: none;
+    }
+}
