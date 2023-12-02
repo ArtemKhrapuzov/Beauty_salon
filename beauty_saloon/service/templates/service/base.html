@@ -109,8 +109,7 @@
 
                 <div class="clear">
 
-                    <ul class="last-clear"><a href="{% url 'new_items' %}">Новинки</a></ul>
-                    <ul class="last-clear"><a href="{% url 'hit_items' %}">Хиты</a></ul>
+
 
                     {% get_category as category %}
 
@@ -123,7 +122,7 @@
                             data-bs-toggle="dropdown"
                             aria-expanded="false">{{ cat.title }}
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="">
 
                         {% get_subtitle cat.id as subtitles %}
                         {% for subtitle in subtitles %}
@@ -154,7 +153,8 @@
                     </ul>
                     {% endif %}
                     {% endfor %}
-
+                    <ul class="last-clear"><a href="{% url 'new_items' %}">Новинки</a></ul>
+                    <ul class="last-clear"><a href="{% url 'hit_items' %}">Хиты</a></ul>
                 </div>
             </div>
             {% endblock mainmenu %}
