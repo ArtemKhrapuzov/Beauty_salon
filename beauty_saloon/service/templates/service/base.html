@@ -28,19 +28,18 @@
             <div class="header">
 
 
-
                 <ul id="mainmenu" class="mainmenu">
                     <div class="header__burger">
                         <span></span>
                     </div>
                     <a href="{% url 'home' %}">
-                     <button class="btn btn-success "
-                            type="button"
-                            id="multiSelectDropdown"
-                            aria-expanded="false"
-                            style="background-color: transparent;">
-                        Главная
-                    </button>
+                        <button class="btn btn-success "
+                                type="button"
+                                id="multiSelectDropdown"
+                                aria-expanded="false"
+                                style="background-color: transparent;">
+                            Главная
+                        </button>
                     </a>
                     <button class="btn dropdown-toggle"
                             type="button"
@@ -62,53 +61,49 @@
                         {% endfor %}
                     </ul>
                     <a href="{% url 'article_list' %}">
-                     <button class="btn btn-success "
-                            type="button"
-                            id="multiSelectDropdown"
-                            aria-expanded="false"
-                            style="">
-                        Статьи
-                    </button>
+                        <button class="btn btn-success "
+                                type="button"
+                                id="multiSelectDropdown"
+                                aria-expanded="false"
+                                style="">
+                            Статьи
+                        </button>
                     </a>
                     <a href="#">
-                     <button class="btn btn-success "
-                            type="button"
-                            id="multiSelectDropdown"
-                            aria-expanded="false"
-                            style="">
-                        О сайте
-                    </button>
+                        <button class="btn btn-success "
+                                type="button"
+                                id="multiSelectDropdown"
+                                aria-expanded="false"
+                                style="">
+                            О сайте
+                        </button>
                     </a>
 
                     <div class="mainright">
-                    <li class="last" >
-                        <div class="d1">
-                            <form action="{% url 'search' %}" method="get" class="search">
-                                <input type="search" name="q" placeholder="Поиск..."
-                                       required="">
-                                <button type="submit" style="text-decoration: none;"></button>
-                            </form>
-                        </div>
-                    </li>
-                    {% if request.user.is_authenticated %}
+                        <li class="last">
+                            <div class="d1">
+                                <form action="{% url 'search' %}" method="get" class="search">
+                                    <input type="search" name="q" placeholder="Поиск..."
+                                           required="">
+                                    <button type="submit" style="text-decoration: none;"></button>
+                                </form>
+                            </div>
+                        </li>
+                        {% if request.user.is_authenticated %}
 
-                    <li class="last">{{ user.username }} | <a href="{% url 'logout' %}">Выйти</a></li>
-                    {% else %}
+                        <li class="last">{{ user.username }} | <a href="{% url 'logout' %}">Выйти</a></li>
+                        {% else %}
 
-                    <li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a
-                            href="{% url 'login' %}">Войти</a></li>
-                    {% endif %}
+                        <li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a
+                                href="{% url 'login' %}">Войти</a></li>
+                        {% endif %}
 
                     </div>
 
                 </ul>
 
 
-
-
-
                 <div class="clear">
-
 
 
                     {% get_category as category %}
@@ -116,7 +111,7 @@
                     {% for cat in category %}
                     {% if cat.title == 'Прочее' %}
                     <a href="{% url 'product_list_cat' cat_slug=cat.url %}" class="btn"
-                        aria-expanded="false">{{ cat.title }}</a>
+                       aria-expanded="false">{{ cat.title }}</a>
                     {% else %}
                     <button class="btn dropdown-toggle" type="button"
                             data-bs-toggle="dropdown"
@@ -130,8 +125,8 @@
                         <ul class="subtitle">
                             <a class="dropdown-item"
                                href="{% url 'product_list_sub' cat_slug=cat.url subtitle_slug=subtitle.url  %}">
-                            {{subtitle.title}}:
-                        </a>
+                                {{subtitle.title}}:
+                            </a>
                         </ul>
 
                         {% get_subsubtitle subtitle.id as subsubtitles %}
@@ -139,7 +134,7 @@
                         {% for subsubtitle in subsubtitles %}
 
                         <ul class="subsub"><a class="dropdown-item"
-                               href="{% url 'product_list_subsub' cat_slug=cat.url subtitle_slug=subtitle.url subsub_slug=subsubtitle.url %}">
+                                              href="{% url 'product_list_subsub' cat_slug=cat.url subtitle_slug=subtitle.url subsub_slug=subsubtitle.url %}">
                             {{subsubtitle.title}}
                         </a>
                         </ul>
@@ -208,11 +203,23 @@
         </td>
     </tr>
     <!-- Footer -->
-    <tr>
+    <tr id="footer1">
         <td valign=top>
-            <div id="footer">
-                <p>&copy; 2023 Частичное или полное копирование информации с данного сайта для распространения на других
+            <div class="footer" id="footer">
+                <div class="warning">
+                <p style="">(c) 2023 Частичное или полное копирование информации с данного сайта для распространения на
+                    других
                     ресурсах, в том числе и бумажных, строго запрещено.</p>
+                </div>
+
+
+                <div class="social">
+                    <h5>контакты</h5>
+                <a href="#"><img class="telegram" src="{% static 'service/images/telegram.png' %}" alt=""></a>
+                <a href="#"><img class="vk" src="{% static 'service/images/vk.png' %}" alt=""></a>
+
+                </div>
+
             </div>
         </td>
     </tr>
@@ -230,6 +237,7 @@ function toggleClass(elements, classNameActive, classNameLock) {
 }
 
 burger.onclick = () => toggleClass(elements, classNameActive, classNameLock)
+
 </script>
 <!-- Конец footer'а и страницы -->
 <script src="{% static 'service/js/scripts.js' %}"></script>

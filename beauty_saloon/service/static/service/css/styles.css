@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;1,400;1,700&family=Roboto:wght@400;700&display=swap');
 html, body {
 	font-family: 'Arial';
 	margin: 0;
@@ -9,11 +9,6 @@ html, body {
 }
 /*Табличная сетка для детального обзора товара*/
 
-
-/*Вроде не работает*/
-
-
-/*Вроде не работает конец*/
 
 .name {
     overflow: hidden;
@@ -179,10 +174,24 @@ html, body {
 /* //Checkbox stars */
 
 /* static stars rating */
+/* карты товаров */
 
-.form__itemm {
-    width: 450px;
+
+
+.card-body a:link {text-decoration: none}
+.card-title {
+    font-size: 1.07rem;
 }
+
+#btnindex {
+    padding-right: 5px;
+}
+#cardindex{
+    width: 33.3%;
+    height: 11rem;
+}
+
+/* конец карты товаров */
 .ratingg {
     display: flex;
     align-items: flex-end;
@@ -318,7 +327,9 @@ html, body {
 .card-body {
   position: relative;
 }
-
+.card-body a {
+    text-decoration: none;
+}
 .btn-primary {
   margin: 10px;
 }
@@ -405,7 +416,8 @@ ul.list-articles li {
 	height: 100%;
 	vertical-align: top;
 	margin: auto;
-	overflow: hidden
+	overflow: hidden;
+	background:#f7f6f1;
 }
 .table-page tr {height: 100%;}
 
@@ -417,7 +429,6 @@ ul.list-articles li {
 	margin: auto;
 	position: relative;
     z-index:2;
-
     align-items: center;
 }
 
@@ -469,7 +480,7 @@ ul.list-articles li {
     left: 0;
     top:0;
     height: 100px;
-    background: #f4f3ee;
+    background: #f7f6f1;
     z-index:2;
 }
 .burger {
@@ -583,6 +594,35 @@ ul.mainmenu a button:hover {
 }
 /* endtop ----------- */
 
+/* Сортировка */
+.dropdown button {
+    background:#f8f5f0!important;
+    color: black!important;
+    width: 150px;
+    transition-duration: 0s !important;
+}
+
+.dropdown ul {
+    background:#f8f5f0!important;
+    color: black!important;
+    max-height:350px;
+    overflow:auto;
+    width: 250px;
+}
+/* Конец сортировка */
+/* index */
+
+.titleindex {
+    font-size: "PT Sans";
+    padding-left: 1em;
+}
+
+.titleindex a {
+    text-decoration: none;
+    color:black;
+}
+
+/* Конец index */
 .panelitems {
 	text-align: center;
 }
@@ -738,8 +778,9 @@ ul.content-table li a:hover {color: #F0711C;}
 .content-text {
 	margin: 10px 0 0 0px;
 	color: #000;
-	font-size: 20px;
-	font-family: Yandex Sans Display Light;
+	font-size: 0.9em;
+	/*font-family: Yandex Sans Display Light;*/
+	font-family: 'PT Sans', sans-serif;
 }
 .content-text h1 {font-size: 32px;}
 
@@ -832,22 +873,60 @@ ul.lang-list li a:hover {color: #fdc073;}
 }
 
 /* конец переопределение bootstrap*/
-#footer {
-	box-sizing: border-box;
 
-	background: #3F4137;
-	padding: 5px;
-	color: #aaa;
-	font-size: 14px;
-	font-family: Verdana, Geneva, Arial, Helvetica;
-	text-align: left;
-	overflow: hidden;
 
-}
+/* footer */
 #footer a {
 	text-decoration: underline;
 	color: #aaa;
 }
+
+.footer {
+    width:100%;
+    left: 0;
+    z-index:2;
+    display: flex;
+    align-items: center;
+    padding-top: 4rem;
+}
+
+.warning, .social {
+  flex: 1;}
+
+.social {
+    width: 25%;
+    float:right;
+}
+
+.footer:before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100px;
+    background: #3F4137;
+    z-index:1;
+}
+.footer p {
+    position: relative;
+    z-index:3;
+    color: #aaa;
+}
+.footer a {
+    position: relative;
+    z-index:3;
+}
+.footer a img {
+    width: 30px;
+}
+.footer h5 {
+    position: relative;
+    z-index:3;
+    color: white;
+}
+
+/* конец footer */
+
 
 .form-input {
     width: 300px;
@@ -888,17 +967,14 @@ ul.lang-list li a:hover {color: #fdc073;}
 /* media */
 @media (max-width:1255px){
     .table-page,
-
      ul.mainmenu{
         max-width: 1055px;
 	}
 
-
-
     .clear .btn{
         padding: 0;
-
     }
+
     .clear {
         vertical-align: top;
         margin: auto;
@@ -906,9 +982,17 @@ ul.lang-list li a:hover {color: #fdc073;}
         margin-left: 0.75rem;
         max-width: 1055px;
     }
+
     .last-clear {
         margin:0 5px 0 0;
     }
+    /* карты товаров */
+    #btnindex {
+        padding-right: 55px;
+    }
+
+    /* конец карты товаров*/
+
 }
 
 
@@ -1022,4 +1106,27 @@ ul.lang-list li a:hover {color: #fdc073;}
         margin-top: 10px;
     }
 
+
+    #cardindex {
+        width: 50%;
+        margin-bottom:0!important;
+    }
+    /* конец карты товаров*/
+    .subscribe {
+        margin-top: 1rem;
+    }
+    .btnsort a{
+        font-size:0.8rem;
+    }
+    .warning,social {
+        padding-top:15px;
+        margin-right: 15px;
+    }
 }
+
+
+/*
+font-family: 'PT Sans', sans-serif;
+font-family: 'PT Sans Caption', sans-serif;
+font-family: 'Roboto', sans-serif;
+*/

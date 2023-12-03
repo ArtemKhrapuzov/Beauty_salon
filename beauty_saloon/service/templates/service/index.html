@@ -6,34 +6,35 @@
 {% block content %}
 
 <div class="logotip exmpl">
-    <img  src="{% static 'service/images/logotip.jpg' %}"  alt="">
+    <img src="{% static 'service/images/logotip.jpg' %}" alt="">
 </div>
-<div style="">
-    <center>
+<div class="hitindex">
+    <div class="titleindex">
         <a href="{% url 'hit_items' %}"><h1>Хиты продаж</h1></a>
-    </center>
+    </div>
     <div class="container-fluid">
-        <div class="row g-0">
+        <div class="row g-0 ">
             {% for prod in products %}
 
-            <div class="card mb-3" style="width: 33.3%;">
-                <div class="row g-0">
+            <div id="cardindex" class="card mb-3 " style="">
+                <div class="row g-0 " style="">
                     <div class="col-md-4">
                         <a href="{{ prod.get_absolute_url }}">
                             <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="...">
                         </a>
                     </div>
                     <div class="col-md-8">
-                        <div class="card-body">
+                        <div class="card-body" style="position: absolute; bottom: 0;top: 0">
                             <a href="{{ prod.get_absolute_url }}" style="color:black;">
-                                <h5 class="card-title">{{ prod.trademark }}</h5>
-                                <h5 class="card-title">{{ prod.name }}</h5>
+                                <h5 class="card-title">{{ prod.trademark }}, {{ prod.name }}</h5>
+
                             </a>
-                            <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
+                            <p class="card-text" style="font-size:14px; line-height: 16px; color: #777;">
                                 {{ prod.cat }}</p>
-                            <div class="form__itemm" style="">
-                                <div class="form__labell"></div>
-                                <div class="ratingg" style="">
+
+
+                            <div class="form__itemm" style="position: absolute; bottom: 0.5rem;">
+                                <div class="ratingg">
                                     <div class="rating__bodyy_list">
                                         <div class="rating__activee_list"></div>
                                         <div class="rating__itemss">
@@ -45,7 +46,8 @@
                                         </div>
                                     </div>
                                     {% if prod.avg_rating != 'None' %}
-                                    <div class="rating__valuee" hidden="" style="font-size: 60%;">{{prod.avg_rating|floatformat:"0"}}
+                                    <div class="rating__valuee" hidden="" style="font-size: 60%;">
+                                        {{prod.avg_rating|floatformat:"0"}}
 
                                     </div>
                                     {% else %}
@@ -56,20 +58,21 @@
                                     <img src="{% static 'service/images/review.png' %}"
                                          style="width: 25px; height: 17px;"
                                          alt="">
-                                {% if prod.num_reviews is not None %}
+                                    {% if prod.num_reviews is not None %}
                                     {{ prod.num_reviews }}
-                                {% else %}
+                                    {% else %}
                                     0
-                                {% endif %}
+                                    {% endif %}
 
 
                                 </div>
-                                <div class="position-absolute bottom-0 end-0" style="">
+                                <div id="btnindex" class="position-absolute bottom-0 end-0" style="">
                                     <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
                                         О товаре
                                     </a>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -81,32 +84,33 @@
 </div>
 
 
-<div id="">
-    <center>
+<div class="newindex">
+    <div class="titleindex">
         <a href="{% url 'new_items' %}"><h1>Новинки</h1></a>
-    </center>
+    </div>
 
     <div class="container-fluid">
         <div class="row g-0">
             {% for prod in products_new %}
-            <div class="card mb-3" style="width: 33.3%;">
-                <div class="row g-0">
+                <div id="cardindex" class="card mb-3 " style="">
+                <div class="row g-0 " style="">
                     <div class="col-md-4">
                         <a href="{{ prod.get_absolute_url }}">
                             <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="...">
                         </a>
                     </div>
                     <div class="col-md-8">
-                        <div class="card-body">
+                        <div class="card-body" style="position: absolute; bottom: 0;top: 0">
                             <a href="{{ prod.get_absolute_url }}" style="color:black;">
-                                <h5 class="card-title">{{ prod.trademark }}</h5>
-                                <h5 class="card-title">{{ prod.name }}</h5>
+                                <h5 class="card-title">{{ prod.trademark }}, {{ prod.name }}</h5>
+
                             </a>
-                            <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
+                            <p class="card-text" style="font-size:14px; line-height: 16px; color: #777;">
                                 {{ prod.cat }}</p>
-                            <div class="form__itemm " style="">
-                                <div class="form__labell"></div>
-                                <div class="ratingg" style="">
+
+
+                            <div class="form__itemm" style="position: absolute; bottom: 0.5rem;">
+                                <div class="ratingg">
                                     <div class="rating__bodyy_list">
                                         <div class="rating__activee_list"></div>
                                         <div class="rating__itemss">
@@ -118,7 +122,8 @@
                                         </div>
                                     </div>
                                     {% if prod.avg_rating != 'None' %}
-                                    <div class="rating__valuee" hidden="" style="font-size: 60%;">{{prod.avg_rating|floatformat:"0"}}
+                                    <div class="rating__valuee" hidden="" style="font-size: 60%;">
+                                        {{prod.avg_rating|floatformat:"0"}}
 
                                     </div>
                                     {% else %}
@@ -129,18 +134,24 @@
                                     <img src="{% static 'service/images/review.png' %}"
                                          style="width: 25px; height: 17px;"
                                          alt="">
-                                {% if prod.num_reviews is not None %}
+                                    {% if prod.num_reviews is not None %}
                                     {{ prod.num_reviews }}
-                                {% else %}
+                                    {% else %}
                                     0
-                                {% endif %}
+                                    {% endif %}
+
+
                                 </div>
-                                <div class="position-absolute bottom-0 end-0" style="">
+
+                                <div id="btnindex" class="position-absolute bottom-0 end-0" style="">
                                     <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
                                         О товаре
                                     </a>
                                 </div>
+
+
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -151,16 +162,16 @@
 
 </div>
 {% if not request.user.is_authenticated %}
-<div style="text-align:center">
-    <button type="button" class="btn btn-secondary btn-lg btn-block" style="width:450px;">
+<div class="subscribe" style="text-align:center">
+    <button type="button" class="btn btn-secondary btn-lg btn-block" style="width:450px; background:#70774b;">
         <a href="{% url 'register' %}" style="text-decoration:none; color: white;">Присоединиться к нам</a></button>
 </div>
 {% endif %}
 
-<div>
-    <center>
-        <h1><a href="{% url 'article_list' %}">Статьи</a></h1>
-    </center>
+<div class="articleindex">
+    <div class="titleindex">
+        <a href="{% url 'article_list' %}"><h1>Статьи</h1></a>
+    </div>
 
     <div class="container-fluid">
         <div class="row g-0">
@@ -174,7 +185,7 @@
                     </a></b>
                     {% autoescape on %}
                     <p class="card-text" style="font-size: 1rem;">
-                        {{ article.description_1|linebreaks|truncatewords:15 }}
+                        {{ article.description_1|linebreaks|truncatewords:30 }}
                     </p>
                     {% endautoescape %}
                 </div>
@@ -214,6 +225,7 @@ function initRatings() {
         ratingActive.style.width = `${ratingActiveWidth}%`;
     }
 }
+
 
 
 
