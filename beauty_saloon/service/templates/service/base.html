@@ -32,7 +32,7 @@
                     <div class="header__burger">
                         <span></span>
                     </div>
-                    <a href="{% url 'home' %}">
+                    <a href="{% url 'home' %}" id="hidtitle">
                         <button class="btn btn-success "
                                 type="button"
                                 id="multiSelectDropdown"
@@ -60,7 +60,7 @@
                         </ul>
                         {% endfor %}
                     </ul>
-                    <a href="{% url 'article_list' %}">
+                    <a href="{% url 'article_list' %}" id="hid">
                         <button class="btn btn-success "
                                 type="button"
                                 id="multiSelectDropdown"
@@ -94,7 +94,7 @@
                         <li class="last">{{ user.username }} | <a href="{% url 'logout' %}">Выйти</a></li>
                         {% else %}
 
-                        <li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a
+                        <li class="last"><a id="hid" href="{% url 'register' %}">Регистрация | </a><a
                                 href="{% url 'login' %}">Войти</a></li>
                         {% endif %}
 
@@ -211,7 +211,6 @@
                     других
                     ресурсах, в том числе и бумажных, строго запрещено.</p>
                 </div>
-
 
                 <div class="social">
                     <h5>контакты</h5>

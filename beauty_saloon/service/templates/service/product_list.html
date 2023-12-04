@@ -713,16 +713,16 @@
             <img class="card-img-top" src="{{ prod.image.url }}">
             <div class="card-body" style="display:flex; justify-content: space-between; align-items: flex-end;">
                 <div>
-                    <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
+                    <h5 class="card-title" style="font-size:16px;">
                         {{ prod.trademark }}, {{ prod.name }}
                     </h5>
-                    <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
+                    <p class="card-text" style=" color: #777; height: auto;">
                         {{ prod.cat }} - {{ prod.subsub.title }}
                     </p>
                     <div class="form__itemm" style="width:100px;">
                         <div class="form__labell"></div>
-                        <div class="ratingg" style="">
-                            <div class="rating__bodyy_list">
+                        <div class="ratingg" >
+                            <div class="rating__bodyy_list" >
                                 <div class="rating__activee_list"></div>
                                 <div class="rating__itemss">
                                     <input type="radio" class="rating__itemm" value="1" name="ratingg">
@@ -733,9 +733,9 @@
                                 </div>
                             </div>
                            {% if prod.avg_rating != 'None' %}
-                            <div class="rating__valuee" hidden style="font-size: 60%;">{{prod.avg_rating|floatformat:"0"}}</div>
+                            <div class="rating__valuee" hidden >{{prod.avg_rating|floatformat:"0"}}</div>
                             {% else %}
-                            <div class="rating__valuee" hidden style="font-size: 60%;">0</div>
+                            <div class="rating__valuee" hidden >0</div>
                             {% endif %}
                         </div>
                         <div class="review_image_count">
@@ -757,12 +757,12 @@
             </div>
         </div>
         {% elif category_title == 'Прочее' %}
-        <div class="card " style="width: 21rem; height: 34rem;">
+        <div class="card " >
 
             <img class="card-img-top" src="{{ prod.image.url }}">
             <div class="card-body" >
                 <div>
-                    <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
+                    <h5 class="card-title" style="font-size:16px;">
                         {{ prod.trademark }}, {{ prod.name }}
                     </h5>
                     <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
@@ -798,7 +798,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="position-absolute bottom-0 end-0" style="">
+                <div class="btnsort position-absolute bottom-0 end-0" style="">
                     <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
                         О товаре
                     </a>
