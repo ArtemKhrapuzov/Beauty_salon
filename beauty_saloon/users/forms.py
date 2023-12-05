@@ -33,7 +33,7 @@ class LoginUserForm(AuthenticationForm):
                 password=password,
             )
             if not self.user_cache.email_verify:
-                send_email_for_verify(self.user_cache)
+                send_email_for_verify(self.request, self.user_cache)
                 raise ValidationError(
                     'Email not verify, check your email',
                     code='invalid_login',
@@ -44,4 +44,4 @@ class LoginUserForm(AuthenticationForm):
             else:
                 self.confirm_login_allowed(self.user_cache)
 
-        return self.cleaned_data
+            return self.cleaned_data

@@ -8,7 +8,7 @@ from django.contrib.auth.tokens import default_token_generator as \
     token_generator
 
 from users.forms import RegisterUserForm
-from .tasks import send_email
+from users.utils import send_email_for_verify
 
 User = get_user_model()
 
@@ -46,15 +46,15 @@ class RegisterUser(View):
         return render(request, self.template_name, context)
 
     def post(self, request):
-        """Подтверждение почты через Celery"""
+        """Подтверждение почты"""
         form = RegisterUserForm(request.POST)
 
         if form.is_valid():
             form.save()
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
-            user = authenticate(request, email=email, password=password)
-            send_email.delay(user.id)
+            user = authenticate(email=email, password=password)
+            send_email_for_verify(request, user)
             return redirect('confirm_email')
         context = {
             'form': form
