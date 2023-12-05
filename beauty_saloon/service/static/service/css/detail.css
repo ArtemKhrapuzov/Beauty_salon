@@ -30,7 +30,7 @@ img {
   display: grid;
   grid-template-columns: 0.6fr 1fr;
   margin: auto;
-  min-width: 600px;
+  min-width: 200px;
   background-color: white;
   border-radius: 5px;
 }
@@ -182,17 +182,7 @@ img {
 
 }
 /* ----- Footer Section ----- */
-footer {
-  padding: 1em;
-  text-align: center;
-  color: #fff;
-}
-footer a {
-  color: #4c4c4c;
-}
-footer a:hover {
-  color: #ff3f40;
-}
+
 
 
 /* description */

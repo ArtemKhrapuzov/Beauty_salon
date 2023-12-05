@@ -5,12 +5,12 @@
 
 {% block head %}
 <link type="text/css" href="{% static 'service/css/detail.css' %}" rel="stylesheet"/>
-
+<link type="text/css" href="{% static 'service/css/styles.css' %}" rel="stylesheet"/>
 {% endblock head %}
 
 {% block content %}
 {% if product.subtitle.title %}
-<h6 style="margin-left:10px"><a href="/" style="color: black;">Главная</a> - {{ product.cat.title }}
+<h6 style="margin-left:10px; padding-bottom: 15px;"><a href="/" style="color: black;">Главная</a> - {{ product.cat.title }}
     - <a href="{% url 'product_list_sub' cat_slug=product.cat.url subtitle_slug=product.subtitle.url  %}"
          style="color: black;">
         {{ product.subtitle.title }}
@@ -18,23 +18,22 @@
 </h6>
 
 {% else %}
-<h6 style="margin-left:10px"><a href="/" style=" color: black;">Главная</a>
+<h6 style="margin-left:10px; padding-bottom: 15px;"><a href="/" style=" color: black;">Главная</a>
 </h6>
 
 <h1 style="margin-left:10px">{{ product.cat.title }}</h1>
 
 {% endif%}
 
-<section class="product">
+<section class="product" id="productdetail">
     <div class="product__photo">
         <img src="{{ product.image.url }}" alt="">
 
-        <div class="form__itemm">
+        <div class="form__itemm" id="formitem">
             <center>
                 <div class="form__labell"></div>
 
                 <div class="ratingg" style="">
-                    <b>Рейтинг:</b>
                     <div class="rating__bodyy">
                         <div class="rating__activee"></div>
                         <div class="rating__itemss">
@@ -57,10 +56,10 @@
 
             </script>
 
-        </div>
+        </div >
 
 
-        <div class="product-reviews">
+        <div class="product-reviews" id="productreviews">
             <h3>Оставить отзыв ({{ product.reviews_set.count }}) </h3>
             {% if request.user.is_authenticated %}
             <form action="{% url 'add_review' product.id %}" method="post" class="mt-4" id="formReview">
@@ -87,7 +86,7 @@
                 </div>
 
                 <button type="submit"
-                        class="mt-3 btn btn-success btn-block py-3">
+                        class="mt-3 btn btn-success btn-block py-3" id="btndetail">
                     Отправить
                 </button>
             </form>
@@ -166,7 +165,7 @@
             {% endfor %}
             </span>
                 {% if product.average_rating != 'None' %}
-                <span class="editContent">{{ product.average_rating }}</span>
+                <span class="editContent"></span>
                 {% endif %}
             </form>
             {% else %}
@@ -178,11 +177,11 @@
             {% for k, v in star_form.fields.star.choices %}
                 <input id="rating{{ v }}" type="radio" name="star"
                        value="{{ k }}">
-                <label for="rating{{ v }}">{{ k }}</label>
+                <label for="rating{{ v }}" >{{ k }}</label>
             {% endfor %}
             </span>
                 {% if product.average_rating != 'None' %}
-                <span class="editContent">{{ product.average_rating }}</span>
+                <span class="editContent" >{{ product.average_rating }}</span>
                 {% endif %}
             </form>
             {% endif %}
@@ -198,7 +197,7 @@
         </div>
         <div class="product-specs">
             <h3>Основные характеристики</h3>
-            <table>
+            <table id="tabledetail">
                 <tbody>
                 {% if product.color %}
                 <tr>
@@ -246,7 +245,7 @@
                 <p>{{ product.compound }}</p>
             </div>
             <div id="trademark" class="tab">
-                <p>{{ product.trademark.description|linebreaks|truncatewords:50 }}
+                <p>{{ product.trademark.description|linebreaks|truncatewords:40 }}
                     <a href="{% url 'trademark_detail' slug=product.trademark.url %}">читать далее</a></p>
             </div>
 
@@ -270,7 +269,7 @@ function toggleTab(tabName) {
         <div class="product-specs">
             {% if product.density or product.effect or product.consistency or product.rigidity or product.shade or product.collection %}
             <h3>Дополнительные характеристики</h3>
-            <table>
+            <table id="tabledetail">
                 <tbody>
                 {% if product.density %}
                 <tr>

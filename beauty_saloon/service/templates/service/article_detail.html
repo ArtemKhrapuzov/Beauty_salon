@@ -6,8 +6,7 @@
 {% block content %}
 
 <div class="container-fluid">
-    <div class="row g-0" style="float: left; width: 65%; overflow: hidden;
-    border-right: 1px solid #aaa; padding-right: 4px; border-bottom: 1px solid #aaa; padding-bottom: 40px;">
+    <div class="articlelist row g-0" style="" id="articledetail">
         <h1>{{article.title}}</h1>
 
         {% if description_1 != 'None' %}
@@ -15,7 +14,7 @@
         {% endif %}
 
         {% if article.image_1 %}
-        <img class="card-img-top" style="width: 600px;" src="{{ article.image_1.url }}"
+        <img class="card-img-top" style="" id="cardimgarticle" src="{{ article.image_1.url }}"
              alt="Card image cap">
         {% endif %}
 
@@ -37,15 +36,15 @@
         <img class="card-img-top" style="width: 600px;" src="{{ article.image_3.url }}"
              alt="Card image cap">
         {% endif %}
-        <div style="padding-top:2rem;">
-            <a href="{% url 'article_list' %}">Все статьи</a>
+        <div style="padding-top:2rem; padding-left: 3px;">
+            <a style="" href="{% url 'article_list' %}">Все статьи</a>
         </div>
     </div>
 
-    <div class="right" style="overflow: hidden;">
+    <div class="right" id="right" style="overflow: hidden;">
 
         {% for prod in products_new %}
-        <div class="card mb-3" style="width: 100%;">
+        <div class="card mb-3" style="width: 100%; margin-bottom: 0rem!important;">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="...">
@@ -101,8 +100,8 @@
 
 </div>
 
-<div class="product-reviews">
-    <h3 style="font-size: 0.7em;letter-spacing: 1.2px;color: #a6a6a6;">
+<div class="product-reviews" style="padding-left: 15px;">
+    <h3 style="font-size: 0.7em;letter-spacing: 1.2px;color: #a6a6a6; ">
         Оставить отзыв ({{ article.articlereview_set.count }}) </h3>
     {% if request.user.is_authenticated %}
     <form action="{% url 'add_review_article' article.id %}" method="post" class="mt-4" id="formReview">

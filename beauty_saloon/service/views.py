@@ -1,7 +1,7 @@
 import random
 from django.db.models import Count, Subquery, OuterRef
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.views.generic import ListView, DetailView
 from django.contrib.postgres.search import SearchVector
@@ -365,3 +365,6 @@ class Search(ListView):
         return context
 
 
+def about(request):
+    """О сайте"""
+    return render(request, 'service/about.html')

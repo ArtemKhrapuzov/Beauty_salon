@@ -372,8 +372,19 @@ p.link-read-post a {
 #cardarticle {
     width: 33%;
 }
-
-
+.articlelist {
+    width: 65%;
+    float: left;
+    overflow: hidden;
+    border-right: 1px solid #aaa;
+    padding-right: 4px;
+    border-bottom: 1px solid #aaa;
+    padding-bottom: 40px;
+}
+#cardimgarticle {
+    width: 50%;
+    height: auto;
+}
 div.article-panel {
     background: #eee;
     padding: 5px 10px 5px 10px;
@@ -883,8 +894,32 @@ ul.lang-list li a:hover {color: #fdc073;}
 }
 
 /* конец переопределение bootstrap*/
+/* Детальный продукт */
 
+.product__photo {
+    padding-left: 15px;
+    padding-right: 15px;
+    background: #f7f6f1;
+}
 
+.product__info {
+    padding-right: 15px;
+    background: #f7f6f1;
+}
+
+.product-specs,
+.title,
+.product-details-table {
+    font-size: 1.1rem;
+}
+.product-specs h3 {
+    font-size: 1rem;
+    padding-top: 10px;
+}
+#tabledetail {
+    width: 80%;
+}
+/* Конец детального продукта */
 /* footer */
 #footer a {
 	text-decoration: underline;
@@ -898,6 +933,7 @@ ul.lang-list li a:hover {color: #fdc073;}
     display: flex;
     align-items: center;
     padding-top: 4rem;
+
 }
 
 
@@ -1129,6 +1165,12 @@ ul.lang-list li a:hover {color: #fdc073;}
     .btnsort a{
         font-size:0.8rem;
     }
+    .btnarticlepr a {
+        font-size: 0.66rem;
+    }
+    .btnarticle {
+        font-size: 0.8rem;
+    }
     /* footer */
     .warning,social {
         padding-top:15px;
@@ -1143,6 +1185,41 @@ ul.lang-list li a:hover {color: #fdc073;}
 
         margin-top: 0;
     }
+    .card-title {
+        font-size: 1rem;
+    }
+    #right {
+        display:none;
+    }
+    #articledetail {
+        width: 100%;
+        border-right: unset;
+        padding-right: unset;
+        border-bottom: unset;
+        padding-bottom: unset;
+    }
+
+    /* продукт детальный */
+    #tabledetail {
+        width: 100%;
+    }
+    .button-detail button {
+        font-size: 0.9rem;
+    }
+    .product__photo,
+    .product__photo img,
+    #form__itemm,
+    #productreviews{
+        width: 100%;
+    }
+    .form-control {
+        height: 80px;
+    }
+    #btndetail {
+        padding-top: 0.5rem!important;
+        padding-bottom: 0.5rem!important;
+    }
+    /* конец продукт детальный */
 }
 @media (max-width:768px) {
     .table-page {
@@ -1156,7 +1233,19 @@ ul.lang-list li a:hover {color: #fdc073;}
     ul.mainmenu li {
         margin: 0px 5px 0 5px;
     }
-
+    .right {
+        display:none;
+    }
+    .articlelist {
+        width: 100%;
+        border-right: unset;
+        padding-right: unset;
+        border-bottom: unset;
+        padding-bottom: unset;
+    }
+    #card-body-article {
+        padding: 1rem 1rem 3rem;
+    }
     ul.mainmenu button,
     ul.mainmenu a {
         padding-left: 0;
@@ -1186,6 +1275,12 @@ ul.lang-list li a:hover {color: #fdc073;}
     .row>* {
        width: 35%;
     }
+    #rowarticle>* {
+        width: 100%;
+    }
+    #articledetail>* {
+        width: 100%;
+    }
     #btnindex {
         padding-right: 0;
     }
@@ -1200,16 +1295,36 @@ ul.lang-list li a:hover {color: #fdc073;}
     .social {
         margin-right:15px;
     }
+    /* детальный продукт */
+    .button-detail button {
+        padding: 0;
+    }
+    .product-specs,
+    .title h1{
+        font-size: 1rem;
+    }
+    .product-details-table,
+    .title b{
+        font-size: 0.9rem;
+    }
+    .product-specs h3 {
+        font-size: 0.9rem;
+    }
+    #productdetail {
+        grid-template-columns: 45% 55%;
+    }
+
+    /* конец детальный продукт */
 }
 @media (max-width:568px) {
     .card {
         width: 100%;
     }
     .table-page {
-        max-width: 428px;
+        max-width: 528px;
     }
     ul.mainmenu {
-        max-width: 428px;
+        max-width: 528px;
         font-size: 0.65em;
     }
     .search {
@@ -1225,17 +1340,22 @@ ul.lang-list li a:hover {color: #fdc073;}
         width: 100%;
     }
     .card-img-top {
-        height: 270px;
+        height: auto;
     }
     #btnindex {
-        padding-right: 50px;
+        padding-right: 20px;
     }
 
     .footer p {
         font-size: 0.7rem;
     }
+
+    /* детальный продукт*/
+
+    /* конец детальный продукт */
 }
-@media (max-width:428px) {
+@media (max-width:480px) {
+
     .card-title,
     .card-text {
         font-size: 0.9rem;
@@ -1244,13 +1364,16 @@ ul.lang-list li a:hover {color: #fdc073;}
         font-size: 0.7rem;
     }
     #btnindex  {
-        padding-right: 85px;
+        padding-right: 45px;
     }
     #hidtitle {
         display:none;
     }
     .card-img-top {
         height: 220px;
+    }
+    .footer{
+
     }
 
 }

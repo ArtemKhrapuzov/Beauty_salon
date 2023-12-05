@@ -20,10 +20,10 @@
             <div class="field-set">
 
                 {% for f in form %}
-                <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
+                <p><label class="form-label" id="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
                 <div class="form-error">{{ f.errors }}</div>
                 {% endfor %}
-                <div class="form-group form-check">
+                <div class="form-group form-check" id="form-group">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
                     <label class="form-check-label" for="exampleCheck1">
                         Регистрируясь, вы соглашаетесь с

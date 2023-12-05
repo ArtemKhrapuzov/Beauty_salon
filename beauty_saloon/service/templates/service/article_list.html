@@ -12,27 +12,26 @@
     <h6 style=""><a href="/" style="color: black;">Главная</a>
 </div>
     {% for article in articles %}
-    <div style="float: left; width: 65%; overflow: hidden;
-    border-right: 1px solid #aaa; padding-right: 4px; border-bottom: 1px solid #aaa; padding-bottom: 40px;">
+    <div class="articlelist" style="">
         <div class="card mb-3" style="width: 100%; height: auto;">
-            <div class="row g-0">
+            <div class="row g-0" id="rowarticle">
                 <div class="col-md-4">
                     <img src="{{ article.image.url }}" class="img-fluid rounded-start" alt="..."
-                         style="width: 100%; ">
+                         style="">
                 </div>
                 <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-family: 'Nunito',sans-serif; font-size:16px;">
+                    <div class="card-body" style="" id="card-body-article">
+                        <h5 class="card-title" style="font-size:16px;">
                             <b>{{ article.title }}</b>
                         </h5>
                         <small class="card-text" style="">
-                            {{ article.description_1|linebreaks|truncatewords:25 }}</small>
+                            {{ article.description_1|linebreaks|truncatewords:15 }}</small>
                     </div>
 
 
-                    <div class="position-absolute bottom-0 end-0" style="">
+                    <div class=" position-absolute bottom-0 end-0" style="">
                         <img src="{% static 'service/images/review.png' %}"
-                             style="width: 1.5rem; height: 1.2rem;"
+                             style="width: 1.1rem; height: 0.9rem;"
                              alt="">
                             {% if article.num_reviews_art is not None %}
                             {{ article.num_reviews_art }}
@@ -40,7 +39,7 @@
                             0
                             {% endif %}
 
-                        <a href="{{ article.get_absolute_url }}" class="btn btn-primary">
+                        <a href="{{ article.get_absolute_url }}" class="btnarticle btn btn-primary">
                             Читать статью
                         </a>
                     </div>
@@ -55,16 +54,15 @@
 
     <div class="right" style="overflow: hidden;">
         {% for prod in products_new %}
-        <div class="card mb-3" style="width: 100%;">
+        <div class="card mb-3" style="width: 100%; margin-bottom: 0rem!important;">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">{{ prod.trademark }}</h5>
-                        <h5 class="card-title">{{ prod.name }}</h5>
-                        <p class="card-text" style="font-size:14px; line-height: 16px; color: #777; height: auto;">
+                        <h5 class="card-title">{{ prod.trademark }}, {{ prod.name }}</h5>
+                        <p class="card-text" style=" color: #777; height: auto;">
                             {{ prod.cat }} - {{ prod.subsub.title }}</p>
                         <div class="form__itemm " style="">
                             <div class="form__labell"></div>
@@ -95,7 +93,7 @@
                             0
                             {% endif %}
                             </div>
-                            <div class="position-absolute bottom-0 end-0" style="">
+                            <div class="btnarticlepr position-absolute bottom-0 end-0" style="">
                                 <a href="{{ prod.get_absolute_url }}" class="btn btn-primary">
                                     О товаре
                                 </a>
