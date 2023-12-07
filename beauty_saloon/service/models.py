@@ -29,6 +29,7 @@ class Trademark(models.Model):
     class Meta:
         verbose_name = 'Бренд'
         verbose_name_plural = 'Бренды'
+        ordering = ['title']
 
 
 class Product(models.Model):

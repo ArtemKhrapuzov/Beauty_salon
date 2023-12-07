@@ -184,13 +184,26 @@ html, body {
 }
 
 #btnindex {
-    padding-right: 5px;
+    padding-right: 35px;
+
+}
+#btnindex a {
+    background: #70774b;
+    border-radius: 10px;
+}
+.btn-primary {
+    background: #70774b;
+    border-color: inherit;
 }
 #cardindex{
-    width: 33.3%;
+    width: 30%;
     height: 11rem;
+    margin: 1.6%;
+    border-radius: 0 30px 30px 30px;
 }
-
+#imgindex {
+    padding-top:1rem;
+}
 /* конец карты товаров */
 .ratingg {
     display: flex;
@@ -313,8 +326,6 @@ html, body {
   content: "\f002";
   font-family: FontAwesome;
   font-size: 16px;
-  color: #F9F0DA;
-
 }
 
 .d1 button:hover {
@@ -370,7 +381,11 @@ p.link-read-post a {
 }
 /* Статьи */
 #cardarticle {
-    width: 33%;
+    width: 42%;
+    margin-top:2%!important;
+    margin-left: 4.5%;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 .articlelist {
     width: 65%;
@@ -635,7 +650,7 @@ ul.mainmenu a button:hover {
 
 .titleindex {
     font-size: "PT Sans";
-    padding-left: 1em;
+    padding-left: 2rem;
 }
 
 .titleindex a {
@@ -891,6 +906,7 @@ ul.lang-list li a:hover {color: #fdc073;}
 /* переопределение bootstrap */
 .card {
     width: 25%;
+
 }
 
 /* конец переопределение bootstrap*/
@@ -1033,7 +1049,7 @@ ul.lang-list li a:hover {color: #fdc073;}
     }
     /* карты товаров */
     #btnindex {
-        padding-right: 55px;
+        padding-right: 30%;
     }
 
     /* конец карты товаров*/
@@ -1153,8 +1169,9 @@ ul.lang-list li a:hover {color: #fdc073;}
 
     /*карты товаров*/
     #cardindex {
-        width: 50%;
-        margin-bottom:0!important;
+        width: 47%;
+        margin-bottom:1%!important;
+        margin-right: 1%
     }
 
     /* конец карты товаров*/
@@ -1258,7 +1275,11 @@ ul.lang-list li a:hover {color: #fdc073;}
     .card-img-top{
         height: 160px;
     }
-
+    #imgindex {
+        padding-top:0;
+        width:90%;
+        height: auto;
+    }
     #cardindex {
         width: 90%;
         margin-left: auto;
@@ -1328,7 +1349,7 @@ ul.lang-list li a:hover {color: #fdc073;}
         font-size: 0.65em;
     }
     .search {
-        width: 80px;
+        width: 120px;
     }
     #hid {
         display:none;
@@ -1343,16 +1364,19 @@ ul.lang-list li a:hover {color: #fdc073;}
         height: auto;
     }
     #btnindex {
-        padding-right: 20px;
+        padding-right: 0px;
     }
 
     .footer p {
         font-size: 0.7rem;
     }
+    .mainright {
+        padding-right: 15px;
+    }
 
-    /* детальный продукт*/
-
-    /* конец детальный продукт */
+    .header__burger {
+        margin: 30px
+    }
 }
 @media (max-width:480px) {
 

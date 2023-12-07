@@ -10,7 +10,7 @@
 </div>
 <div class="hitindex">
     <div class="titleindex">
-        <a href="{% url 'hit_items' %}"><h1>Хиты продаж</h1></a>
+        <a href="{% url 'hit_items' %}"><h1>Высокий рейтинг</h1></a>
     </div>
     <div class="container-fluid">
         <div class="row g-0 ">
@@ -20,7 +20,7 @@
                 <div class="row g-0 " style="">
                     <div class="col-md-4">
                         <a href="{{ prod.get_absolute_url }}">
-                            <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="...">
+                            <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="..." id="imgindex">
                         </a>
                     </div>
                     <div class="col-md-8">
@@ -96,7 +96,7 @@
                 <div class="row g-0 " style="">
                     <div class="col-md-4">
                         <a href="{{ prod.get_absolute_url }}">
-                            <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="...">
+                            <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="..." id="imgindex">
                         </a>
                     </div>
                     <div class="col-md-8">
@@ -163,7 +163,7 @@
 </div>
 {% if not request.user.is_authenticated %}
 <div class="subscribe" style="text-align:center">
-    <button type="button" class="btn btn-secondary btn-lg btn-block" style="width:450px; background:#70774b;">
+    <button type="button" class="btn btn-secondary btn-lg btn-block" style="width:450px; background:#70774b; border-radius: 30px;">
         <a href="{% url 'register' %}" style="text-decoration:none; color: white;">Присоединиться к нам</a></button>
 </div>
 {% endif %}
@@ -174,7 +174,7 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row g-0">
+        <div class="row g-0" style="">
             {% for article in articles %}
             <div class="card" id="cardarticle" style="">
                 <a href="{{ article.get_absolute_url }}"><img class="card-img-top" style=""

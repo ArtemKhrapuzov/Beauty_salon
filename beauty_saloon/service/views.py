@@ -44,7 +44,7 @@ class Index(ListView):
             avg_rating=Avg('rating__star__value'))
         context['products_new'] = random.sample(list(queryset_new), 3)
 
-        queryset_article = Article.objects.filter(is_published=True)[:3].only(
+        queryset_article = Article.objects.filter(is_published=True)[:2].only(
             'title', 'description_1', 'image', 'url', 'id')
         context['articles'] = queryset_article
 
